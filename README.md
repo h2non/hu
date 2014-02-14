@@ -9,21 +9,21 @@ As you probably already know about underscore, lodash or sugar.js,
 hu only provides the most trivial functions for basic purposes, keeping it as a 
 lightweight and tiny library that can be embedded as a part of your application or own library
 
-## Usage
+## Installation
 
-### Node.js module
+#### Node.js
 
 ```
 $ npm install hu
 ```
 
-### Browser
+#### Browser
 
 Via Bower package manager
 ```
 $ bower install hu
 ```
-Or load the script remotely (just for testing or development)
+Or loading the script remotely (just for testing or development)
 ```html
 <script src="//rawgithub.com/h2non/hu.js/master/hu.js"></script>
 ```
