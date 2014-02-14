@@ -1,5 +1,14 @@
 # hu.js
 
+## About
+
+**hu** is a ridiculous small utility helper library designed to be embedded or bundled in applications 
+without hurting your feelings
+
+It provides a set of trivial utility functions that you probably are constantly looking for in each new application.
+As you probably already know about underscore, lodash or sugar.js, 
+hu only provides the most trivial functions for basic purposes, keeping it as a 
+lightweight and tiny library that can be embedded as a part of your application or own library
 
 ## Usage
 
@@ -22,6 +31,14 @@ Or load the script remotely (just for testing or development)
 
 ## API
 
+### Example
+```
+var hu = require('hu')
+
+hu.each(obj, function (val, ) {
+  
+})
+```
 
 ## License
 
