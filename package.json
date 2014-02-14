@@ -1,0 +1,43 @@
+{
+  "name": "hu",
+  "version": "0.1.0",
+  "description": "",
+  "homepage": "http://github.com/h2non/hu.js",
+  "bugs": "https://github.com/h2non/hu.js/issues",
+  "author": {
+    "name": "Tomas Aparicio"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/h2non/hu.js.git"
+  },
+  "licenses": "MIT",
+  "main": "./hu",
+  "directories": {
+    "lib": "./lib"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "keywords": [
+    "util",
+    "utilities",
+    "utility",
+    "helper",
+    "helpers",
+    "functions",
+    "methods",
+    "istype",
+    "lodash",
+    "underscore"
+  ],
+  "devDependencies": {
+    "chai": "~1.8.1",
+    "LiveScript": "~1.2.0",
+    "sinon": "~1.7.3",
+    "browserify": "~3.29.0"
+  }
+}
