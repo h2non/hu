@@ -3,6 +3,3 @@ npm-debug.log
 .DS_Store
 Thumbs.db
 lib/*.js
-lib/*/*.js
-test/fixtures/temp
-test/fixtures/.tmp
