@@ -1,0 +1,2 @@
+(ns hu.test.string)
+
