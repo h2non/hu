@@ -109,4 +109,6 @@ Copyright (c) Tomas Aparicio
 
 Released under the MIT license
 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/h2non/hu.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
 [wisp-doc]: https://github.com/Gozala/wisp
