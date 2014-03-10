@@ -1,7 +1,7 @@
-(ns hu.src.string)
+(ns hu.lib.string)
 
-(defn lines 
+(defn lines
   [x] (if x (.split x "\n") x))
 
-(defn unlines 
+(defn unlines
   [x] (.join x "\n"))

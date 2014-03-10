@@ -1,1 +1,1 @@
-(ns hu.src.array)
+(ns hu.lib.array)

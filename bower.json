@@ -1,0 +1,48 @@
+{
+  "name": "hu",
+  "version": "0.1.0",
+  "description": "Tiny functional utility helper library",
+  "license": "MIT",
+  "author": {
+    "name": "Tomas Aparicio"
+  },
+  "main": "./hu.js",
+  "homepage": "https://github.com/h2non/hu",
+  "bugs": "https://github.com/h2non/hu/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/h2non/hu.git"
+  },
+  "keywords": [
+    "util",
+    "functional",
+    "utilities",
+    "utility",
+    "helper",
+    "helpers",
+    "functions",
+    "methods",
+    "istype",
+    "lodash",
+    "underscore"
+  ],
+  "ignore": [
+    "**/.*",
+    ".*",
+    "*.md",
+    "src",
+    "lib",
+    "bin",
+    "test",
+    "report",
+    "docs",
+    "benchmarks",
+    "grammar",
+    "Gruntfile.*",
+    ".editorconfig",
+    ".gitignore",
+    ".travis.yml",
+    ".npmignore",
+    "package.json"
+  ]
+}

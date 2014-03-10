@@ -1,65 +1,77 @@
-(ns hu.src.common)
+(ns hu.lib.common)
 
-(def ^:private to-str
+(def ^:private obj->str
   (.-to-string (.-prototype Object)))
 
-(def is-browser
+(def ^boolean browser?
   (identical? (typeof window) "object"))
 
-(defn is-null
+(defn- ->str
+  [x] ((.-call obj->str) x))
+
+(defn ^boolean null?
   [x] (identical? x null))
 
-(defn is-undef
-  [x] (or
-        (identical? (typeof x) "undefined")
-        (identical? x nil)
-        (is-null x)))
+(defn ^boolean undef?
+  [x]
+  (or
+    (identical? (typeof x) "undefined")
+    (identical? x nil)
+    (null? x)))
 
-(defn is-bool
+(defn ^boolean bool?
   [x] (identical? (typeof x) "boolean"))
 
-(defn is-number
+(defn ^boolean number?
   [x] (identical? (typeof x) "number"))
 
-(defn is-symbol
+(defn ^boolean symbol?
   [x] (identical? (typeof x) "symbol"))
 
-(defn is-function
+(defn ^boolean function?
   [x] (identical? (typeof x) "function"))
 
-(defn is-string
-  [x] (identical? (to-str x) "[object String]"))
+(defn ^boolean string?
+  [x] (identical? (->str x) "[object String]"))
 
-(defn is-date
-  [x] (identical? (to-str x) "[object Date]"))
+(defn ^boolean date?
+  [x] (identical? (->str x) "[object Date]"))
 
-(defn is-regexp
-  [x] (identical? (to-str x) "[object RegExp]"))
+(defn ^boolean regexp?
+  [x] (identical? (->str x) "[object RegExp]"))
 
-(defn is-object
-  [x] (identical? (to-str x) "[object Object]"))
+(defn ^boolean object?
+  [x] (identical? (->str x) "[object Object]"))
 
-(defn is-array
-  [x] (identical? (to-str x) "[object Array]"))
+(defn ^boolean array?
+  [x] (identical? (->str x) "[object Array]"))
 
-(defn is-error
-  [x] (identical? (to-str x) "[object Error]"))
+(defn ^boolean error?
+  [x] (identical? (->str x) "[object Error]"))
 
-(defn is-mutable
-  [x] (or
-        (is-object x)
-        (is-array x)
-        (is-date x)))
+(defn ^boolean mutable?
+  [x]
+  (or
+    (object? x)
+    (array? x)
+    (error? x)
+    (date? x)
+    (function? x)))
 
-(defn is-empty
-  [x] (or
-        (is-undef x)
-        (identical? (.-length x) 0)))
+(defn ^boolean empty?
+  [x]
+  (or
+    (undef? x)
+    (identical? (.-length x) 0)))
 
-(defn is-primitive
-  [x] (or
-        (is-undef x)
-        (is-bool x)
-        (is-string x)
-        (is-number x)
-        (is-symbol x)))
+(defn ^boolean primitive?
+  [x]
+  (or
+    (undef? x)
+    (bool? x)
+    (string? x)
+    (number? x)
+    (symbol? x)))
+
+(defn ^boolean iterable?
+  [x] (or (mutable? x)))

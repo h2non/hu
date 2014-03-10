@@ -1,21 +1,23 @@
 # hu
 
+> Spoiler! Funny work in progress!
+
 ## About
 
-**hu** is a tiny utility helper library designed to be easily embedded or bundled in applications
-without hurting your feelings.
-It provides a set of trivial utility functions that you probably are constantly looking in each new application
+**hu** is a tiny functional utility helper library which provides the most common and missing functions
+that are frecuently required in any JavaScript project or application
 
-As you probably already know about underscore, lodash or sugar.js,
-hu only provides the most common required functions for general purposes, keeping it as a
-lightweight library that can be embedded as a part of your application, library or framework
+As you probably already know about underscore, lodash or sugar.js
+hu only provides a reduced set of the most common helper functions, keeping it as a lightweight
+and tiny library easy to embed as part of your applications, library or framework
+
+It's pronuncied `hi-u`
 
 ## Features
 
 - Type check helpers
 - Iterators and transformer helpers
-- Tiny. 1000 SLOC. 2KB minified
-- Runs over node and modern browsers
+- Runs over node and browsers
 - Well tested with high coverage
 
 ## Installation
@@ -49,14 +51,11 @@ Or loading the script remotely (just for testing or development)
 
 ## API
 
-### Example
 ```
 var hu = require('hu')
-
-hu.each(obj, function (val, index) {
-  console.log(val, index)
-})
 ```
+
+`To Do`
 
 ## Contributing
 
