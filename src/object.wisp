@@ -3,5 +3,5 @@
 (def ^:private has
   (.-has-own-property (.-prototype Object)))
 
-(defn has 
-  [obj prop] ((.-call has) obj, x))
+(defn has
+  [obj prop] ((.-call has) obj, prop))

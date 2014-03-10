@@ -2,7 +2,7 @@ BROWSERIFY = node ./node_modules/browserify/bin/cmd.js
 WISP = ./node_modules/wisp/bin/wisp.js
 
 all: browser
-compile: clean string common object array
+compile: clean entry string common object array
 test: compile run-test
 
 string:
@@ -17,13 +17,16 @@ object:
 array:
 	cat src/array.wisp | $(WISP) --no-map > ./lib/array.js
 
+entry:
+	cat src/hu.wisp | $(WISP) --no-map > ./lib/hu.js
+
 browser:
 	$(BROWSERIFY) --debug \
-    --exports require \
-    --entry ./hu.js > ./hu.js
+		--exports require \
+		--entry ./lib/hu.js > ./hu.js
 
 clean:
 	rm -rf lib/*
 	rm -f *.js
 
-run-test: $(WISP) ./test/hu.wisp --verbose
+run-test: $(WISP) ./test/hu.wisp
