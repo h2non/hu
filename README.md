@@ -51,7 +51,7 @@ Or loading the script remotely (just for testing or development)
 
 ## API
 
-```
+```js
 var hu = require('hu')
 ```
 
