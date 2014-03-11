@@ -1,4 +1,4 @@
-# hu
+# hu [![Build Status](https://secure.travis-ci.org/h2non/hu.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/h2non/hu.png)][gemnasium] [![NPM version](https://badge.fury.io/js/hu.png)][npm]
 
 > Spoiler! Funny work still in progress!
 
@@ -335,3 +335,6 @@ Released under the MIT license
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/h2non/hu.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 [wisp]: https://github.com/Gozala/wisp
+[travis]: http://travis-ci.org/h2non/hu
+[gemnasium]: https://gemnasium.com/h2non/hu
+[npm]: http://npmjs.org/package/hu
