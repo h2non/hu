@@ -7,9 +7,12 @@ FLAGS = --verbose
 
 default: all
 all: test browser
-browser: compile banner browserify uglify
-compile: clean index string number common object array
-test: compile cleantest runtest
+browser: cleanbrowser test banner browserify uglify
+compile: mkdir clean index string number common object array
+test: compile runtest
+
+mkdir:
+	mkdir -p lib
 
 string:
 	cat src/string.wisp | $(WISP) --no-map > ./lib/string.js
@@ -43,10 +46,9 @@ uglify:
 
 clean:
 	rm -rf lib/*
-	rm -f *.js
 
-cleantest:
-	rm -f test/*.js
+cleanbrowser:
+	rm -f *.js
 
 runtest:
 	$(MOCHA) --reporter spec --ui tdd --compilers wisp:$(WISP_MODULE)
