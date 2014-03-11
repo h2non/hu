@@ -36,3 +36,62 @@
   [obj]
   (set! obj (if (object? obj) obj {} )) obj)
 
+(defn keys
+  "Returns a sequence of the map's keys"
+  [dictionary]
+  (.keys Object dictionary))
+
+(defn vals
+  "Returns a sequence of the map's values."
+  [dictionary]
+  (.map (keys dictionary)
+        (fn [key] (get dictionary key))))
+
+(defn key-values
+  [dictionary]
+  (.map (keys dictionary)
+        (fn [key] [key (get dictionary key)])))
+
+(defn dictionary
+  "Creates dictionary of given arguments. Odd indexed arguments
+  are used for keys and evens for values"
+  [& pairs]
+  ; TODO: We should convert keywords to names to make sure that keys are not
+  ; used in their keyword form.
+  (loop [key-values pairs
+         result {}]
+    (if (.-length key-values)
+      (do
+        (set! (aget result (aget key-values 0))
+              (aget key-values 1))
+        (recur (.slice key-values 2) result))
+      result)))
+
+(defn map-dictionary
+  "Maps dictionary values by applying `f` to each one"
+  [source f]
+  (.reduce
+    (.keys Object source)
+      (fn [target key]
+        (set! (get target key) (f (get source key)))
+        target) {}))
+
+(defn merge
+  "Returns a dictionary that consists of the rest of the maps conj-ed onto
+  the first. If a key occurs in more than one map, the mapping from
+  the latter (left-to-right) will be the mapping in the result."
+  []
+  (Object.create
+   Object.prototype
+   (.reduce
+    (.call Array.prototype.slice arguments)
+    (fn [descriptor dictionary]
+      (if (object? dictionary)
+        (.for-each
+         (Object.keys dictionary)
+         (fn [key]
+           (set!
+            (get descriptor key)
+            (Object.get-own-property-descriptor dictionary key)))))
+      descriptor)
+    (Object.create Object.prototype))))

@@ -20,7 +20,11 @@
     (null? x)))
 
 (defn ^boolean bool?
-  [x] (identical? (typeof x) "boolean"))
+  [x]
+  (or
+    (identical? x true)
+    (identical? x false)
+    (identical? (.call to-string x) "[object Boolean]")))
 
 (defn ^boolean number?
   [x] (identical? (typeof x) "number"))
@@ -49,6 +53,13 @@
 (defn ^boolean error?
   [x] (identical? (->str x) "[object Error]"))
 
+(defn ^boolean dictionary?
+  [form]
+  (and
+    (object? form)
+    (object? (.get-prototype-of Object form))
+    (nil? (.get-prototype-of Object (.get-prototype-of Object form)))))
+
 (defn ^boolean mutable?
   [x]
   (or
@@ -75,3 +86,45 @@
 
 (defn ^boolean iterable?
   [x] (or (mutable? x)))
+
+(defn log
+  [& more]
+  (apply console.log more))
+
+;
+; Comparison
+;
+
+(defn- ^boolean equal?
+  "Equality. Returns true if x equals y, false if not. Compares
+  numbers and collections in a type-independent manner. Clojure's
+  immutable data structures define -equiv (and thus =) as a value,
+  not an identity, comparison."
+  ([x] true)
+  ([x y] (or (identical? x y)
+             (cond (nil? x) (nil? y)
+                   (nil? y) (nil? x)
+                   (string? x) (and (string? y) (identical? (.to-string x)
+                                                            (.to-string y)))
+                   (number? x) (and (number? y) (identical? (.value-of x)
+                                                            (.value-of y)))
+                   (fn? x) false
+                   (bool? x) false
+                   (date? x) (date-equal? x y)
+                   (vector? x) (vector-equal? x y [] [])
+                   (re-pattern? x) (pattern-equal? x y)
+                   :else (dictionary-equal? x y))))
+  ([x y & more]
+   (loop [previous x
+          current y
+          index 0
+          count (.-length more)]
+    (and (equivalent? previous current)
+         (if (< index count)
+          (recur current
+                 (get more index)
+                 (inc index)
+                 count)
+          true)))))
+
+(def deep-equal? equal?)
