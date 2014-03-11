@@ -2,7 +2,7 @@
   (:require
     [hu.src.common :as common]
     [hu.src.string :as string]
-    [hu.src.numner :as number]
+    [hu.src.number :as number]
     [hu.src.array :as array]
     [hu.src.object :as object]))
 

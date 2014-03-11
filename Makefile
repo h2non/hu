@@ -8,11 +8,14 @@ FLAGS = --verbose
 default: all
 all: test browser
 browser: compile banner browserify uglify
-compile: clean index string common object array
+compile: clean index string number common object array
 test: compile cleantest runtest
 
 string:
 	cat src/string.wisp | $(WISP) --no-map > ./lib/string.js
+
+number:
+	cat src/number.wisp | $(WISP) --no-map > ./lib/number.js
 
 common:
 	cat src/common.wisp | $(WISP) --no-map > ./lib/common.js
@@ -27,7 +30,7 @@ index:
 	cat src/hu.wisp | $(WISP) --no-map > ./lib/hu.js
 
 banner:
-  @echo "/*! hu.js - v0.1.0 - MIT License - https://github.com/h2non/hu */"
+	@echo "/*! hu.js - v0.1.0 - MIT License - https://github.com/h2non/hu */"
 
 browserify:
 	$(BROWSERIFY) \
