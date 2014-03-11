@@ -1,17 +1,18 @@
 # hu
 
-> Spoiler! Funny work in progress!
+> Spoiler! Funny work still in progress!
 
 ## About
 
-**hu** is a tiny functional utility helper library which provides the most common and missing functions
-that are frecuently required in any JavaScript project or application
+**hu** is a tiny functional utility helper library
+which provides the most common and missing functions
+that are required in any JavaScript project
 
-As you probably already know about underscore, lodash or sugar.js
-hu only provides a reduced set of the most common helper functions, keeping it as a lightweight
-and tiny library easy to embed as part of your applications, library or framework
+Instead of Underscore, Lodash or Sugar.js, hu only provides
+a reduced set of the most common useful functions, keeping it as a lightweight
+and tiny library designed to be easy to embed as part of an application, library or framework
 
-It's pronuncied `hi-u`
+It's pronuncied `ji-u`
 
 ## Features
 

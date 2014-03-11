@@ -7,7 +7,7 @@ FLAGS = --verbose
 
 default: all
 all: test browser
-browser: browserify uglify
+browser: compile banner browserify uglify
 compile: clean index string common object array
 test: compile cleantest runtest
 
@@ -26,11 +26,14 @@ array:
 index:
 	cat src/hu.wisp | $(WISP) --no-map > ./lib/hu.js
 
+banner:
+  @echo "/*! hu.js - v0.1.0 - MIT License - https://github.com/h2non/hu */"
+
 browserify:
-	$(BROWSERIFY) --debug \
+	$(BROWSERIFY) \
 		--exports require \
-		--standalone \
-		--entry ./lib/hu.js > ./hu.js
+		--standalone hu \
+		--entry ./lib/hu.js >> ./hu.js
 
 uglify:
 	$(UGLIFYJS) hu.js --mangle > hu.min.js
