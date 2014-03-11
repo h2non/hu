@@ -67,13 +67,13 @@
         (recur (.slice key-values 2) result))
       result)))
 
-(defn map-dictionary
-  "Maps dictionary values by applying `f` to each one"
-  [source f]
+(defn map
+  "Maps dictionary values by applying `cb` to each one"
+  [source cb]
   (.reduce
     (.keys Object source)
       (fn [target key]
-        (set! (get target key) (f (get source key)))
+        (set! (get target key) (cb (get source key)))
         target) {}))
 
 (defn merge
@@ -95,3 +95,56 @@
             (Object.get-own-property-descriptor dictionary key)))))
       descriptor)
     (Object.create Object.prototype))))
+
+(defn- ^boolean equal?
+  "Equality. Returns true if x equals y, false if not. Compares
+  numbers and collections in a type-independent manner. Clojure's
+  immutable data structures define -equiv (and thus =) as a value,
+  not an identity, comparison."
+  ([x] true)
+  ([x y] (or (identical? x y)
+             (cond (nil? x) (nil? y)
+                   (nil? y) (nil? x)
+                   (string? x) (and (string? y) (identical? (.to-string x)
+                                                            (.to-string y)))
+                   (number? x) (and (number? y) (identical? (.value-of x)
+                                                            (.value-of y)))
+                   (fn? x) false
+                   (bool? x) false
+                   (date? x) (date-equal? x y)
+                   (vector? x) (vector-equal? x y [] [])
+                   (re-pattern? x) (pattern-equal? x y)
+                   :else (dictionary-equal? x y))))
+  ([x y & more]
+   (loop [previous x
+          current y
+          index 0
+          count (.-length more)]
+    (and (equal? previous current)
+         (if (< index count)
+          (recur current
+                 (get more index)
+                 (inc index)
+                 count)
+          true)))))
+
+(def deep-equal? equal?)
+
+(defn- ^boolean object-equal?
+  [x y]
+  (and (object? x)
+       (object? y)
+       (let [x-keys (keys x)
+             y-keys (keys y)
+             x-count (.-length x-keys)
+             y-count (.-length y-keys)]
+         (and (identical? x-count y-count)
+              (loop [index 0
+                     count x-count
+                     keys x-keys]
+                (if (< index count)
+                  (if (equivalent? (get x (get keys index))
+                                   (get y (get keys index)))
+                    (recur (inc index) count keys)
+                    false)
+                  true))))))

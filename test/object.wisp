@@ -25,16 +25,15 @@
         (deep-equal
           (.extend _ {:a 1} {:b 2} {:c 3}) {:a 1, :b 2, :c 3})))))
 
-;; to do
 (suite :each
   (fn []
     (test :object
       (fn []
         (def called false)
         (.each _ {:a true} (fn [] (set! called true)))
-        (deep-equal called true)))
+        (equal called true)))
     (test :array
       (fn []
         (def called false)
         (.each _ [true] (fn [] (set! called true)))
-        (deep-equal called true)))))
+        (equal called true)))))

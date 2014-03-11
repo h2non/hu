@@ -3,6 +3,8 @@
 (def ^:private obj->str
   (.-to-string (.-prototype Object)))
 
+(def ^:private native-finite (.-is-finite this))
+
 (def ^boolean browser?
   (identical? (typeof window) "object"))
 
@@ -29,11 +31,16 @@
 (defn ^boolean number?
   [x] (identical? (typeof x) "number"))
 
+(defn ^boolean finite?
+  [x] (native-finite (parse-float x)))
+
 (defn ^boolean symbol?
   [x] (identical? (typeof x) "symbol"))
 
 (defn ^boolean function?
   [x] (identical? (typeof x) "function"))
+
+(def ^boolean fn? function?)
 
 (defn ^boolean string?
   [x] (identical? (->str x) "[object String]"))
@@ -41,24 +48,35 @@
 (defn ^boolean date?
   [x] (identical? (->str x) "[object Date]"))
 
-(defn ^boolean regexp?
+(defn ^boolean reg-exp?
   [x] (identical? (->str x) "[object RegExp]"))
 
 (defn ^boolean object?
   [x] (identical? (->str x) "[object Object]"))
 
-(defn ^boolean array?
-  [x] (identical? (->str x) "[object Array]"))
+(defn ^boolean args?
+  [x] (identical? (->str x) "[object Arguments]"))
+
+(def ^:boolean array?
+  (if (fn? Array.isArray)
+    Array.isArray
+    (fn [x] (identical? (->str x) "[object Array]"))))
 
 (defn ^boolean error?
   [x] (identical? (->str x) "[object Error]"))
 
-(defn ^boolean dictionary?
-  [form]
+(defn ^boolean plain-object?
+  [x]
   (and
-    (object? form)
-    (object? (.get-prototype-of Object form))
-    (nil? (.get-prototype-of Object (.get-prototype-of Object form)))))
+    (object? x)
+    (object? (.get-prototype-of Object x))
+    (nil? (.get-prototype-of Object (.get-prototype-of Object x)))))
+
+(defn ^boolean element?
+  [x]
+  (if browser?
+    (>= (.index-of (->str x) :Element) 0)
+    false))
 
 (defn ^boolean mutable?
   [x]
@@ -66,6 +84,7 @@
     (object? x)
     (array? x)
     (error? x)
+    (args? x)
     (date? x)
     (function? x)))
 
@@ -78,53 +97,19 @@
 (defn ^boolean primitive?
   [x]
   (or
-    (undef? x)
+    (null? x)
     (bool? x)
     (string? x)
     (number? x)
     (symbol? x)))
 
 (defn ^boolean iterable?
-  [x] (or (mutable? x)))
+  [x]
+  (or
+    (object? x)
+    (array? x)
+    (args? x)))
 
 (defn log
-  [& more]
-  (apply console.log more))
-
-;
-; Comparison
-;
-
-(defn- ^boolean equal?
-  "Equality. Returns true if x equals y, false if not. Compares
-  numbers and collections in a type-independent manner. Clojure's
-  immutable data structures define -equiv (and thus =) as a value,
-  not an identity, comparison."
-  ([x] true)
-  ([x y] (or (identical? x y)
-             (cond (nil? x) (nil? y)
-                   (nil? y) (nil? x)
-                   (string? x) (and (string? y) (identical? (.to-string x)
-                                                            (.to-string y)))
-                   (number? x) (and (number? y) (identical? (.value-of x)
-                                                            (.value-of y)))
-                   (fn? x) false
-                   (bool? x) false
-                   (date? x) (date-equal? x y)
-                   (vector? x) (vector-equal? x y [] [])
-                   (re-pattern? x) (pattern-equal? x y)
-                   :else (dictionary-equal? x y))))
-  ([x y & more]
-   (loop [previous x
-          current y
-          index 0
-          count (.-length more)]
-    (and (equivalent? previous current)
-         (if (< index count)
-          (recur current
-                 (get more index)
-                 (inc index)
-                 count)
-          true)))))
-
-(def deep-equal? equal?)
+  [& args]
+  (.apply (.-log console) console args))

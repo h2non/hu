@@ -2,6 +2,15 @@
 
 > Spoiler! Funny work still in progress!
 
+<table>
+<tr>
+<td><b>Version</b></td><td>beta</td>
+</tr>
+<tr>
+<td><b>Stage</b></td><td>experimental</td>
+</tr>
+</table>
+
 ## About
 
 **hu** is a tiny functional utility helper library
@@ -9,10 +18,29 @@ which provides the most common and missing functions
 that are required in any JavaScript project
 
 Instead of Underscore, Lodash or Sugar.js, hu only provides
-a reduced set of the most common useful functions, keeping it as a lightweight
+a reduced set of the most common functions, keeping it as a lightweight
 and tiny library designed to be easy to embed as part of an application, library or framework
 
 It's pronuncied `ji-u`
+
+## Rationale
+
+hu was created to define an real scenario to do funny experiments
+with some pure functional programming principles
+
+It's completely written in [Wisp][wisp], a homoiconic Clojure-like language which compiles into plain JavaScript that supports s-expressions and macros, allowing to extend the compiler features with own user code
+
+Some of the ambitious implementation goals are:
+
+- First-class functions
+- Pure functions and high-order functions
+- Unmutability (when it's possible)
+- Avoid assignment, remove side-effects (when it's possible)
+- Use recursion instead of loops
+- Tend to continuation-passing style
+- Exploit subroutines (like tail recursion call)
+- Exploit memoization (currying, partial) and caching
+- Exploit combinators
 
 ## Features
 
@@ -52,11 +80,167 @@ Or loading the script remotely (just for testing or development)
 
 ## API
 
-```js
-var hu = require('hu')
-```
 
-`To Do`
+### Types
+
+#### isBool(value)
+Return: `boolean`
+
+Checks if the given value is a boolean type
+
+#### isNumber(value)
+Return: `boolean`
+
+Checks if the given value is a number type
+
+#### isFinite(value)
+Return: `boolean`
+
+Checks if the given value is a finite number,
+or it can be coerced into it
+
+#### isString(value)
+Return: `boolean`
+
+Checks if the given value is a string type
+
+#### isSymbol(value)
+Return: `boolean`
+
+Checks if the given value is a symbol type
+
+#### isFunction(value)
+Return: `boolean` | Alias: `isFn`
+
+Checks if the given value is a function type
+
+#### isDate(value)
+Return: `boolean`
+
+Checks if the given value is a date type
+
+#### isRegExp(value)
+Return: `boolean`
+
+Checks if the given value is a regexp type
+
+#### isArray(value)
+Return: `boolean`
+
+Checks if the given value is a array type
+
+#### isObject(value)
+Return: `boolean`
+
+Checks if the given value is a object type
+
+#### isPlainObject(value)
+Return: `boolean`
+
+Checks if the given value is a native object type (it was createdd by the Object native constructor)
+
+#### isError(value)
+Return: `boolean`
+
+Checks if the given value is a error type
+
+#### isElement(value)
+Return: `boolean`
+
+Checks if the given value is a DOM element object instance
+
+#### isArgs(value)
+Return: `boolean`
+
+Checks if the given value is a arguments type
+
+#### isUndef(value)
+Return: `boolean`
+
+Checks if the given value is a undefined, void o null type
+
+#### isNull(value)
+Return: `boolean`
+
+Checks if the given value is a null type
+
+#### isEmpty(value)
+Return: `boolean`
+
+Checks if the given value is empty.
+Arrays, strings, or arguments objects with a length of 0 and objects with no own enumerable properties are considered empty values
+
+#### isMutable(value)
+Return: `boolean`
+
+Checks if the given value is a mutable data type.
+Objects, arrays, date objects, arguments objects and functions are considered mutable data types
+
+#### isPrimitive(value)
+Return: `boolean`
+
+Checks if the given value is a primitive value type
+Strings, numbers, booleans, symbols and null are considered primitives values
+
+#### isIterable(value)
+Return: `boolean`
+
+Checks if the given value can be iterated.
+Objects, arrays, and arguments objects are considered iterables data types
+
+#### isEqual(x, y)
+Return: `boolean` | Alias: `isDeepEqual`
+
+Checks if the given values are equals.
+It also performs a deep comparison between two values to determine
+if both are types equivalent
+
+#### isObjectEqual(x, y)
+Return: `boolean`
+
+Checks if the given object values and keys are equals
+
+#### isBrowser()
+Return: `boolean`
+
+Checks if the current runtime JavaScript environment is in a browser context
+
+### Misc
+
+#### log(...msg)
+Return: `undefined`
+
+Write the given arguments in the console
+
+### Strings
+
+#### subs
+
+#### lines
+
+#### unlines
+
+#### words
+
+#### unwords
+
+#### chars
+
+#### unchars
+
+
+
+### Numbers
+
+### Lists
+
+### Objects
+
+### Collections
+
+### Functions
+
+
 
 ## Contributing
 
@@ -66,7 +250,7 @@ You must add new test cases for any new feature or refactor you do,
 always following the same design/code patterns that already exist
 
 Tests specs are completely written in Wisp language.
-Take a look to the language [documentation][wisp-doc] if you are new with it.
+Take a look to the language [documentation][wisp] if you are new with it.
 You should follow the Wisp language coding conventions
 
 ### Development
@@ -111,4 +295,4 @@ Released under the MIT license
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/h2non/hu.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
-[wisp-doc]: https://github.com/Gozala/wisp
+[wisp]: https://github.com/Gozala/wisp
