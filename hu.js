@@ -131,7 +131,7 @@ module.exports = object.extend.apply(void 0, [
     number,
     array,
     object,
-    'fn'
+    fn
 ]);
 },{"./array":1,"./common":2,"./function":3,"./number":5,"./object":6,"./string":7}],5:[function(_dereq_,module,exports){
 {
