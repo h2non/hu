@@ -102,6 +102,13 @@ var log = exports.log = function log() {
 },{}],3:[function(_dereq_,module,exports){
 {
     var _ns_ = {
+            id: 'hu.lib.function',
+            doc: void 0
+        };
+}
+},{}],4:[function(_dereq_,module,exports){
+{
+    var _ns_ = {
             id: 'hu.src.index',
             doc: void 0
         };
@@ -115,15 +122,18 @@ var log = exports.log = function log() {
     var array = hu_src_array;
     var hu_src_object = _dereq_('./object');
     var object = hu_src_object;
+    var hu_src_function = _dereq_('./function');
+    var fn = hu_src_function;
 }
 module.exports = object.extend.apply(void 0, [
     common,
-    object,
     string,
     number,
-    array
+    array,
+    object,
+    'fn'
 ]);
-},{"./array":1,"./common":2,"./number":4,"./object":5,"./string":6}],4:[function(_dereq_,module,exports){
+},{"./array":1,"./common":2,"./function":3,"./number":5,"./object":6,"./string":7}],5:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.number',
@@ -138,7 +148,7 @@ var isOdd = exports.isOdd = function isOdd(n) {
 var isEven = exports.isEven = function isEven(n) {
         return n % 2 === 0;
     };
-},{}],5:[function(_dereq_,module,exports){
+},{}],6:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.object',
@@ -264,7 +274,7 @@ var isObjectEqual = function isObjectEqual(x, y) {
         }.call(this);
     }.call(this);
 };
-},{"./common":2}],6:[function(_dereq_,module,exports){
+},{"./common":2}],7:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.string',
@@ -272,26 +282,28 @@ var isObjectEqual = function isObjectEqual(x, y) {
         };
     var hu_lib_common = _dereq_('./common');
     var isString = hu_lib_common.isString;
+    var isArray = hu_lib_common.isArray;
 }
 var EOL = /[\n|\r]/;
+void 0;
 void 0;
 var lines = exports.lines = function lines(x) {
         return isString(x) ? x.split(EOL) : x;
     };
 var unlines = exports.unlines = function unlines(x) {
-        return isString(x) ? x.join(EOL) : x;
+        return isArray(x) ? x.join('\n') : x;
     };
 var words = exports.words = function words(x) {
         return isString(x) ? x.split(/[ ]+/) : x;
     };
 var unwords = exports.unwords = function unwords(x) {
-        return isString(x) ? x.join(' ') : x;
+        return isArray(x) ? x.join(' ') : x;
     };
 var chars = exports.chars = function chars(x) {
         return isString(x) ? x.split('') : x;
     };
 var unchars = exports.unchars = function unchars(x) {
-        return isString(x) ? x.join('') : x;
+        return isArray(x) ? x.join('') : x;
     };
 var subs = exports.subs = function subs(x, start, end) {
         return isString(x) ? x.substring(start, end) : x;
@@ -300,8 +312,8 @@ var reverse = exports.reverse = function reverse(x) {
         return isString(x) ? x.split('').reverse().join('') : x;
     };
 var repeat = exports.repeat = function repeat(n, x) {
-        return n > 0 ? x + repeat(n - 1, x) : '';
+        return isString(x) ? n > 0 ? x + repeat(n - 1, x) : '' : x;
     };
-},{"./common":2}]},{},[3])
-(3)
+},{"./common":2}]},{},[4])
+(4)
 });

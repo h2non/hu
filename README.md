@@ -253,21 +253,51 @@ Write the given arguments in the console
 
 ### Strings
 
-#### subs
+#### subs(str, start, end)
+Return: `string`
 
-#### lines
+Extract characters from the given string
 
-#### unlines
+#### reverse(str)
+Return: `string`
 
-#### words
+Reverse characters of the given string
 
-#### unwords
+#### repeat(number, str)
+Return: `string`
 
-#### chars
+Repeat the given string
 
-#### unchars
+#### lines(str)
+Return: `array`
 
+Split the given string by end of line tokens
 
+#### unlines(arr)
+Return: `string`
+
+Join the given array into a string separated by
+end line token
+
+#### words(str)
+Return: `array`
+
+Returns an array of words (spaces separated)
+
+#### unwords(arr)
+Return: `string`
+
+Join words of the given array into a string spaces separated
+
+#### chars(str)
+Return: `array`
+
+Return an array of characters of the given string
+
+#### unchars(arr)
+Return: `string`
+
+Join the strings of the given array
 
 ### Numbers
 

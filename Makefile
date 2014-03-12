@@ -8,7 +8,7 @@ FLAGS = --verbose
 default: all
 all: test browser
 browser: cleanbrowser test banner browserify uglify
-compile: mkdir clean index string number common object array
+compile: mkdir clean index string number common object array function
 test: compile runtest
 
 mkdir:
@@ -28,6 +28,9 @@ object:
 
 array:
 	cat src/array.wisp | $(WISP) --no-map > ./lib/array.js
+
+function:
+	cat src/function.wisp | $(WISP) --no-map > ./lib/function.js
 
 index:
 	cat src/hu.wisp | $(WISP) --no-map > ./lib/hu.js

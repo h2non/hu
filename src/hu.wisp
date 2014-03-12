@@ -4,8 +4,9 @@
     [hu.src.string :as string]
     [hu.src.number :as number]
     [hu.src.array :as array]
-    [hu.src.object :as object]))
+    [hu.src.object :as object]
+    [hu.src.function :as fn]))
 
 (set! (.-exports module)
   (.apply (.-extend object)
-    nil [common object string number array]))
+    nil [common string number array object :fn]))
