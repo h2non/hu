@@ -9,4 +9,4 @@
 
 (set! (.-exports module)
   (.apply (.-extend object)
-    nil [common string number array object :fn]))
+    nil [common string number array object fn]))
