@@ -62,7 +62,7 @@
   (.map (keys obj)
         (fn [key] [key (get obj key)])))
 
-(defn obj
+(defn ^object obj
   "Creates dictionary of given arguments. Odd indexed arguments
   are used for keys and evens for values"
   [& pairs]
@@ -77,7 +77,7 @@
         (recur (.slice key-values 2) result))
       result)))
 
-(defn map
+(defn ^object map
   "Maps dictionary values by applying `cb` to each one"
   [source cb]
   (.reduce
@@ -86,7 +86,7 @@
         (set! (get target key) (cb (get source key)))
         target) {}))
 
-(defn merge
+(defn ^object merge
   "Returns a dictionary that consists of the rest of the maps conj-ed onto
   the first. If a key occurs in more than one map, the mapping from
   the latter (left-to-right) will be the mapping in the result."
@@ -138,7 +138,7 @@
                  count)
           true)))))
 
-(def deep-equal? equal?)
+(def ^boolean deep-equal? equal?)
 
 (defn- ^boolean object-equal?
   [x y]

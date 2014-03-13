@@ -1,11 +1,10 @@
 (ns hu.lib.array)
 
-(defn ^boolean contains-vector?
-  "Returns true if vector contains given element"
-  [vector element]
-  (>= (.index-of vector element) 0))
+(defn ^boolean has-array
+  [arr element]
+  (>= (.index-of arr element) 0))
 
-(defn- ^boolean vector-equal?
+(defn ^boolean array-equal?
   [x y]
   (and
     (vector? x)
@@ -15,8 +14,8 @@
           ys y
           index 0
           count (.-length x)]
-    (if (< index count)
-      (if (equivalent? (get xs index) (get ys index))
-          (recur xs ys (inc index) count)
-          false)
+      (if (< index count)
+        (if (equivalent? (get xs index) (get ys index))
+            (recur xs ys (inc index) count)
+            false)
       true))))

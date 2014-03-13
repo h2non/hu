@@ -8,11 +8,11 @@
 (def ^boolean browser?
   (identical? (typeof window) "object"))
 
-(def ^:nil noop (fn []))
+(def ^void noop (fn []))
 
-(def ^:number now (.-now Date))
+(def ^number now (.-now Date))
 
-(defn- ->str
+(defn ^:private ->str
   [x] ((.-call obj->str) x))
 
 (defn ^boolean null?
@@ -62,8 +62,8 @@
   [x] (identical? (->str x) "[object Arguments]"))
 
 (def ^:boolean array?
-  (if (fn? Array.isArray)
-    Array.isArray
+  (if (fn? (.-isArray Array))
+    (.-isArray Array)
     (fn [x] (identical? (->str x) "[object Array]"))))
 
 (defn ^boolean error?

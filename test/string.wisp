@@ -78,6 +78,17 @@
         (equal (.subs _ "word" 2 4) "rd")
         (equal (.subs _ "some word" 5 6) "w")))))
 
+(suite :char
+  (fn []
+    (test :invalid
+      (fn []
+        (equal (.char _ nil) nil)
+        (equal (.char _ false) nil)))
+    (test :valid
+      (fn []
+        (equal (.char _ 19) "\u0013")
+        (equal (.char _ 124) "|")))))
+
 (suite :reverse
   (fn []
     (test :invalid

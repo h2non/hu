@@ -19,10 +19,10 @@ that are required in any JavaScript application
 
 Instead of Underscore, Lodash or Sugar.js, hu only provides
 a reduced set of the most common functions, keeping it as a lightweight
-and tiny library which can be easily embeded as a part of an
+and small library which can be easily embeded as a part of an
 application, library or framework without making noise
 
-hu is a just-for-fun experimental project. It's pronuncied `ji-u`
+hu is still a just-for-fun experimental project. It's pronuncied `ju`
 
 ### Motivation
 
@@ -33,8 +33,8 @@ in the way that programmers design and implement software
 
 Functional programming thinking and conversion is not easy to apply,
 but it's really attractive and funny paradigm,
-which assist to solve the same problems in a more natural, theorical
-and conceptually clean and efficient way
+which assist to solve the same problems from a theorical
+and conceptually clean way (and sometimes efficient)
 
 ### Rationale
 
@@ -47,7 +47,9 @@ with some pure functional programming principles
 
 It's completely written in [Wisp][wisp], a homoiconic Clojure-like language which compiles into plain JavaScript that supports s-expressions and macros, allowing to extend the compiler features with own user code
 
-Some of the ambitious and funny implementation goals are:
+### Challenges
+
+Some of the ambitious and funny intended implementation goals are:
 
 - Assume it's a first-class functions only language
 - Pure functions and high-order functions
@@ -157,6 +159,20 @@ a formalism, those environments are:
   - [bind](#bindfunction-ctx)
   - [equal](#equalx-y)
   - [deepEqual](#deepequalx-y)
+
+### Overview example
+
+
+```js
+var { log map clean } = require('hu')
+
+log(map(clean({ a: 'value', b: null })).join(', '))
+```
+
+```livescript
+
+```
+
 
 ### Types checking
 
@@ -353,9 +369,60 @@ Return: `string`
 
 Join the strings of the given array
 
+#### char(number)
+Return: `string`
+
+Return the given unicode number into his
+equivalent character
+
 ### Numbers
 
-### Lists
+#### isOdd(number)
+Return: `boolean`
+
+Return `true` if the given number is odd
+
+#### isEven(number)
+Return: `boolean`
+
+Return `true` if the given number is even
+
+#### max(...numbers)
+Return: `number`
+
+Returns the number with the highest value
+
+#### min(...numbers)
+Return: `number`
+
+Returns the number with the lower value
+
+#### inc(number)
+Return: `number`
+
+Increment the given value
+
+#### dec(number)
+Return: `number`
+
+Decrement the given value
+
+#### int(float)
+Return: `number`
+
+Coerce to integer number by stripping decimal places
+
+### Arrays
+
+#### has-array(arr, element)
+Return: `boolean`
+
+Returns `true if vector contains given element
+
+#### isArrayEqual(x, y)
+Return: `boolean`
+
+Return `true` if the given arrays are equals
 
 ### Objects
 

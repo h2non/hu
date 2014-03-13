@@ -1,6 +1,6 @@
 (ns hu.lib.string
   (:require
-    [hu.lib.common :refer [string? array?]]
+    [hu.lib.common :refer [string? array? number?]]
     [hu.lib.object :refer [keys]]))
 
 (def ^:private EOL #"[\n|\r]")
@@ -30,6 +30,11 @@
 
 (defn ^string unchars
   [x] (arr x (.join x "")))
+
+(defn ^string char
+  [x]
+  (cond (number? x)
+    (.from-char-code String x)))
 
 (defn ^string subs
  [x start end]
