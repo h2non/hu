@@ -101,3 +101,16 @@
       (fn []
         (equal (.repeat _ 2 "o") "oo")
         (equal (.repeat _ 10 "o") "oooooooooo")))))
+
+(suite :escape
+  (fn []
+    (test :invalid
+      (fn []
+        (equal (.escape _ nil) "")
+        (equal (.escape _ 10) "")
+        (equal (.escape _ true) "")
+        (deep-equal (.escape _ {:a 1}) "")))
+    (test :valid
+      (fn []
+        (equal (.escape _ "<a>") "&lt;a&gt;")
+        (equal (.escape _ "x&y") "x&amp;y")))))

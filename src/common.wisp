@@ -8,6 +8,10 @@
 (def ^boolean browser?
   (identical? (typeof window) "object"))
 
+(def ^:nil noop (fn []))
+
+(def ^:number now (.-now Date))
+
 (defn- ->str
   [x] ((.-call obj->str) x))
 

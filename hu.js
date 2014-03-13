@@ -1,3 +1,4 @@
+/*! hu.js - v0.1.0 - MIT License - https://github.com/h2non/hu */
 !function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.hu=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 {
     var _ns_ = {
@@ -31,6 +32,10 @@ var isVectorEqual = function isVectorEqual(x, y) {
 var objToStr = Object.prototype.toString;
 var nativeFinite = this.isFinite;
 var isBrowser = exports.isBrowser = typeof(window) === 'object';
+var noop = exports.noop = function () {
+        return void 0;
+    };
+var now = exports.now = Date.now;
 var toStr = function toStr(x) {
     return objToStr.call(x);
 };
@@ -105,8 +110,21 @@ var log = exports.log = function log() {
             id: 'hu.lib.function',
             doc: void 0
         };
+    var hu_lib_common = _dereq_('./common');
+    var isArray = hu_lib_common.isArray;
 }
-},{}],4:[function(_dereq_,module,exports){
+var constant = exports.constant = function constant(x) {
+        return function () {
+            return x;
+        };
+    };
+var apply = exports.apply = function apply(f, args) {
+        return f.apply(void 0, args);
+    };
+var bind = exports.bind = function bind(f, ctx) {
+        return f.bind(ctx);
+    };
+},{"./common":2}],4:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.src.index',
@@ -125,14 +143,15 @@ var log = exports.log = function log() {
     var hu_src_function = _dereq_('./function');
     var fn = hu_src_function;
 }
-module.exports = object.extend.apply(void 0, [
-    common,
-    string,
-    number,
-    array,
-    object,
-    fn
-]);
+var hu = module.exports = object.extend.apply(void 0, [
+        common,
+        string,
+        number,
+        array,
+        object,
+        fn
+    ]);
+hu.VERSION = '0.1.0';
 },{"./array":1,"./common":2,"./function":3,"./number":5,"./object":6,"./string":7}],5:[function(_dereq_,module,exports){
 {
     var _ns_ = {
@@ -156,51 +175,64 @@ var isEven = exports.isEven = function isEven(n) {
         };
     var hu_lib_common = _dereq_('./common');
     var isObject = hu_lib_common.isObject;
+    var isFn = hu_lib_common.isFn;
     var isIterable = hu_lib_common.isIterable;
 }
 var hasOwn = Object.prototype.hasOwnProperty;
 var has = exports.has = function has(obj, prop) {
         return hasOwn.call(obj, prop);
     };
+var keys = exports.keys = function keys(obj) {
+        return Object.keys(obj);
+    };
+var vals = exports.vals = function vals(obj) {
+        return keys(obj).map(function (key) {
+            return (obj || 0)[key];
+        });
+    };
 var extend = exports.extend = function extend(target) {
         var origins = Array.prototype.slice.call(arguments, 1);
-        'Assigns own enumerable properties of source\n  object(s) to the destination object.';
         target = isObject(target) ? target : {};
         origins.reduce(function (origin, o, index) {
-            isObject(origin) ? Object.keys(origin).forEach(function (name) {
+            isObject(origin) ? keys(origin).forEach(function (name) {
                 return target[name] = origin[name];
             }) : void 0;
             return origins[index + 1];
         }, origins[0]);
         return target;
     };
+var assign = exports.assign = extend;
+var mixin = exports.mixin = function mixin(target) {
+        var origins = Array.prototype.slice.call(arguments, 1);
+        target = isObject(target) ? target : {};
+        origins.reduce(function (origin, _, index) {
+            isObject(origin) ? keys(origin).forEach(function (name) {
+                return isFn(origin[name]) ? target[name] = origin[name] : void 0;
+            }) : void 0;
+            return origins[index + 1];
+        }, origins[0]);
+        return target;
+    };
 var each = exports.each = function each(obj, cb, ctx) {
-        isIterable(obj) ? Object.keys(obj).forEach(function (index) {
+        isIterable(obj) ? keys(obj).forEach(function (index) {
             return cb(obj[index], index, obj);
         }) : void 0;
         return obj;
     };
+var forEach = exports.forEach = each;
 var clone = exports.clone = function clone(obj) {
         obj = isObject(obj) ? obj : {};
         return obj;
     };
-var keys = exports.keys = function keys(dictionary) {
-        return Object.keys(dictionary);
-    };
-var vals = exports.vals = function vals(dictionary) {
-        return keys(dictionary).map(function (key) {
-            return (dictionary || 0)[key];
-        });
-    };
-var keyValues = exports.keyValues = function keyValues(dictionary) {
-        return keys(dictionary).map(function (key) {
+var keyValues = exports.keyValues = function keyValues(obj) {
+        return keys(obj).map(function (key) {
             return [
                 key,
-                (dictionary || 0)[key]
+                (obj || 0)[key]
             ];
         });
     };
-var dictionary = exports.dictionary = function dictionary() {
+var obj = exports.obj = function obj() {
         var pairs = Array.prototype.slice.call(arguments, 0);
         return function loop() {
             var recur = loop;
@@ -216,45 +248,45 @@ var dictionary = exports.dictionary = function dictionary() {
         }.call(this);
     };
 var map = exports.map = function map(source, cb) {
-        return Object.keys(source).reduce(function (target, key) {
+        return keys(source).reduce(function (target, key) {
             (target || 0)[key] = cb((source || 0)[key]);
             return target;
         }, {});
     };
 var merge = exports.merge = function merge() {
-        return Object.create(Object.prototype, Array.prototype.slice.call(arguments).reduce(function (descriptor, dictionary) {
-            isObject(dictionary) ? Object.keys(dictionary).forEach(function (key) {
-                return (descriptor || 0)[key] = Object.getOwnPropertyDescriptor(dictionary, key);
+        return Object.create(Object.prototype, Array.prototype.slice.call(arguments).reduce(function (descriptor, obj) {
+            isObject(obj) ? keys(obj).forEach(function (key) {
+                return (descriptor || 0)[key] = Object.getOwnPropertyDescriptor(obj, key);
             }) : void 0;
             return descriptor;
         }, Object.create(Object.prototype)));
     };
-var isEqual = function isEqual() {
-    switch (arguments.length) {
-    case 1:
-        var x = arguments[0];
-        return true;
-    case 2:
-        var x = arguments[0];
-        var y = arguments[1];
-        return x === y || (isNil(x) ? isNil(y) : isNil(y) ? isNil(x) : isString(x) ? isString(y) && x.toString() === y.toString() : isNumber(x) ? isNumber(y) && x.valueOf() === y.valueOf() : isFn(x) ? false : isBool(x) ? false : isDate(x) ? isDateEqual(x, y) : isVector(x) ? isVectorEqual(x, y, [], []) : isRePattern(x) ? isPatternEqual(x, y) : 'else' ? isDictionaryEqual(x, y) : void 0);
-    default:
-        var x = arguments[0];
-        var y = arguments[1];
-        var more = Array.prototype.slice.call(arguments, 2);
-        return function loop() {
-            var recur = loop;
-            var previousø1 = x;
-            var currentø1 = y;
-            var indexø1 = 0;
-            var countø1 = more.length;
-            do {
-                recur = isEqual(previousø1, currentø1) && (indexø1 < countø1 ? (loop[0] = currentø1, loop[1] = (more || 0)[indexø1], loop[2] = inc(indexø1), loop[3] = countø1, loop) : true);
-            } while (previousø1 = loop[0], currentø1 = loop[1], indexø1 = loop[2], countø1 = loop[3], recur === loop);
-            return recur;
-        }.call(this);
-    }
-};
+var isEqual = exports.isEqual = function isEqual() {
+        switch (arguments.length) {
+        case 1:
+            var x = arguments[0];
+            return true;
+        case 2:
+            var x = arguments[0];
+            var y = arguments[1];
+            return x === y || (isNil(x) ? isNil(y) : isNil(y) ? isNil(x) : isString(x) ? isString(y) && x.toString() === y.toString() : isNumber(x) ? isNumber(y) && x.valueOf() === y.valueOf() : isFn(x) ? false : isBool(x) ? false : isDate(x) ? isDateEqual(x, y) : isVector(x) ? isVectorEqual(x, y, [], []) : isRePattern(x) ? isPatternEqual(x, y) : 'else' ? isDictionaryEqual(x, y) : void 0);
+        default:
+            var x = arguments[0];
+            var y = arguments[1];
+            var more = Array.prototype.slice.call(arguments, 2);
+            return function loop() {
+                var recur = loop;
+                var previousø1 = x;
+                var currentø1 = y;
+                var indexø1 = 0;
+                var countø1 = more.length;
+                do {
+                    recur = isEqual(previousø1, currentø1) && (indexø1 < countø1 ? (loop[0] = currentø1, loop[1] = (more || 0)[indexø1], loop[2] = inc(indexø1), loop[3] = countø1, loop) : true);
+                } while (previousø1 = loop[0], currentø1 = loop[1], indexø1 = loop[2], countø1 = loop[3], recur === loop);
+                return recur;
+            }.call(this);
+        }
+    };
 var isDeepEqual = exports.isDeepEqual = isEqual;
 var isObjectEqual = function isObjectEqual(x, y) {
     return isObject(x) && isObject(y) && function () {
@@ -283,6 +315,8 @@ var isObjectEqual = function isObjectEqual(x, y) {
     var hu_lib_common = _dereq_('./common');
     var isString = hu_lib_common.isString;
     var isArray = hu_lib_common.isArray;
+    var hu_lib_object = _dereq_('./object');
+    var keys = hu_lib_object.keys;
 }
 var EOL = /[\n|\r]/;
 void 0;
@@ -314,6 +348,20 @@ var reverse = exports.reverse = function reverse(x) {
 var repeat = exports.repeat = function repeat(n, x) {
         return isString(x) ? n > 0 ? x + repeat(n - 1, x) : '' : x;
     };
-},{"./common":2}]},{},[4])
+var htmlEscapes = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        '\'': '&#39;'
+    };
+var unescapedHtml = new RegExp('[' + keys(htmlEscapes).join() + ']', 'g');
+var escapeChar = function escapeChar(x) {
+    return htmlEscapes[x];
+};
+var escape = exports.escape = function escape(x) {
+        return isString(x) ? String(x).replace(unescapedHtml, escapeChar) : '';
+    };
+},{"./common":2,"./object":6}]},{},[4])
 (4)
 });

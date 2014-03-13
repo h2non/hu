@@ -13,33 +13,50 @@
 
 ## About
 
-**hu** is a tiny functional utility helper library
-which provides the most common and missing functions
-that are required in any JavaScript project
+**hu** is a functional utility helper library
+which provides common and missing functions
+that are required in any JavaScript application
 
 Instead of Underscore, Lodash or Sugar.js, hu only provides
 a reduced set of the most common functions, keeping it as a lightweight
-and tiny library designed to be easy to embed as part of an application, library or framework
+and tiny library which can be easily embeded as a part of an
+application, library or framework without making noise
 
-It's pronuncied `ji-u`
+hu is a just-for-fun experimental project. It's pronuncied `ji-u`
 
-## Rationale
+### Motivation
+
+Functional programming tendency has grown (again) in the latest years.
+This paradigm, instead of others more totalitary, extended and adopted
+paradigms like object-oriented forces a radical re-thinking
+in the way we design and implement software
+
+Functional programming thinking and conversion is not easy to apply,
+but it's really attractive and funny paradigm,
+which assist to solve the same problems in a more natural, theorical
+and conceptually clean and efficient way
+
+### Rationale
+
+A good aproach to learn and apply functional programming principles
+is creating a functional-like helper library, why not?
 
 hu was created to define an real scenario to do funny experiments
 with some pure functional programming principles
 
 It's completely written in [Wisp][wisp], a homoiconic Clojure-like language which compiles into plain JavaScript that supports s-expressions and macros, allowing to extend the compiler features with own user code
 
-Some of the ambitious implementation goals are:
+Some of the ambitious and funny implementation goals are:
 
-- First-class functions
+- Assume it's a first-class functions only language
 - Pure functions and high-order functions
 - Unmutability (when it's possible)
 - Avoid assignment, remove side-effects (when it's possible)
 - Use recursion instead of loops
+- Tend to functional composition
 - Tend to continuation-passing style
 - Exploit subroutines (like tail recursion call)
-- Exploit memoization (currying, partial) and caching
+- Exploit memoization (currying, partial, caching...)
 - Exploit combinators
 
 ## Features
@@ -70,6 +87,9 @@ Or loading the script remotely (just for testing or development)
 ```
 
 ## Environments
+
+It works properly in any ES5 compliant environment, however just for
+a formalism, those environments are:
 
 - Node.js
 - Chrome
@@ -120,7 +140,7 @@ Or loading the script remotely (just for testing or development)
 - [Collections](#collections)
 - [Functions](#functions)
 
-### Types
+### Types checking
 
 #### isBool(value)
 Return: `boolean`
@@ -239,19 +259,35 @@ Return: `boolean`
 
 Checks if the given object values and keys are equals
 
-#### isBrowser()
-Return: `boolean`
-
-Checks if the current runtime JavaScript environment is in a browser context
-
-### Misc
+### Mixed utilities
 
 #### log(...msg)
 Return: `undefined`
 
 Write the given arguments in the console
 
+#### isBrowser()
+Return: `boolean`
+
+Checks if the current runtime JavaScript environment is in a browser context
+
+#### noop()
+Return: `void`
+
+The no-operation function, that return nothing
+
+#### now()
+Return: `void`
+
+The no-operation function, that return nothing
+
 ### Strings
+
+#### escape(str)
+Return: `string`
+
+Converts the characters &, <, >, ", and ' in the given string
+to their corresponding HTML entities
 
 #### subs(str, start, end)
 Return: `string`
@@ -305,11 +341,78 @@ Join the strings of the given array
 
 ### Objects
 
+#### has(obj, property)
+Return: `boolean`
+
+Checks if the specified property name exists as a
+own property of the given object
+
+#### keys
+Return: `array`
+
+Returns a sequence of the map's keys
+
+#### values
+Return: `array`
+
+Returns a sequence of the map's values
+
+#### extend(target, origin)
+Return: `object` | Alias: `assign`
+
+Assigns own enumerable properties of source object(s) to the destination object
+
+#### mixin(target, origin)
+Return: `object`
+
+Adds function properties of a source object to the destination object
+
+#### clone(object)
+Return: `object`
+
+Creates a clone of the given object
+
 ### Collections
+
+#### each(obj, function, ctx)
+Return: `void` | Alias:  `forEach`
+
+Iterates over elements of a collection,
+executing the callback for each element
 
 ### Functions
 
+#### constant(value)
+Return: `function`
 
+Returns a function that returns the given value.
+Useful for function composition
+
+#### apply(function, [ arguments ])
+Return: `mixed`
+
+Invokes a function without binding a context
+with the given arguments as array
+
+```js
+function myFn(x, y) {}
+apply(myFn, [1, 2])
+```
+
+#### bind(function, ctx)
+Return: `function`
+
+Invokes a function without binding a context
+with the given arguments as array
+
+```js
+function myFn(x, y) {}
+apply(myFn, [1, 2])
+```
+
+#### equal(x, y)
+
+#### deepEqual(x, y)
 
 ## Contributing
 

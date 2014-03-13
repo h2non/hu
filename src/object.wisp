@@ -1,58 +1,68 @@
 (ns hu.lib.object
-  (:require [hu.lib.common :refer [object? iterable?]]))
+  (:require [hu.lib.common :refer [object? fn? iterable?]]))
 
 (def ^:private has-own
   (.-has-own-property (.-prototype Object)))
 
-(defn has
-  "Checks if the specified property name exists as a
-  own property of the given object"
+(defn ^boolean has
   [obj prop]
   ((.-call has-own) obj, prop))
 
-(defn extend [target & origins]
-  "Assigns own enumerable properties of source
-  object(s) to the destination object."
-  (set! target (if (object? target) target {} ))
+(defn ^array keys
+  [obj]
+  (.keys Object obj))
+
+(defn ^array vals
+  [obj]
+  (.map (keys obj)
+    (fn [key] (get obj key))))
+
+(defn ^object extend
+  [target & origins]
+  (set! target (if (object? target) target {}))
   (origins.reduce
     (fn [origin o index]
       (if (object? origin)
-        (.for-each (.keys Object origin)
+        (.for-each (keys origin)
           (fn [name]
             (set! (aget target name) (aget origin name)))))
-    (aget origins (+ index 1))) (aget origins 0)) target)
+      (aget origins (+ index 1)))
+    (aget origins 0)) target)
 
-(defn each
-  "Iterates over elements of a collection,
-  executing the callback for each element."
+(def ^object assign extend)
+
+(defn ^object mixin
+  [target & origins]
+  (set! target (if (object? target) target {}))
+  (origins.reduce
+    (fn [origin _ index]
+      (if (object? origin)
+        (.for-each (keys origin)
+          (fn [name]
+            (cond (fn? (aget origin name))
+              (set! (aget target name) (aget origin name))))))
+      (aget origins (+ index 1)))
+    (aget origins 0)) target)
+
+(defn ^void each
   [obj cb ctx]
   (if (iterable? obj)
-    (.for-each (.keys Object obj)
+    (.for-each (keys obj)
       (fn [index]
         (cb (aget obj index) index obj)))) obj)
 
-(defn clone
-  "Creates a clone of a mutable object"
+(def ^void for-each each)
+
+(defn ^object clone
   [obj]
   (set! obj (if (object? obj) obj {} )) obj)
 
-(defn keys
-  "Returns a sequence of the map's keys"
-  [dictionary]
-  (.keys Object dictionary))
+(defn ^object key-values
+  [obj]
+  (.map (keys obj)
+        (fn [key] [key (get obj key)])))
 
-(defn vals
-  "Returns a sequence of the map's values."
-  [dictionary]
-  (.map (keys dictionary)
-        (fn [key] (get dictionary key))))
-
-(defn key-values
-  [dictionary]
-  (.map (keys dictionary)
-        (fn [key] [key (get dictionary key)])))
-
-(defn dictionary
+(defn obj
   "Creates dictionary of given arguments. Odd indexed arguments
   are used for keys and evens for values"
   [& pairs]
@@ -71,7 +81,7 @@
   "Maps dictionary values by applying `cb` to each one"
   [source cb]
   (.reduce
-    (.keys Object source)
+    (keys source)
       (fn [target key]
         (set! (get target key) (cb (get source key)))
         target) {}))
@@ -85,18 +95,18 @@
    Object.prototype
    (.reduce
     (.call Array.prototype.slice arguments)
-    (fn [descriptor dictionary]
-      (if (object? dictionary)
+    (fn [descriptor obj]
+      (if (object? obj)
         (.for-each
-         (Object.keys dictionary)
+         (keys obj)
          (fn [key]
            (set!
             (get descriptor key)
-            (Object.get-own-property-descriptor dictionary key)))))
+            (Object.get-own-property-descriptor obj key)))))
       descriptor)
     (Object.create Object.prototype))))
 
-(defn- ^boolean equal?
+(defn ^boolean equal?
   "Equality. Returns true if x equals y, false if not. Compares
   numbers and collections in a type-independent manner. Clojure's
   immutable data structures define -equiv (and thus =) as a value,

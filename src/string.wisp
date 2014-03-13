@@ -1,16 +1,17 @@
 (ns hu.lib.string
   (:require
-    [hu.lib.common :refer [string? array?]]))
+    [hu.lib.common :refer [string? array?]]
+    [hu.lib.object :refer [keys]]))
 
 (def ^:private EOL #"[\n|\r]")
 
 (defmacro str
-  [x call]
-  `(if (string? x) ~call x))
+  [x expr]
+  `(if (string? x) ~expr x))
 
 (defmacro arr
-  [x call]
-  `(if (array? x) ~call x))
+  [x expr]
+  `(if (array? x) ~expr x))
 
 (defn ^string lines
   [x] (str x (.split x EOL)))
@@ -46,3 +47,21 @@
   (str x
     (if (> n 0)
       (+ x (repeat (- n 1) x)) "")))
+
+(def ^:private html-escapes
+ { :&   "&amp;"
+   :<   "&lt;"
+   :>   "&gt;"
+   "\"" "&quot;"
+   "'"  "&#39;" })
+
+(def ^:private unescaped-html
+  (RegExp. (+ "[" (.join (keys html-escapes)) "]") :g))
+
+(defn- ^string escape-char
+  [x] (aget html-escapes x))
+
+(defn ^string escape
+  [x]
+  (if (string? x)
+    (.replace (String x) unescaped-html escape-char) ""))
