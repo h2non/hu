@@ -28,8 +28,8 @@ hu is a just-for-fun experimental project. It's pronuncied `ji-u`
 
 Functional programming tendency has grown (again) in the latest years.
 This paradigm, instead of others more totalitary, extended and adopted
-like object-oriented forces a radical re-thinking
-in the way we design and implement software
+like object-oriented, forces a radical re-thinking
+in the way that programmers design and implement software
 
 Functional programming thinking and conversion is not easy to apply,
 but it's really attractive and funny paradigm,
@@ -39,7 +39,8 @@ and conceptually clean and efficient way
 ### Rationale
 
 A good aproach to learn and apply functional programming principles
-is creating a functional-like helper library, why not?
+is creating a functional-oriented library that assists by it self to
+do functional programming
 
 hu was created to define an real scenario to do funny experiments
 with some pure functional programming principles
