@@ -162,7 +162,6 @@ a formalism, those environments are:
 
 ### Overview example
 
-
 ```js
 var { log map clean } = require('hu')
 
@@ -170,11 +169,10 @@ log(map(clean({ a: 'value', b: null })).join(', '))
 ```
 
 ```livescript
-
+a: 'value', b: null |> clean |> map |> log
 ```
 
-
-### Types checking
+### Type checking
 
 #### isBool(value)
 Return: `boolean`
@@ -292,28 +290,6 @@ if both are types equivalent
 Return: `boolean`
 
 Checks if the given object values and keys are equals
-
-### Mixed utilities
-
-#### log(...msg)
-Return: `undefined`
-
-Write the given arguments in the console
-
-#### isBrowser()
-Return: `boolean`
-
-Checks if the current runtime JavaScript environment is in a browser context
-
-#### noop()
-Return: `void`
-
-The no-operation function, that return nothing
-
-#### now()
-Return: `void`
-
-The no-operation function, that return nothing
 
 ### Strings
 
@@ -498,6 +474,29 @@ apply(myFn, [1, 2])
 #### equal(x, y)
 
 #### deepEqual(x, y)
+
+### Miscellaneous
+
+#### log(...msg)
+Return: `undefined`
+
+Write the given arguments in the console
+
+#### isBrowser()
+Return: `boolean`
+
+Checks if the current runtime JavaScript environment is in a browser context
+
+#### noop()
+Return: `void`
+
+The no-operation function, that return nothing
+
+#### now()
+Return: `void`
+
+The no-operation function, that return nothing
+
 
 ## Contributing
 
