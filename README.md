@@ -14,11 +14,10 @@
 ## About
 
 **hu** is a functional utility helper library
-which provides common and missing functions
-that are required in any JavaScript application
+inspired by haskell's prelude
 
-Instead of Underscore, Lodash or Sugar.js, hu only provides
-a reduced set of the most common functions, keeping it as a lightweight
+Instead of Underscore, Lodash or Sugar.js, hu only provides a reduced set of the most common
+functions, keeping it as a lightweight
 and small library which can be easily embeded as a part of an
 application, library or framework without making noise
 
@@ -34,7 +33,7 @@ in the way that programmers design and implement software
 Functional programming thinking and conversion is not easy to apply,
 but it's really attractive and funny paradigm,
 which assist to solve the same problems from a theorical
-and conceptually clean way (and sometimes efficient)
+and conceptually clean way (and sometimes more efficiently)
 
 ### Rationale
 
@@ -49,13 +48,20 @@ It's completely written in [Wisp][wisp], a homoiconic Clojure-like language whic
 
 ### Challenges
 
-Some of the ambitious and funny intended implementation goals are:
+hu runs over JavaScript ES5 compilant engines.
+JavaScript is a ubiquitous well-extended language, it's an extensible and multi-purpose
 
-- Assume it's a first-class functions only language
-- Pure functions and high-order functions
+JavaScript is not a pure functional language, however
+it's natural extensibility allows to apply different paradigms, thanks to
+
+Some of the ambitious implementation goals are:
+
+- Assume it's a first-class function only language
+- Pure functions as a norm
 - Unmutability (when it's possible)
 - Avoid assignment, remove side-effects (when it's possible)
-- Use recursion instead of loops
+- Tend to recursion instead of loops
+- Tend to high-order functions
 - Tend to functional composition
 - Tend to continuation-passing style
 - Exploit subroutines (like tail recursion call)
