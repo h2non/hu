@@ -15,7 +15,7 @@ mkdir:
 	mkdir -p lib
 
 string:
-	cat src/string.wisp | $(WISP) --source-uri src/string.wisp --no-map > ./lib/string.js
+	cat src/macros.wisp src/string.wisp | $(WISP) --source-uri src/string.wisp --no-map > ./lib/string.js
 
 number:
 	cat src/number.wisp | $(WISP) --source-uri src/number.wisp --no-map > ./lib/number.js

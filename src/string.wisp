@@ -5,14 +5,6 @@
 
 (def ^:private EOL #"[\n|\r]")
 
-(defmacro str
-  [x expr]
-  `(if (string? x) ~expr x))
-
-(defmacro arr
-  [x expr]
-  `(if (array? x) ~expr x))
-
 (defn ^string lines
   [x] (str x (.split x EOL)))
 
