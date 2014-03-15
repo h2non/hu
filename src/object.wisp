@@ -19,30 +19,30 @@
 
 (defn ^object extend
   [target & origins]
-  (set! target (if (object? target) target {}))
-  (origins.reduce
+  (def obj (if (object? target) target {}))
+  (.reduce origins
     (fn [origin o index]
       (if (object? origin)
         (.for-each (keys origin)
           (fn [name]
-            (set! (aget target name) (aget origin name)))))
+            (set! (aget obj name) (aget origin name)))))
       (aget origins (+ index 1)))
-    (aget origins 0)) target)
+    (aget origins 0)) obj)
 
 (def ^object assign extend)
 
 (defn ^object mixin
   [target & origins]
-  (set! target (if (object? target) target {}))
-  (origins.reduce
+  (def obj (if (object? target) target {}))
+  (.reduce origins
     (fn [origin _ index]
       (if (object? origin)
         (.for-each (keys origin)
           (fn [name]
             (cond (fn? (aget origin name))
-              (set! (aget target name) (aget origin name))))))
+              (set! (aget obj name) (aget origin name))))))
       (aget origins (+ index 1)))
-    (aget origins 0)) target)
+    (aget origins 0)) obj)
 
 (defn ^void each
   [obj cb ctx]
@@ -62,12 +62,10 @@
   (.map (keys obj)
         (fn [key] [key (get obj key)])))
 
-(defn ^object obj
+(defn ^object ->obj
   "Creates dictionary of given arguments. Odd indexed arguments
   are used for keys and evens for values"
   [& pairs]
-  ; TODO: We should convert keywords to names to make sure that keys are not
-  ; used in their keyword form.
   (loop [key-values pairs
          result {}]
     (if (.-length key-values)
@@ -90,11 +88,10 @@
   "Returns a dictionary that consists of the rest of the maps conj-ed onto
   the first. If a key occurs in more than one map, the mapping from
   the latter (left-to-right) will be the mapping in the result."
-  []
-  (Object.create
-   Object.prototype
-   (.reduce
-    (.call Array.prototype.slice arguments)
+  [& args]
+  (.create Object
+   (.-prototype Object)
+   (.reduce args
     (fn [descriptor obj]
       (if (object? obj)
         (.for-each
@@ -102,9 +99,9 @@
          (fn [key]
            (set!
             (get descriptor key)
-            (Object.get-own-property-descriptor obj key)))))
+            (.get-own-property-descriptor Object obj key)))))
       descriptor)
-    (Object.create Object.prototype))))
+    (.create Object (.-prototype Object)))))
 
 (defn ^boolean equal?
   "Equality. Returns true if x equals y, false if not. Compares
@@ -115,10 +112,8 @@
   ([x y] (or (identical? x y)
              (cond (nil? x) (nil? y)
                    (nil? y) (nil? x)
-                   (string? x) (and (string? y) (identical? (.to-string x)
-                                                            (.to-string y)))
-                   (number? x) (and (number? y) (identical? (.value-of x)
-                                                            (.value-of y)))
+                   (string? x) (and (string? y) (identical? x y))
+                   (number? x) (and (number? y) (identical? x y))
                    (fn? x) false
                    (bool? x) false
                    (date? x) (date-equal? x y)

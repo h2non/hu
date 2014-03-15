@@ -6,7 +6,10 @@
 (def ^:private native-finite (.-is-finite this))
 
 (def ^boolean browser?
-  (identical? (typeof window) "object"))
+  (do
+    (and
+      (identical? (typeof window) "object")
+      (fn? (.-HTMLElement window)))))
 
 (def ^void noop (fn []))
 

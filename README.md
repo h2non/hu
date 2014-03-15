@@ -1,6 +1,7 @@
 # hu [![Build Status](https://secure.travis-ci.org/h2non/hu.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/h2non/hu.png)][gemnasium] [![NPM version](https://badge.fury.io/js/hu.png)][npm]
 
-> Spoiler! Funny work still in progress!
+> Spoiler! Funny work in progress!
+> hu is still a just-for-learn&fun experimental project
 
 <table>
 <tr>
@@ -48,13 +49,13 @@ It's completely written in [Wisp][wisp], a homoiconic Clojure-like language whic
 
 ### Challenges
 
-hu runs over JavaScript ES5 compilant engines.
-JavaScript is a ubiquitous well-extended language, it's an extensible and multi-purpose
+hu is a library designed to run over ES5 compilant engines
+JavaScript is a ubiquitous well-extended, multi-purpose and multi-paradigm cool language
 
-JavaScript is not a pure functional language, however
-it's natural extensibility allows to apply different paradigms, thanks to
+JavaScript is in fact a not pure functional language, however
+its natural extensibility allows to apply different paradigms to it and today a lot of languages that transpiles into JavaScript helps with that
 
-Some of the ambitious implementation goals are:
+Some of the intended ambitious implementation goals are:
 
 - Assume it's a first-class function only language
 - Pure functions as a norm
@@ -465,7 +466,7 @@ Return: `function`
 Returns a function that returns the given value.
 Useful for function composition
 
-#### apply(function, [ arguments ])
+#### apply(function, args)
 Return: `mixed`
 
 Invokes a function without binding a context
@@ -487,6 +488,53 @@ function myFn(x, y) {}
 apply(myFn, [1, 2])
 ```
 
+#### compose(...fn)
+Return: `function`
+
+Creates a function that is the composition of the provided functions, where each function consumes the return value of the function that follows
+
+#### partial(fn, [ ...partialArgs ])
+Return: `function`
+
+```js
+```
+
+#### curry(fn, [ ctx ])
+Return: `function`
+
+```js
+var fn = function () { }
+add-curried = curry add
+add-four = add-curried 4
+add-four 2 #=> 6
+```
+
+#### wrap(fn, wrapperFn, [ ...args ])
+Return: `function`
+
+Wraps the first function inside of the wrapper function, passing it as the first argument
+Aditionally you can define partial arguments that will  be passed to the wrapper
+
+```js
+var hello = function (name) { return "hi " + name; };
+hello = hu.wrap(hello, function (func, text, type) {
+  return "before, " + func("moe") + ", " + text + ": " + type + ", after";
+}, "type");
+hello("salutation");
+//=> 'before, hi moe, type: salutation, after'
+```
+
+#### delay(fn, ms, [ ...args ])
+Return: `void`
+
+Executes the given function after wait milliseconds. You can provide arguments that will be passed to the function when it's invoked
+
+#### defer(fn, ms, [ ...args ])
+Return: `function`
+
+Return a function that exectures the given function after wait milliseconds.
+You can provide arguments that will be passed to the function when it's invoked
+
 #### equal(x, y)
 
 #### deepEqual(x, y)
@@ -506,13 +554,12 @@ Checks if the current runtime JavaScript environment is in a browser context
 #### noop()
 Return: `void`
 
-The no-operation function, that return nothing
+The no-operation function, that returns `void`
 
 #### now()
-Return: `void`
+Return: `number`
 
-The no-operation function, that return nothing
-
+Returns an integer timestamp for the current time
 
 ## Contributing
 

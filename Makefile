@@ -18,16 +18,16 @@ string:
 	cat src/macros.wisp src/string.wisp | $(WISP) --source-uri src/string.wisp --no-map > ./lib/string.js
 
 number:
-	cat src/number.wisp | $(WISP) --source-uri src/number.wisp --no-map > ./lib/number.js
+	cat src/macros.wisp src/number.wisp | $(WISP) --source-uri src/number.wisp --no-map > ./lib/number.js
 
 common:
-	cat src/common.wisp | $(WISP) --source-uri src/common.wisp --no-map > ./lib/common.js
+	cat src/macros.wisp src/common.wisp | $(WISP) --source-uri src/common.wisp --no-map > ./lib/common.js
 
 object:
-	cat src/object.wisp | $(WISP) --source-uri src/object.wisp --no-map > ./lib/object.js
+	cat src/macros.wisp src/object.wisp | $(WISP) --source-uri src/object.wisp --no-map > ./lib/object.js
 
 array:
-	cat src/array.wisp | $(WISP) --source-uri src/array.wisp --no-map > ./lib/array.js
+	cat src/macros.wisp src/array.wisp | $(WISP) --source-uri src/array.wisp --no-map > ./lib/array.js
 
 function:
 	cat src/function.wisp | $(WISP) --source-uri src/function.wisp --no-map > ./lib/function.js

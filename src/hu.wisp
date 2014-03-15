@@ -9,7 +9,7 @@
 
 (def ^:private hu
   (set! (.-exports module)
-    (.apply (.-extend object)
-      nil [common string number array object fn])))
+    (apply (.-extend object)
+      [nil common string number array object fn])))
 
 (set! (.-VERSION hu) :0.1.0)
