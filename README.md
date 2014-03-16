@@ -35,7 +35,7 @@ but it's really a quite attractive and funny paradigm,
 which helps to solve the same problems in a theoretically
 and conceptually clean (and sometimes more efficiently) way
 
-### Rational
+### Rationale
 
 A good approach to learn and apply functional programming principles
 is creating a functional-oriented library that assists by itself to
