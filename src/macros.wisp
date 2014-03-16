@@ -11,7 +11,8 @@
 
 (defmacro defcurry
   [name & args]
-  `(def ~name (curry (fn ~@args))))
+  `(def ~name
+     (fn [& args] (apply (curry (fn ~@args)) args))))
 
 (defmacro defcompose
   [name & args]
