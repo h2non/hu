@@ -38,6 +38,12 @@
   [x]
   (.finite? *global (parse-float x)))
 
+(defn ^number NaN?
+  "Is it NaN (not a number)?
+  More accurate than the native isNaN function"
+  [x]
+  (if (identical? x x) false true))
+
 (defn ^boolean symbol?
   "Check if the given value is a symbol type"
   [x] (? (->str x) "[object Symbol]"))

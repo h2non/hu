@@ -71,9 +71,8 @@
 (def ^boolean object-equal object-equal?)
 
 (defn ^boolean equal?
-  "Compares primitives types and data objects in a type-independent manner.
-  Clojure's immutable data structures define -equiv (and thus =)
-  as a value, not an identity, comparison."
+  "Compares primitives types and data objects in a type-independent manner. Clojure's immutable data structures define -equiv
+  (and thus =) as a value, not an identity, comparison."
   ([x] true)
   ([x y] (or (? x y)
              (cond (null? x) (null? y)

@@ -28,16 +28,11 @@ void 0;
             doc: void 0
         };
 }
-var inArray = exports.inArray = function inArray(arr, element) {
-        return arr.indexOf(element) >= 0;
-    };
-var concat = exports.concat = function concat() {
-        var sequences = Array.prototype.slice.call(arguments, 0);
-        return reverse(reduce(function (result, sequence) {
-            return reduce(function (result, item) {
-                return cons(item, result);
-            }, result, seq(sequence));
-        }, list(), sequences));
+var inArray = exports.inArray = function inArray() {
+        var args = Array.prototype.slice.call(arguments, 0);
+        return curry(function (arr, element) {
+            return arr.indexOf(element) >= 0;
+        }).apply(void 0, args);
     };
 },{"./common":3,"./function":5}],2:[function(_dereq_,module,exports){
 {
@@ -68,22 +63,25 @@ void 0;
             doc: void 0
         };
     var hu_lib_common = _dereq_('./common');
-    var isDate = hu_lib_common.isDate;
-    var isArray = hu_lib_common.isArray;
     var isObject = hu_lib_common.isObject;
-    var isFn = hu_lib_common.isFn;
     var isIterable = hu_lib_common.isIterable;
     var hu_lib_object = _dereq_('./object');
     var keys = hu_lib_object.keys;
 }
-var each = exports.each = function each(obj, cb) {
-        isIterable(obj) ? keys(obj).forEach(function (index) {
-            return cb(obj[index], index, obj);
-        }) : void 0;
-        return obj;
+var each = exports.each = function each() {
+        var args = Array.prototype.slice.call(arguments, 0);
+        return curry(function (clt, cb) {
+            isIterable(clt) ? keys(clt).forEach(function (index) {
+                return cb(clt[index], index, clt);
+            }) : void 0;
+            return clt;
+        }).apply(void 0, args);
     };
 var forEach = exports.forEach = each;
-},{"./common":3,"./function":5,"./object":8}],3:[function(_dereq_,module,exports){
+var size = exports.size = function size(clt) {
+        return isIterable(clt) ? isObject(clt) ? keys(clt).length : clt.length : 0;
+    };
+},{"./common":3,"./function":5,"./object":9}],3:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.macros',
@@ -111,13 +109,11 @@ void 0;
             id: 'hu.lib.common',
             doc: void 0
         };
+    var hu_lib_misc = _dereq_('./misc');
+    var isBrowser = hu_lib_misc.isBrowser;
+    var _global = hu_lib_misc._global;
 }
 var objToStr = Object.prototype.toString;
-var nativeFinite = this.isFinite;
-var noop = exports.noop = function () {
-        return void 0;
-    };
-var now = exports.now = Date.now;
 var toStr = function toStr(x) {
     return objToStr.call(x);
 };
@@ -131,18 +127,14 @@ var isBool = exports.isBool = function isBool(x) {
         return x === true || x === false || toString.call(x) === '[object Boolean]';
     };
 var isNumber = exports.isNumber = function isNumber(x) {
-        return typeof(x) === 'number';
+        return toStr(x) === '[object Number]';
     };
 var isFinite = exports.isFinite = function isFinite(x) {
-        return nativeFinite(parseFloat(x));
+        return _global.isFinite(parseFloat(x));
     };
 var isSymbol = exports.isSymbol = function isSymbol(x) {
-        return typeof(x) === 'symbol';
+        return toStr(x) === '[object Symbol]';
     };
-var isFunction = exports.isFunction = function isFunction(x) {
-        return typeof(x) === 'function';
-    };
-var isFn = exports.isFn = isFunction;
 var isString = exports.isString = function isString(x) {
         return toStr(x) === '[object String]';
     };
@@ -153,11 +145,16 @@ var isRegExp = exports.isRegExp = function isRegExp(x) {
         return toStr(x) === '[object RegExp]';
     };
 var isPattern = exports.isPattern = isRegExp;
-var isObject = exports.isObject = function isObject(x) {
-        return toStr(x) === '[object Object]';
-    };
 var isArgs = exports.isArgs = function isArgs(x) {
         return toStr(x) === '[object Arguments]';
+    };
+var isArguments = exports.isArguments = isArgs;
+var isFunction = exports.isFunction = function isFunction(x) {
+        return typeof(x) === 'function';
+    };
+var isFn = exports.isFn = isFunction;
+var isObject = exports.isObject = function isObject(x) {
+        return toStr(x) === '[object Object]';
     };
 var isArray = exports.isArray = isFn(Array.isArray) ? Array.isArray : function (x) {
         return toStr(x) === '[object Array]';
@@ -175,22 +172,16 @@ var isMutable = exports.isMutable = function isMutable(x) {
         return isObject(x) || isArray(x) || isError(x) || isArgs(x) || isDate(x) || isFunction(x);
     };
 var isEmpty = exports.isEmpty = function isEmpty(x) {
-        return isUndef(x) || x.length === 0;
+        return isUndef(x) || (isObject(x) ? Object.keys(x).length === 0 ? true : false : false) || x.length === 0;
     };
 var isPrimitive = exports.isPrimitive = function isPrimitive(x) {
-        return isNull(x) || isBool(x) || isString(x) || isNumber(x) || isSymbol(x);
+        return isNull(x) || isBool(x) || isRegExp(x) || isString(x) || isNumber(x) || isSymbol(x);
     };
 var isIterable = exports.isIterable = function isIterable(x) {
         return isObject(x) || isArray(x) || isArgs(x);
     };
-var log = exports.log = function log() {
-        var args = Array.prototype.slice.call(arguments, 0);
-        return console.log.apply(console, args);
-    };
-var isBrowser = exports.isBrowser = (function () {
-        return typeof(window) === 'object' && isFn(window.HTMLElement);
-    })();
-},{"./common":3,"./function":5}],4:[function(_dereq_,module,exports){
+var canIterate = exports.canIterate = isIterable;
+},{"./common":3,"./function":5,"./misc":7}],4:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.macros',
@@ -238,20 +229,22 @@ void 0;
     var hu_lib_object = _dereq_('./object');
     var keys = hu_lib_object.keys;
 }
-var isDateEqual = exports.isDateEqual = function () {
+var isDateEqual = exports.isDateEqual = function isDateEqual() {
         var args = Array.prototype.slice.call(arguments, 0);
         return curry(function (x, y) {
             return isDate(x) && isDate(y) && Number(x) === Number(y);
         }).apply(void 0, args);
     };
-var isPatternEqual = exports.isPatternEqual = function () {
+var dateEqual = exports.dateEqual = isDateEqual;
+var isPatternEqual = exports.isPatternEqual = function isPatternEqual() {
         var args = Array.prototype.slice.call(arguments, 0);
         return curry(function (x, y) {
             return isPattern(x) && isPattern(y) && x.source === y.source && x.global === y.global && x.multiline === y.multiline && x.ignoreCase === y.ignoreCase;
         }).apply(void 0, args);
     };
 var isRegExpEqual = exports.isRegExpEqual = isPatternEqual;
-var isArrayEqual = exports.isArrayEqual = function () {
+var patternEqual = exports.patternEqual = isPatternEqual;
+var isArrayEqual = exports.isArrayEqual = function isArrayEqual() {
         var args = Array.prototype.slice.call(arguments, 0);
         return curry(function (x, y) {
             return isArray(x) && isArray(y) && x.length === y.length && function loop() {
@@ -267,7 +260,8 @@ var isArrayEqual = exports.isArrayEqual = function () {
             }.call(this);
         }).apply(void 0, args);
     };
-var isObjectEqual = exports.isObjectEqual = function () {
+var arrayEqual = exports.arrayEqual = isArrayEqual;
+var isObjectEqual = exports.isObjectEqual = function isObjectEqual() {
         var args = Array.prototype.slice.call(arguments, 0);
         return curry(function (x, y) {
             return isObject(x) && isObject(y) && function () {
@@ -288,6 +282,7 @@ var isObjectEqual = exports.isObjectEqual = function () {
             }.call(this);
         }).apply(void 0, args);
     };
+var objectEqual = exports.objectEqual = isObjectEqual;
 var isEqual = exports.isEqual = function isEqual() {
         switch (arguments.length) {
         case 1:
@@ -317,7 +312,7 @@ var isEqual = exports.isEqual = function isEqual() {
 var equal = exports.equal = isEqual;
 var isDeepEqual = exports.isDeepEqual = isEqual;
 var deepEqual = exports.deepEqual = isEqual;
-},{"./common":3,"./function":5,"./number":7,"./object":8}],5:[function(_dereq_,module,exports){
+},{"./common":3,"./function":5,"./number":8,"./object":9}],5:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.macros',
@@ -443,36 +438,82 @@ var defer = exports.defer = function defer() {
             id: 'hu.src.index',
             doc: void 0
         };
+    var hu_src_equality = _dereq_('./equality');
+    var equality = hu_src_equality;
+    var hu_src_collection = _dereq_('./collection');
+    var collection = hu_src_collection;
     var hu_src_common = _dereq_('./common');
     var common = hu_src_common;
     var hu_src_string = _dereq_('./string');
     var string = hu_src_string;
     var hu_src_number = _dereq_('./number');
     var number = hu_src_number;
-    var hu_src_array = _dereq_('./array');
-    var array = hu_src_array;
     var hu_src_object = _dereq_('./object');
     var object = hu_src_object;
+    var hu_src_array = _dereq_('./array');
+    var array = hu_src_array;
     var hu_src_function = _dereq_('./function');
-    var fn = hu_src_function;
-    var hu_src_collection = _dereq_('./collection');
-    var col = hu_src_collection;
-    var hu_src_equality = _dereq_('./equality');
-    var equal = hu_src_equality;
+    var _function = hu_src_function;
+    var hu_src_misc = _dereq_('./misc');
+    var misc = hu_src_misc;
 }
 var hu = module.exports = object.extend.apply(void 0, [
         void 0,
+        misc,
         common,
         string,
         number,
         array,
         object,
-        fn,
-        col,
-        equal
+        _function,
+        collection,
+        equality
     ]);
 hu.VERSION = '0.1.0';
-},{"./array":1,"./collection":2,"./common":3,"./equality":4,"./function":5,"./number":7,"./object":8,"./string":9}],7:[function(_dereq_,module,exports){
+},{"./array":1,"./collection":2,"./common":3,"./equality":4,"./function":5,"./misc":7,"./number":8,"./object":9,"./string":10}],7:[function(_dereq_,module,exports){
+(function (global){
+{
+    var _ns_ = {
+            id: 'hu.lib.macros',
+            doc: void 0
+        };
+    var hu_lib_function = _dereq_('./function');
+    var curry = hu_lib_function.curry;
+    var compose = hu_lib_function.compose;
+    var hu_lib_common = _dereq_('./common');
+    var isString = hu_lib_common.isString;
+    var isArray = hu_lib_common.isArray;
+    var isObject = hu_lib_common.isObject;
+}
+void 0;
+void 0;
+void 0;
+void 0;
+void 0;
+void 0;
+void 0;
+void 0;
+void 0;
+{
+    var _ns_ = {
+            id: 'hu.lib.misc',
+            doc: void 0
+        };
+}
+var noop = exports.noop = function () {
+        return void 0;
+    };
+var now = exports.now = Date.now;
+var log = exports.log = function log() {
+        var args = Array.prototype.slice.call(arguments, 0);
+        return console ? console.log.apply(console, args) : void 0;
+    };
+var isBrowser = exports.isBrowser = (function () {
+        return typeof(window) === 'object' && isFn(window.HTMLElement);
+    })();
+var _global = exports._global = isBrowser ? window : global;
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./common":3,"./function":5}],8:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.macros',
@@ -542,7 +583,7 @@ var negate = exports.negate = function negate(x) {
 var recip = exports.recip = function recip(x) {
         return 1 / x;
     };
-var div = exports.div = function () {
+var div = exports.div = function div() {
         var args = Array.prototype.slice.call(arguments, 0);
         return curry(function (x, y) {
             return floor(x / y);
@@ -551,7 +592,7 @@ var div = exports.div = function () {
 var isNaN = exports.isNaN = function isNaN(x) {
         return x === x ? false : true;
     };
-},{"./common":3,"./function":5}],8:[function(_dereq_,module,exports){
+},{"./common":3,"./function":5}],9:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.macros',
@@ -598,8 +639,11 @@ void 0;
     var dec = hu_lib_number.dec;
 }
 var hasOwn = Object.prototype.hasOwnProperty;
-var has = exports.has = function has(obj, prop) {
-        return hasOwn.call(obj, prop);
+var has = exports.has = function has() {
+        var args = Array.prototype.slice.call(arguments, 0);
+        return curry(function (obj, prop) {
+            return hasOwn.call(obj, prop);
+        }).apply(void 0, args);
     };
 var keys = exports.keys = function keys(obj) {
         return Object.keys(obj);
@@ -659,22 +703,6 @@ var toObject = exports.toObject = function toObject() {
             return recur;
         }.call(this);
     };
-var map = exports.map = function map(source, cb) {
-        return keys(source).reduce(function (target, key) {
-            target[key] = cb(source[key], key, source);
-            return target;
-        }, source);
-    };
-var filter = exports.filter = function filter(source, cb) {
-        return function () {
-            var targetø1 = {};
-            Object.keys(source).reduce(function (target, key) {
-                cb(source[key], key, source) ? target[key] = source[key] : void 0;
-                return target;
-            }, targetø1);
-            return targetø1;
-        }.call(this);
-    };
 var __oproto__ = Object.prototype;
 var merge = exports.merge = function merge() {
         var args = Array.prototype.slice.call(arguments, 0);
@@ -685,7 +713,31 @@ var merge = exports.merge = function merge() {
             return descriptor;
         }, {}));
     };
-},{"./common":3,"./function":5,"./number":7}],9:[function(_dereq_,module,exports){
+var map = exports.map = function map() {
+        var args = Array.prototype.slice.call(arguments, 0);
+        return curry(function (source, cb) {
+            return keys(source).reduce(function (target, key) {
+                target[key] = cb(source[key], key, source);
+                return target;
+            }, source);
+        }).apply(void 0, args);
+    };
+var mapValues = exports.mapValues = map;
+var filter = exports.filter = function filter() {
+        var args = Array.prototype.slice.call(arguments, 0);
+        return curry(function (source, cb) {
+            return function () {
+                var targetø1 = {};
+                keys(source).reduce(function (target, key) {
+                    cb(source[key], key, source) ? target[key] = source[key] : void 0;
+                    return target;
+                }, targetø1);
+                return targetø1;
+            }.call(this);
+        }).apply(void 0, args);
+    };
+var filterValues = exports.filterValues = filter;
+},{"./common":3,"./function":5,"./number":8}],10:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.macros',
@@ -721,6 +773,9 @@ void 0;
     var keys = hu_lib_object.keys;
 }
 var EOL = /[\n|\r]/;
+var subs = exports.subs = function subs(x, start, end) {
+        return isString(x) ? x.substring(start, end) : x;
+    };
 var lines = exports.lines = function lines(x) {
         return isString(x) ? x.split(EOL) : x;
     };
@@ -742,9 +797,6 @@ var unchars = exports.unchars = function unchars(x) {
 var char = exports.char = function char(x) {
         return isNumber(x) ? String.fromCharCode(x) : void 0;
     };
-var subs = exports.subs = function subs(x, start, end) {
-        return isString(x) ? x.substring(start, end) : x;
-    };
 var reverse = exports.reverse = function reverse(x) {
         return isString(x) ? x.split('').reverse().join('') : x;
     };
@@ -765,6 +817,6 @@ var escapeChar = function escapeChar(x) {
 var escape = exports.escape = function escape(x) {
         return isString(x) ? String(x).replace(unescapedHtml, escapeChar) : '';
     };
-},{"./common":3,"./function":5,"./object":8}]},{},[6])
+},{"./common":3,"./function":5,"./object":9}]},{},[6])
 (6)
 });

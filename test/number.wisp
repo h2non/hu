@@ -104,16 +104,3 @@
       (fn []
         (equal ((.div _ 9) 3) 3)
         (equal ((.div _ -9) -3) 3)))))
-
-(suite :isNaN
-  (fn []
-    (test :basic
-      (fn []
-        (equal (.NaN? _ 1) false)
-        (equal (.NaN? _ -1) false)
-        (equal (.NaN? _ 3.14) false)
-        (equal (.NaN? _ Infinity) false)
-        (equal (.NaN? _ NaN) true)
-        (equal (.NaN? _ nil) false)))))
-
-

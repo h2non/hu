@@ -115,25 +115,25 @@
               (equal (f 2) 3)
               (equal (f 2) 3))))))
 
-(suite :delay
-  (fn []
-    (test :basic
-      (fn [done]
-        (.delay _ (fn [] (done)) 50)))
-    (test :arguments
-      (fn [done]
-        (.delay _ (fn [x] (equal x :x) (done)) 50 :x)))))
-
 (suite :defer
   (fn []
     (test :basic
       (fn [done]
-        ((.defer _ (fn [] (done)) 50))))
+        (.defer _ (fn [] (done)) 50)))
     (test :arguments
       (fn [done]
-        ((.defer _ (fn [x] (equal x :x) (done)) 50 :x)))
+        (.defer _ (fn [x] (equal x :x) (done)) 50 :x)))))
+
+(suite :debounce
+  (fn []
+    (test :basic
       (fn [done]
-        ((.defer _ (fn [x y]
+        ((.debounce _ (fn [] (done)) 50))))
+    (test :arguments
+      (fn [done]
+        ((.debounce _ (fn [x] (equal x :x) (done)) 50 :x)))
+      (fn [done]
+        ((.debounce _ (fn [x y]
           (equal x :x)
           (equal y :y) (done)) 50 :x) :y)))))
 

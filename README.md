@@ -19,64 +19,65 @@
 **hu** is a functional-oriented utility helper library
 inspired by haskell's prelude and lodash/underscore
 
-Instead of other well-knowed libraries sush as Lodash or Sugar.js, hu only provides a reduced but generic set of most common and useful functions.
-It aims to be a lightweight and small library which can be easily embeded as a part of an application, library or framework without making noise
+Unlike other well-known libraries such as Lodash or Sugar.js, hu only provides a reduced but generic set of most common and useful functions.
+It aims to be a lightweight and small library which can be easily embedded as a part of an application, library or framework without making noise
 
-hu helper functions are almost curried.
-It's still a just-for-fun experimental project. It should be pronuncied `ju`
+hu library works well under ES5 compliant engines.
+Most of its helper functions are curried
 
 ### Motivation
 
 Functional programming tendency has grown (again) in the latest years.
-This paradigm, instead of others more totalitary, extended and adopted
-like object-oriented, forces a radical re-thinking
-in the way that programmers design and implement software
+This paradigm, unlike others that may be more totalitarian and extended, forces a radical re-thinking in the way that programmers design and implement software
 
 Functional programming thinking and conversion is not easy to apply,
-but it's really attractive and funny paradigm,
-which assist to solve the same problems from a theorical
-and conceptually clean way (and sometimes more efficiently)
+but it's really a quite attractive and funny paradigm,
+which helps to solve the same problems in a theoretically
+and conceptually clean (and sometimes more efficiently) way
 
-### Rationale
+### Rational
 
-A good aproach to learn and apply functional programming principles
-is creating a functional-oriented library that assists by it self to
+A good approach to learn and apply functional programming principles
+is creating a functional-oriented library that assists by itself to
 do functional programming
 
-hu was created to define an real scenario to do funny experiments
+In fact, hu was created to define a real scenario to do funny experiments
 with some pure functional programming principles
 
-It's completely written in [Wisp][wisp], a homoiconic Clojure-like language which compiles into plain JavaScript that supports s-expressions and macros, allowing to extend the compiler features with own user code
+It's completely written in [Wisp][wisp], a homoiconic Clojure-like language, which compiles into plain JavaScript that supports s-expressions and macros, allowing to extend the compiler features with the user’s own code
+
+#### Why JavaScript?
+
+JavaScript is a ubiquitous, well-extended, multi-purpose and multi-paradigm cool language with which you can do a lot of funny things
+
+In fact, JavaScript is not a pure functional language, however
+its natural extensibility and meta-programming features allow to apply different paradigms to it and today there are a lot of languages that transpile into JavaScript that help providing a powerful syntax sugar and more features
 
 ### Challenges
 
-hu is a library designed to run over ES5 compilant engines
-JavaScript is a ubiquitous well-extended, multi-purpose and multi-paradigm cool language
-
-JavaScript is in fact a not pure functional language, however
-its natural extensibility allows to apply different paradigms to it and today a lot of languages that transpiles into JavaScript helps with that
-
-hu is implemented keeping in mind the following ambitious goals:
+hu is implemented keeping in mind the following “ambitious” goals:
 
 - Assume it's a first-class function only language
 - Pure functions as a norm
-- Unmutability (when it's possible)
+- Immutability (when it's possible)
 - Avoid assignment, remove side-effects (when it's possible)
 - Tend to recursion instead of loops
 - Tend to high-order functions
 - Tend to functional composition
 - Tend to continuation-passing style
 - Exploit subroutines (like tail recursion call)
-- Exploit memoization (currying, partial, caching...)
+- Exploit memorization (currying, partial, caching...)
 - Exploit combinators
-- Exploit macros (and protocols in a future)
+- Exploit macros (and protocols in a near future)
 
 ## Features
 
-- Data structures
-- Type check helpers
+- Powerful type checking helpers
+- Iterators and object transformers
+- Functional-oriented helpers (curry, partial, compose...)
+- Data equality comparison functions
 - Iterators and transformer helpers
-- Runs over node and browsers
+- Runs in node and browsers
 - Well tested with high coverage
 
 ## Installation
@@ -209,6 +210,12 @@ Return: `boolean`
 
 Checks if the given value is a finite number,
 or it can be coerced into it
+
+#### isNaN(value)
+Return: `boolean`
+
+Is it NaN (not a number)?
+More accurate than the native isNaN function
 
 #### isString(value)
 Return: `boolean`
@@ -376,12 +383,12 @@ to their corresponding HTML entities
 #### isOdd(number)
 Return: `boolean`
 
-Return `true` if the given number is odd
+Returns `true` if the given number is odd
 
 #### isEven(number)
 Return: `boolean`
 
-Return `true` if the given number is even
+Returns `true` if the given number is even
 
 #### max(...numbers)
 Return: `number`
@@ -403,10 +410,112 @@ Return: `number`
 
 Decrement the given value
 
-#### int(float)
+#### signum(number)
 Return: `number`
 
-Coerce to integer number by stripping decimal places
+Takes a number and returns either -1, 0,
+or 1 depending on the sign of the number
+
+#### isNegative(number)
+Return: `boolean`
+
+Returns `true` if the given number is negative
+
+#### negate(number)
+Return: `number`
+
+The negation of the given number
+
+#### recip(number)
+Return: `number`
+
+One over the number: ie 1 / x
+
+#### div(number)
+Return: `number`
+
+Division truncated down toward negative infinity
+
+#### max(...numbers)
+Return: `number`
+
+Returns the largest of zero or more numbers
+
+#### min(...numbers)
+Return: `number`
+
+Returns the smallest of zero or more numbers
+
+#### abs(number)
+Return: `number`
+
+Returns the absolute value of a number
+
+#### round(number)
+Return: `number`
+
+Returns the value of a number rounded to the nearest integer
+
+#### random()
+Return: `number`
+
+Returns a pseudo-random number between 0 and 1
+
+#### floor(number)
+Return: `number`
+
+Returns the largest integer less than or equal to a number
+
+#### sin(number)
+Return: `number`
+
+Returns the sine of a number
+
+#### tan(number)
+Return: `number`
+
+Returns the tangent of a number
+
+#### cos(number)
+Return: `number`
+
+Returns the cosine of a number
+
+#### asin(number)
+Return: `number`
+
+Returns the arcsine of a number
+
+#### atan(number)
+Return: `number`
+
+Returns the arctangent of a number
+
+#### atan2(number)
+Return: `number`
+
+Returns the cosine of a number
+
+#### ceil(number)
+Return: `number`
+
+Returns the smallest integer greater than or equal to a number
+
+#### exp(number)
+Return: `number`
+
+Returns Ex, where x is the argument, and E is Euler's constant (2.718...), the base of the natural logarithm
+
+#### sqrt(number)
+Return: `number`
+
+Returns the positive square root of a number
+
+#### PI
+Return: `number`
+
+Ratio of the circumference of a circle to
+its diameter, approximately 3.14159
 
 ### Arrays
 
@@ -505,29 +614,68 @@ Gets the size of the given collection
 #### constant(value)
 Return: `function`
 
-Returns a function that returns the given value.
-Useful for function composition
+Returns a function that returns the given value
 
-#### apply(function, args)
+```js
+var getter = hu.constant('john')
+getter() === 'john' // → true
+```
+
+#### apply(fn, args)
 Return: `mixed`
 
 Invokes a function without binding a context
 with the given arguments as array
 
 ```js
-function myFn(x, y) {}
-apply(myFn, [1, 2])
+function myFn(x, y) { return x * y }
+hu.apply(myFn, [2, 2]) // → 4
 ```
 
-#### bind(function, ctx)
+#### bind(fn, ctx)
 Return: `function`
 
-Invokes a function without binding a context
-with the given arguments as array
+Creates a function that, when called, invokes the function
+with the this binding of thisArg and prepends any additional
+bind arguments to those provided to the bound function
 
 ```js
-function myFn(x, y) {}
-apply(myFn, [1, 2])
+function func(greeting) {
+  return greeting + ' ' + this.name
+}
+func = hu.bind(func, { 'name': 'john' }, 'hi')
+func() // → 'hi john'
+```
+
+#### partial(fn, [ ...partialArgs ])
+Return: `function`
+
+Creates a function that, when called, invokes
+func with any additional partial arguments
+prepended to those provided to the new function
+
+```js
+function greet(greeting, name) {
+  return greeting + ' ' + name;
+}
+var hi = hu.partial(greet, 'hi');
+hi('john') // → 'hi john'
+```
+
+#### curry(fn, [ ctx ])
+Return: `function`
+
+Creates a function which accepts one or more
+arguments of the given function that when invoked either
+executes the function returning its result
+
+```js
+var curried = hu.curry(function(a, b, c) {
+  console.log(a + b + c)
+})
+curried(1)(2)(3) // → 6
+curried(1, 2)(3) // → 6
+curried(1, 2, 3) // → 6
 ```
 
 #### compose(...fn)
@@ -535,73 +683,95 @@ Return: `function`
 
 Creates a function that is the composition of the provided functions, where each function consumes the return value of the function that follows
 
-#### partial(fn, [ ...partialArgs ])
-Return: `function`
-
 ```js
-```
-
-#### curry(fn, [ ctx ])
-Return: `function`
-
-```js
-var fn = function () { }
-add-curried = curry add
-add-four = add-curried 4
-add-four 2 #=> 6
+function name(name) {
+  return name.toLowerCase() + '!'
+}
+function greet(name) {
+  return 'Hi ' + name
+}
+var welcome = hu.compose(name, greet);
+welcome('John') // → 'Hi john!'
 ```
 
 #### wrap(fn, wrapperFn, [ ...args ])
 Return: `function`
 
-Wraps the first function inside of the wrapper function, passing it as the first argument
-Aditionally you can define partial arguments that will  be passed to the wrapper
+Creates a function that provides value to the wrapper
+function as its first argument. Additional arguments
+provided to the function are appended to those provided
+to the wrapper function
 
 ```js
-var hello = function (name) { return "hi " + name; };
-hello = hu.wrap(hello, function (func, text, type) {
-  return "before, " + func("moe") + ", " + text + ": " + type + ", after";
-}, "type");
-hello("salutation");
-//=> 'before, hi moe, type: salutation, after'
+function hello(name) {
+  return "hi " + name;
+}
+hello = hu.wrap(hello, function (fn, text, type) {
+  return "before, " + fn("moe") + ", " + text + ": " + type + ", after"
+}, "type")
+hello("salutation") // → 'before, hi moe, type: salutation, after'
 ```
 
 #### once(fn)
 Return: `function`
 
-Creates a function that is restricted to execute once unique time.
-Subsuquents calls to the function will return the memoized value of the initial call
+Creates a function that is restricted to execute function
+once time. Subsuquents calls to the function will return
+the memoized value of the initial call
 
 ```js
-var hello = function (name) { return "hi " + name; };
-hello = hu.once(hello);
-hello("salutation");
-//=> 'before, hi moe, type: salutation, after'
+var times = 0
+var init = hu.once(function () {
+  return times += 1
+})
+init() // → 1
+init() // → 1
 ```
 
 #### times(fn, number)
 Return: `function`
 
-Creates a function that is restricted to be executed a maximun number of times.
-Subsuquents calls to the function will return the memoized value of the latest call
+Creates a function that is restricted to be executed
+a finite number of times. Subsuquents calls to the
+function will return the memoized value of the latest call
 
 ```js
-var hello = function (name) { return "hi " + name; };
-hello = hu.once(hello);
-hello("salutation");
-//=> 'before, hi moe, type: salutation, after'
+var times = 0
+var init = hu.times(function () {
+  return times += 1
+}, 2)
+init(); // → 1
+init(); // → 2
+init(); // → 2
 ```
 
-#### delay(fn, ms, [ ...args ])
+#### defer(fn, ms, [ ...args ])
 Return: `void`
 
 Executes the given function after wait milliseconds. You can provide arguments that will be passed to the function when it's invoked
 
-#### defer(fn, ms, [ ...args ])
+```js
+function delayed(text) {
+  console.log(text)
+}
+hu.defer(delayed, 1000, 'later')
+// → logs 'later' after one second
+```
+
+#### debounce(fn, ms, [ ...args ])
 Return: `function`
 
-Return a function that exectures the given function after wait milliseconds.
-You can provide arguments that will be passed to the function when it's invoked
+Return a function that executes the given function after wait
+milliseconds when it's called. You can provide arguments
+that will be passed to the function when it will be invoked
+
+```js
+function delayed(text, name) {
+  console.log(text, name)
+}
+var lazy = hu.debounce(delayed, 1000, 'later')
+lazy('call') // → logs 'later call' after one second
+```
 
 ### Equality
 
