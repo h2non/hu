@@ -1,7 +1,7 @@
 (ns hu.test.object
   (:require
     [assert :refer [equal deep-equal not-equal not-deep-equal]]
-    [hu.lib.hu :as _]))
+    [hu.lib.object :as _]))
 
 (suite :has
   (fn []
@@ -81,7 +81,7 @@
       (fn []
         (not-equal (.clone _ [1 2]) [1 2])))))
 
-(suite :key-values
+(suite :keyValues
   (fn []
     (test :basic
       (fn []

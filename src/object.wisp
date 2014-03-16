@@ -8,7 +8,7 @@
 (def ^:private has-own
   (.-has-own-property (.-prototype Object)))
 
-(defn ^boolean has
+(defcurry ^boolean has
   "Check if an object has the given own enumerable property"
   [obj prop]
   ((.-call has-own) obj, prop))
@@ -68,7 +68,7 @@
   "Returns a two dimensional array of an object’s key-value pairs"
   [obj]
   (.map (keys obj)
-        (fn [key] [key (get obj key)])))
+    (fn [key] [key (get obj key)])))
 
 (def ^fn pairs key-values)
 
@@ -84,26 +84,6 @@
               (aget key-values 1))
         (recur (.slice key-values 2) result))
       result)))
-
-(defn ^object map
-  "Maps object values by applying a callback to each one"
-  [source cb]
-  (.reduce
-    (keys source)
-      (fn [target key]
-        (set!
-          (aget target key) (cb (aget source key) key source)) target) source))
-
-(defn ^object filter
-  "Iterates over elements of a collection, returning an
-  array of all elements the callback returns true for"
-  [source cb]
-  (let [target {}]
-    (.reduce
-      (Object.keys source)
-      (fn [target key]
-       (cond (cb (aget source key) key source)
-         (set! (aget target key) (aget source key))) target) target) target))
 
 ; to do: recursive deep merge
 (def ^:private **oproto** (.-prototype Object))
@@ -126,3 +106,29 @@
                 (get descriptor key)
                 (.get-own-property-descriptor Object obj key))))) descriptor)
       {})))
+
+(defcurry ^object map
+  "Maps object values by applying with the value return
+  of each callback call on each one"
+  [source cb]
+  (.reduce
+    (keys source)
+      (fn [target key]
+        (set!
+          (aget target key) (cb (aget source key) key source)) target) source))
+
+(def ^object map-values map)
+
+(defcurry ^object filter
+  "Iterates over properties of an object,
+  returning an filtered new object of all
+  elements where the callback returns true"
+  [source cb]
+  (let [target {}]
+    (.reduce
+      (keys source)
+      (fn [target key]
+       (cond (cb (aget source key) key source)
+         (set! (aget target key) (aget source key))) target) target) target))
+
+(def ^object filter-values filter)

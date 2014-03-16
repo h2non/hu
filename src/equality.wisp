@@ -8,24 +8,29 @@
       :refer [keys]]))
 
 (defcurry ^boolean date-equal?
+  "Check if the given dates are equal"
   [x y]
   (and (date? x)
        (date? y)
        (? (Number x) (Number y))))
 
+(def ^boolean date-equal date-equal?)
+
 (defcurry ^boolean pattern-equal?
+  "Check if the given patterns are equal"
   [x y]
   (and (pattern? x)
        (pattern? y)
        (? (.-source x) (.-source y))
        (? (.-global x) (.-global y))
        (? (.-multiline x) (.-multiline y))
-       (? (.-ignoreCase x) (.-ignoreCase y))))
+       (? (.-ignoreCase x) (.-ignore-case y))))
 
 (def ^boolean reg-exp-equal? pattern-equal?)
+(def ^boolean pattern-equal pattern-equal?)
 
 (defcurry ^boolean array-equal?
-  "Check if two arrays has the same elements"
+  "Check if the given arrays has the same elements"
   [x y]
   (and
     (array? x)
@@ -41,9 +46,10 @@
             false)
       true))))
 
+(def ^boolean array-equal array-equal?)
+
 (defcurry ^boolean object-equal?
-  "Check if two objects has the same
-  value types on its properties"
+  "Check if two objects has the same value types on its properties"
   [x y]
   (and (object? x)
        (object? y)
@@ -62,9 +68,10 @@
                     false)
                   true))))))
 
+(def ^boolean object-equal object-equal?)
+
 (defn ^boolean equal?
-  "Returns true if x equals y, false if not. Compares
-  numbers and collections in a type-independent manner.
+  "Compares primitives types and data objects in a type-independent manner.
   Clojure's immutable data structures define -equiv (and thus =)
   as a value, not an identity, comparison."
   ([x] true)

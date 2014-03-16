@@ -1,19 +1,6 @@
 (ns hu.lib.array)
 
-(defn ^boolean in-array
+(defcurry ^boolean in-array
+  "Checks if an element exists in the given array"
   [arr element]
   (>= (.index-of arr element) 0))
-
-(defn concat
-  "Returns list representing the concatenation of the elements in the
-  supplied lists."
-  [& sequences]
-  (reverse
-    (reduce
-      (fn [result sequence]
-        (reduce
-          (fn [result item] (cons item result))
-          result
-          (seq sequence)))
-      '()
-      sequences)))

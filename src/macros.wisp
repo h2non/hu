@@ -33,12 +33,12 @@
 
 (defmacro defcurry
   [name & args]
-  (cond
+  (cond ; little hack for the wisp compiler
     (string? (.get-prototype-of Object (aget args 0)))
       (.shift args))
-  `(def ~name
-      (fn [& args]
-        (apply (curry (fn ~@args)) args))))
+  `(defn ~name
+      [& args]
+        (apply (curry (fn ~@args)) args)))
 
 (defmacro defcompose
   [name & args]

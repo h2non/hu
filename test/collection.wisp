@@ -1,7 +1,7 @@
 (ns hu.test.object
   (:require
-    [assert :refer [equal deep-equal not-equal]]
-    [hu.lib.hu :as _]))
+    [assert :refer [equal]]
+    [hu.lib.collection :as _]))
 
 (suite :each
   (fn []
@@ -16,11 +16,19 @@
         (.each _ [true] (fn [] (set! called true)))
         (equal called true)))))
 
-(suite :map
+(suite :size
   (fn []
-    (test :basic
+    (test :invalid
       (fn []
-        (deep-equal (.to-object _ :a 1 :b 2) {:a 1 :b 2})))
-    (test :nested
+        (equal
+          (.size _ :str) 0)
+        (equal
+          (.size _ nil) 0)))
+    (test :array
       (fn []
-        (not-equal (.to-object _ :a {:b 2}) {:a {:b 2}})))))
+        (equal
+          (.size _ [1 2]) 2)))
+    (test :object
+      (fn []
+        (equal
+          (.size _ {:a 1 :b 2}) 2)))))

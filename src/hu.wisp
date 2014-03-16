@@ -1,17 +1,27 @@
 (ns hu.src.index
   (:require
+    [hu.src.equality :as equality]
+    [hu.src.collection :as collection]
     [hu.src.common :as common]
     [hu.src.string :as string]
     [hu.src.number :as number]
-    [hu.src.array :as array]
     [hu.src.object :as object]
-    [hu.src.function :as fn]
-    [hu.src.collection :as col]
-    [hu.src.equality :as equal]))
+    [hu.src.array :as array]
+    [hu.src.function :as *function]
+    [hu.src.misc :as misc]))
 
 (def ^:private hu
   (set! (.-exports module)
     (apply (.-extend object)
-      [nil common string number array object fn col equal])))
+      [nil
+       misc
+       common
+       string
+       number
+       array
+       object
+       *function
+       collection
+       equality])))
 
 (set! (.-VERSION hu) :0.1.0)

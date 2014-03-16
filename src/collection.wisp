@@ -1,15 +1,23 @@
 (ns hu.lib.collection
   (:require
-    [hu.lib.common :refer [date? array? object? fn? iterable?]]
+    [hu.lib.common :refer [object? iterable?]]
     [hu.lib.object :refer [keys]]))
 
-(defn ^void each
+(defcurry ^void each
   "Iterates over elements of an iterable object,
   executing the callback for each element"
-  [obj cb]
-  (when (iterable? obj)
-    (.for-each (keys obj)
+  [clt cb]
+  (when (iterable? clt)
+    (.for-each (keys clt)
       (fn [index]
-        (cb (aget obj index) index obj)))) obj)
+        (cb (aget clt index) index clt)))) clt)
 
 (def ^void for-each each)
+
+(defn ^number size
+  "Gets the size of the given collection"
+  [clt]
+  (if (iterable? clt)
+    (if (object? clt)
+      (.-length (keys clt))
+      (.-length clt)) 0))

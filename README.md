@@ -238,12 +238,12 @@ Checks if the given value is a regexp type
 #### isArray(value)
 Return: `boolean`
 
-Checks if the given value is a array type
+Checks if the given value is an array type
 
 #### isObject(value)
 Return: `boolean`
 
-Checks if the given value is a object type
+Checks if the given value is an object type
 
 #### isPlainObject(value)
 Return: `boolean`
@@ -253,7 +253,7 @@ Checks if the given value is a native object type (it was createdd by the Object
 #### isError(value)
 Return: `boolean`
 
-Checks if the given value is a error type
+Checks if the given value is an error type
 
 #### isElement(value)
 Return: `boolean`
@@ -261,9 +261,9 @@ Return: `boolean`
 Checks if the given value is a DOM element object instance
 
 #### isArgs(value)
-Return: `boolean`
+Return: `boolean` | Alias: `isArguments`
 
-Checks if the given value is a arguments type
+Checks if the given value is an arguments object
 
 #### isUndef(value)
 Return: `boolean`
@@ -290,11 +290,11 @@ Objects, arrays, date objects, arguments objects and functions are considered mu
 #### isPrimitive(value)
 Return: `boolean`
 
-Checks if the given value is a primitive value type
+Checks if the given value is a primitive value type.
 Strings, numbers, booleans, symbols and null are considered primitives values
 
 #### isIterable(value)
-Return: `boolean`
+Return: `boolean` | Alias: `canIterate`
 
 Checks if the given value can be iterated.
 Objects, arrays, and arguments objects are considered iterables data types
@@ -313,26 +313,10 @@ Checks if the given object values and keys are equals
 
 ### Strings
 
-#### escape(str)
-Return: `string`
-
-Converts the characters &, <, >, ", and ' in the given string
-to their corresponding HTML entities
-
 #### subs(str, start, end)
 Return: `string`
 
 Extract characters from the given string
-
-#### reverse(str)
-Return: `string`
-
-Reverse characters of the given string
-
-#### repeat(number, str)
-Return: `string`
-
-Repeat the given string
 
 #### lines(str)
 Return: `array`
@@ -370,6 +354,22 @@ Return: `string`
 
 Return the given unicode number into his
 equivalent character
+
+#### reverse(str)
+Return: `string`
+
+Reverse characters of the given string
+
+#### repeat(number, str)
+Return: `string`
+
+Repeat the given string
+
+#### escape(str)
+Return: `string`
+
+Converts the characters &, <, >, ", and ' in the given string
+to their corresponding HTML entities
 
 ### Numbers
 
@@ -410,15 +410,10 @@ Coerce to integer number by stripping decimal places
 
 ### Arrays
 
-#### has-array(arr, element)
-Return: `boolean`
+#### inArray(arr, element)
+Return: `boolean` | Curried: `true`
 
-Returns `true if vector contains given element
-
-#### isArrayEqual(x, y)
-Return: `boolean`
-
-Return `true` if the given arrays are equals
+Checks if an element exists in the given array
 
 ### Objects
 
@@ -464,6 +459,19 @@ Return: `object`
 
 Adds function properties of a source object to the destination object
 
+#### map(obj, function)
+Return: `object` | Alias: `mapValues` | Curried: `true`
+
+Maps object values by applying with the value return
+of each callback call on each one
+
+#### filter(obj, function)
+Return: `object` | Alias: `filterValues` | Curried: `true`
+
+Iterates over properties of an object,
+returning an filtered new object of all
+elements where the callback returns true
+
 #### clone(object)
 Return: `object`
 
@@ -481,15 +489,16 @@ the latter (left-to-right) will be the mapping in the result
 ### Collections
 
 #### each(obj, function)
-Return: `void` | Alias:  `forEach`
+Return: `object` | Alias:  `forEach`
 
 Iterates over elements of an iterable object,
-executing the callback for each element
+executing the callback for each element.
+It will return the same given object
 
-#### filter(obj, function)
-Return: `array`
+#### size(obj)
+Return: `number`
 
-Iterates over elements of a collection, returning an array of all elements the callback returns truey for
+Gets the size of the given collection
 
 ### Functions
 
@@ -597,19 +606,29 @@ You can provide arguments that will be passed to the function when it's invoked
 ### Equality
 
 #### isEqual(x, y)
-Return: `boolean` | Alias: `equal`
+Return: `boolean` | Alias: `equal`, `deepEqual`, 'isDeepEqual'
 
-#### deepEqual(x, y)
-Return: `boolean` | Alias: `deepEqual`
+Compares primitives types and data objects in a type-independent manner.
+Clojure's immutable data structures define -equiv (and thus =)
+as a value, not an identity, comparison.
 
-#### isPatternEqual
-Return: `boolean` | Alias: `isRegExpEqual`
+#### isPatternEqual(x, y)
+Return: `boolean` | Alias: `isRegExpEqual`, `patternEqual` | Curried: `true`
 
-#### isArrayEqual
-Return: `boolean`
+Check if the given dates are equal
 
-#### isObjectEqual
-Return: `boolean`
+#### isDateEqual(x, y)
+Return: `boolean` | Alias: `dateEqual` | Curried: `true`
+
+Check if the given dates are equal
+
+#### isArrayEqual(x, y)
+Return: `boolean` | Alias: `arrayEqual` | Curried: `true`
+
+Check if the given arrays has the same elements
+
+#### isObjectEqual(x, y)
+Return: `boolean` | Alias: `objectEqual` | Curried: `true`
 
 Check if two objects has the same value types on its properties
 
@@ -634,6 +653,11 @@ The no-operation function, that returns `void`
 Return: `number`
 
 Returns an integer timestamp for the current time
+
+#### _global()
+Return: `object`
+
+Environment specific global object
 
 ## Contributing
 
