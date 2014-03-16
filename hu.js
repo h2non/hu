@@ -132,6 +132,9 @@ var isNumber = exports.isNumber = function isNumber(x) {
 var isFinite = exports.isFinite = function isFinite(x) {
         return _global.isFinite(parseFloat(x));
     };
+var isNaN = exports.isNaN = function isNaN(x) {
+        return x === x ? false : true;
+    };
 var isSymbol = exports.isSymbol = function isSymbol(x) {
         return toStr(x) === '[object Symbol]';
     };
@@ -419,17 +422,17 @@ var times = exports.times = function times(f, n) {
             };
         }.call(this);
     };
-var delay = exports.delay = function delay(f, ms) {
+var defer = exports.defer = function defer(f, ms) {
         var args = Array.prototype.slice.call(arguments, 2);
         return setTimeout(function () {
             return f.apply(void 0, args);
         }, ms || 1000);
     };
-var defer = exports.defer = function defer() {
+var debounce = exports.debounce = function debounce() {
         var args = Array.prototype.slice.call(arguments, 0);
         return function () {
             var cargs = Array.prototype.slice.call(arguments, 0);
-            return delay.apply(void 0, args.concat(cargs));
+            return defer.apply(void 0, args.concat(cargs));
         };
     };
 },{"./common":3,"./function":5}],6:[function(_dereq_,module,exports){
@@ -548,6 +551,7 @@ var max = exports.max = Math.max;
 var min = exports.min = Math.min;
 var abs = exports.abs = Math.abs;
 var round = exports.round = Math.round;
+var random = exports.random = Math.random;
 var floor = exports.floor = Math.floor;
 var sin = exports.sin = Math.sin;
 var tan = exports.tan = Math.tan;
@@ -556,9 +560,9 @@ var asin = exports.asin = Math.asin;
 var atan = exports.atan = Math.atan;
 var atan2 = exports.atan2 = Math.atan2;
 var ceil = exports.ceil = Math.ceil;
-var PI = exports.PI = Math.PI;
 var exp = exports.exp = Math.exp;
 var sqrt = exports.sqrt = Math.sqrt;
+var PI = exports.PI = Math.PI;
 var odd = exports.odd = function odd(n) {
         return n % 2 > 0 || n % 2 < 0;
     };
@@ -588,9 +592,6 @@ var div = exports.div = function div() {
         return curry(function (x, y) {
             return floor(x / y);
         }).apply(void 0, args);
-    };
-var isNaN = exports.isNaN = function isNaN(x) {
-        return x === x ? false : true;
     };
 },{"./common":3,"./function":5}],9:[function(_dereq_,module,exports){
 {
