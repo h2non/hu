@@ -85,6 +85,36 @@
             (fn [x] (+ "hi " x))
             (fn [x] (+ "say: " x))) "!") "say: hi hu!")))))
 
+(suite :once
+  (fn []
+    (test :basic
+      (fn []
+        (let [c 0
+              f (.once _ (fn [] (set! c (+ c 1))))]
+              (equal (f) 1)
+              (equal (f) 1))))
+    (test :arguments
+      (fn []
+        (let [f (.once _ (fn [n] (+ n 1)))]
+              (equal (f 1) 2)
+              (equal (f 2) 2))))))
+
+(suite :times
+  (fn []
+    (test :basic
+      (fn []
+        (let [c 0
+              f (.times _ (fn [] (set! c (+ c 1))) 2)]
+              (equal (f) 1)
+              (equal (f) 2)
+              (equal (f) 2))))
+    (test :arguments
+      (fn []
+        (let [f (.times _ (fn [n] (+ n 1)) 2)]
+              (equal (f 1) 2)
+              (equal (f 2) 3)
+              (equal (f 2) 3))))))
+
 (suite :delay
   (fn []
     (test :basic

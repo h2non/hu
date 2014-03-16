@@ -8,7 +8,7 @@ BANNER = "/*! hu.js - v0.1.0 - MIT License - https://github.com/h2non/hu */"
 default: all
 all: test browser
 browser: cleanbrowser test banner browserify uglify
-compile: mkdir clean index string number common object array function
+compile: mkdir clean index string number common object array equality collection function
 test: compile runtest
 
 mkdir:
@@ -29,8 +29,14 @@ object:
 array:
 	cat src/macros.wisp src/array.wisp | $(WISP) --source-uri src/array.wisp --no-map > ./lib/array.js
 
+collection:
+	cat src/macros.wisp src/collection.wisp | $(WISP) --source-uri src/collection.wisp --no-map > ./lib/collection.js
+
 function:
-	cat src/function.wisp | $(WISP) --source-uri src/function.wisp --no-map > ./lib/function.js
+	cat src/macros.wisp src/function.wisp | $(WISP) --source-uri src/function.wisp --no-map > ./lib/function.js
+
+equality:
+	cat src/macros.wisp src/equality.wisp | $(WISP) --source-uri src/equality.wisp --no-map > ./lib/equality.js
 
 index:
 	cat src/hu.wisp | $(WISP) --source-uri src/hu.wisp --no-map > ./lib/hu.js

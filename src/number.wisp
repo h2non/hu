@@ -55,11 +55,3 @@
 (defn ^number NaN?
   [x]
   (if (identical? x x) false true))
-
-(defn ^number int
-  [x]
-  (if (>= x 0)
-      (.floor Math x)
-      (.floor Math x))
-    (.char-code-at x 0))
-

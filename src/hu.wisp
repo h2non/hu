@@ -5,11 +5,13 @@
     [hu.src.number :as number]
     [hu.src.array :as array]
     [hu.src.object :as object]
-    [hu.src.function :as fn]))
+    [hu.src.function :as fn]
+    [hu.src.collection :as col]
+    [hu.src.equality :as equal]))
 
 (def ^:private hu
   (set! (.-exports module)
     (apply (.-extend object)
-      [nil common string number array object fn])))
+      [nil common string number array object fn col equal])))
 
 (set! (.-VERSION hu) :0.1.0)

@@ -1,28 +1,37 @@
 (ns hu.lib.object
-  (:require [hu.lib.common :refer [object? fn? iterable?]]))
+  (:require
+    [hu.lib.common
+      :refer [date? array? object? fn? null? undef? string? number? bool? iterable? pattern? pattern-equal? date-equal?]]
+    [hu.lib.number
+      :refer [inc dec]]))
 
 (def ^:private has-own
   (.-has-own-property (.-prototype Object)))
 
 (defn ^boolean has
+  "Check if an object has the given own enumerable property"
   [obj prop]
   ((.-call has-own) obj, prop))
 
 (defn ^array keys
+  "Returns a sequence of the map's keys"
   [obj]
   (.keys Object obj))
 
 (defn ^array vals
+  "Returns a sequence of the map's values"
   [obj]
   (.map (keys obj)
     (fn [key] (get obj key))))
 
 (defn ^object extend
+  "Assigns own enumerable properties of source object(s)
+  to the destination object"
   [target & origins]
-  (def obj (if (object? target) target {}))
+  (def obj (when (object? target) target {}))
   (.reduce origins
     (fn [origin o index]
-      (if (object? origin)
+      (when (object? origin)
         (.for-each (keys origin)
           (fn [name]
             (set! (aget obj name) (aget origin name)))))
@@ -32,11 +41,12 @@
 (def ^object assign extend)
 
 (defn ^object mixin
+  "Adds function properties of a source object to the destination object"
   [target & origins]
-  (def obj (if (object? target) target {}))
+  (def obj (when (object? target) target {}))
   (.reduce origins
     (fn [origin _ index]
-      (if (object? origin)
+      (when (object? origin)
         (.for-each (keys origin)
           (fn [name]
             (cond (fn? (aget origin name))
@@ -44,27 +54,27 @@
       (aget origins (+ index 1)))
     (aget origins 0)) obj)
 
-(defn ^void each
-  [obj cb ctx]
-  (if (iterable? obj)
-    (.for-each (keys obj)
-      (fn [index]
-        (cb (aget obj index) index obj)))) obj)
-
-(def ^void for-each each)
-
 (defn ^object clone
+  "Creates a clone of the given object"
   [obj]
-  (set! obj (if (object? obj) obj {} )) obj)
+  (when (array? obj)
+    (.slice obj)
+  (when (object? obj)
+    (extend {} obj)
+  (when (date? obj)
+    (Date. (.get-time obj)) obj))))
 
 (defn ^object key-values
+  "Returns a two dimensional array of an object’s key-value pairs"
   [obj]
   (.map (keys obj)
         (fn [key] [key (get obj key)])))
 
-(defn ^object ->obj
-  "Creates dictionary of given arguments. Odd indexed arguments
-  are used for keys and evens for values"
+(def ^fn pairs key-values)
+
+(defn ^object ->object
+  "Creates an object of given arguments
+  Odd indexed arguments are used for keys and evens for values"
   [& pairs]
   (loop [key-values pairs
          result {}]
@@ -76,80 +86,43 @@
       result)))
 
 (defn ^object map
-  "Maps dictionary values by applying `cb` to each one"
+  "Maps object values by applying a callback to each one"
   [source cb]
   (.reduce
     (keys source)
       (fn [target key]
-        (set! (get target key) (cb (get source key)))
-        target) {}))
+        (set!
+          (aget target key) (cb (aget source key) key source)) target) source))
+
+(defn ^object filter
+  "Iterates over elements of a collection, returning an
+  array of all elements the callback returns true for"
+  [source cb]
+  (let [target {}]
+    (.reduce
+      (Object.keys source)
+      (fn [target key]
+       (cond (cb (aget source key) key source)
+         (set! (aget target key) (aget source key))) target) target) target))
+
+; to do: recursive deep merge
+(def ^:private **oproto** (.-prototype Object))
 
 (defn ^object merge
-  "Returns a dictionary that consists of the rest of the maps conj-ed onto
-  the first. If a key occurs in more than one map, the mapping from
-  the latter (left-to-right) will be the mapping in the result."
+  "Similar to `extend`, it returns an object that consists
+  of the rest of the maps conj-ed onto the first.
+  If a key occurs in more than one map, the mapping from
+  the latter (left-to-right) will be the mapping in the result"
   [& args]
   (.create Object
-   (.-prototype Object)
-   (.reduce args
-    (fn [descriptor obj]
-      (if (object? obj)
-        (.for-each
-         (keys obj)
-         (fn [key]
-           (set!
-            (get descriptor key)
-            (.get-own-property-descriptor Object obj key)))))
-      descriptor)
-    (.create Object (.-prototype Object)))))
-
-(defn ^boolean equal?
-  "Equality. Returns true if x equals y, false if not. Compares
-  numbers and collections in a type-independent manner. Clojure's
-  immutable data structures define -equiv (and thus =) as a value,
-  not an identity, comparison."
-  ([x] true)
-  ([x y] (or (identical? x y)
-             (cond (nil? x) (nil? y)
-                   (nil? y) (nil? x)
-                   (string? x) (and (string? y) (identical? x y))
-                   (number? x) (and (number? y) (identical? x y))
-                   (fn? x) false
-                   (bool? x) false
-                   (date? x) (date-equal? x y)
-                   (vector? x) (vector-equal? x y [] [])
-                   (re-pattern? x) (pattern-equal? x y)
-                   :else (dictionary-equal? x y))))
-  ([x y & more]
-   (loop [previous x
-          current y
-          index 0
-          count (.-length more)]
-    (and (equal? previous current)
-         (if (< index count)
-          (recur current
-                 (get more index)
-                 (inc index)
-                 count)
-          true)))))
-
-(def ^boolean deep-equal? equal?)
-
-(defn- ^boolean object-equal?
-  [x y]
-  (and (object? x)
-       (object? y)
-       (let [x-keys (keys x)
-             y-keys (keys y)
-             x-count (.-length x-keys)
-             y-count (.-length y-keys)]
-         (and (identical? x-count y-count)
-              (loop [index 0
-                     count x-count
-                     keys x-keys]
-                (if (< index count)
-                  (if (equivalent? (get x (get keys index))
-                                   (get y (get keys index)))
-                    (recur (inc index) count keys)
-                    false)
-                  true))))))
+    **oproto**
+    (.reduce args
+      (fn [descriptor obj]
+        (if (object? obj)
+          (.for-each
+            (keys obj)
+            (fn [key]
+              (set!
+                (get descriptor key)
+                (.get-own-property-descriptor Object obj key))))) descriptor)
+      {})))

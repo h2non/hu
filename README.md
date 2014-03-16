@@ -1,7 +1,6 @@
 # hu [![Build Status](https://secure.travis-ci.org/h2non/hu.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/h2non/hu.png)][gemnasium] [![NPM version](https://badge.fury.io/js/hu.png)][npm]
 
-> Spoiler! Funny work in progress!
-> hu is still a just-for-learn&fun experimental project
+> **Disclaimer**: hu is still a just-for-fun and learn experimental project
 
 <table>
 <tr>
@@ -10,19 +9,21 @@
 <tr>
 <td><b>Stage</b></td><td>experimental</td>
 </tr>
+<tr>
+<td><b>Fun</b></td><td>true</td>
+</tr>
 </table>
 
 ## About
 
-**hu** is a functional utility helper library
-inspired by haskell's prelude
+**hu** is a functional-oriented utility helper library
+inspired by haskell's prelude and lodash/underscore
 
-Instead of Underscore, Lodash or Sugar.js, hu only provides a reduced set of the most common
-functions, keeping it as a lightweight
-and small library which can be easily embeded as a part of an
-application, library or framework without making noise
+Instead of other well-knowed libraries sush as Lodash or Sugar.js, hu only provides a reduced but generic set of most common and useful functions.
+It aims to be a lightweight and small library which can be easily embeded as a part of an application, library or framework without making noise
 
-hu is still a just-for-fun experimental project. It's pronuncied `ju`
+hu helper functions are almost curried.
+It's still a just-for-fun experimental project. It should be pronuncied `ju`
 
 ### Motivation
 
@@ -55,7 +56,7 @@ JavaScript is a ubiquitous well-extended, multi-purpose and multi-paradigm cool 
 JavaScript is in fact a not pure functional language, however
 its natural extensibility allows to apply different paradigms to it and today a lot of languages that transpiles into JavaScript helps with that
 
-Some of the intended ambitious implementation goals are:
+hu is implemented keeping in mind the following ambitious goals:
 
 - Assume it's a first-class function only language
 - Pure functions as a norm
@@ -68,9 +69,11 @@ Some of the intended ambitious implementation goals are:
 - Exploit subroutines (like tail recursion call)
 - Exploit memoization (currying, partial, caching...)
 - Exploit combinators
+- Exploit macros (and protocols in a future)
 
 ## Features
 
+- Data structures
 - Type check helpers
 - Iterators and transformer helpers
 - Runs over node and browsers
@@ -102,10 +105,10 @@ It works properly in any ES5 compliant environment, however just for
 a formalism, those environments are:
 
 - Node.js
-- Chrome
+- Chrome >= 5
 - Firefox
 - Safari >= 5
-- Opera >= 11.6
+- Opera >= 12
 - IE >= 9
 
 ## API
@@ -228,7 +231,7 @@ Return: `boolean`
 Checks if the given value is a date type
 
 #### isRegExp(value)
-Return: `boolean`
+Return: `boolean` | Alias: `isPattern`
 
 Checks if the given value is a regexp type
 
@@ -425,22 +428,38 @@ Return: `boolean`
 Checks if the specified property name exists as a
 own property of the given object
 
-#### keys
+#### keys(obj)
 Return: `array`
 
 Returns a sequence of the map's keys
 
-#### values
+#### vals(obj)
 Return: `array`
 
 Returns a sequence of the map's values
 
-#### extend(target, origin)
+#### keyValues(obj)
+Return: `array` | Alias: `pairs`
+
+Returns a two dimensional array of an object’s key-value pairs
+
+#### toObject(obj)
+Return: `array`
+
+Creates an object of given arguments.
+Odd indexed arguments are used for keys and evens for values
+
+#### keyValues(obj)
+Return: `array`
+
+Returns a sequence of the map's values
+
+#### extend(target, ...origins)
 Return: `object` | Alias: `assign`
 
 Assigns own enumerable properties of source object(s) to the destination object
 
-#### mixin(target, origin)
+#### mixin(target, ...origins)
 Return: `object`
 
 Adds function properties of a source object to the destination object
@@ -450,13 +469,27 @@ Return: `object`
 
 Creates a clone of the given object
 
+#### merge(x, y)
+Return: `object`
+
+Similar to `extend`, it returns an object that consists
+of the rest of the maps conj-ed onto the first
+
+If a key occurs in more than one map, the mapping from
+the latter (left-to-right) will be the mapping in the result
+
 ### Collections
 
-#### each(obj, function, ctx)
+#### each(obj, function)
 Return: `void` | Alias:  `forEach`
 
-Iterates over elements of a collection,
+Iterates over elements of an iterable object,
 executing the callback for each element
+
+#### filter(obj, function)
+Return: `array`
+
+Iterates over elements of a collection, returning an array of all elements the callback returns truey for
 
 ### Functions
 
@@ -524,6 +557,32 @@ hello("salutation");
 //=> 'before, hi moe, type: salutation, after'
 ```
 
+#### once(fn)
+Return: `function`
+
+Creates a function that is restricted to execute once unique time.
+Subsuquents calls to the function will return the memoized value of the initial call
+
+```js
+var hello = function (name) { return "hi " + name; };
+hello = hu.once(hello);
+hello("salutation");
+//=> 'before, hi moe, type: salutation, after'
+```
+
+#### times(fn, number)
+Return: `function`
+
+Creates a function that is restricted to be executed a maximun number of times.
+Subsuquents calls to the function will return the memoized value of the latest call
+
+```js
+var hello = function (name) { return "hi " + name; };
+hello = hu.once(hello);
+hello("salutation");
+//=> 'before, hi moe, type: salutation, after'
+```
+
 #### delay(fn, ms, [ ...args ])
 Return: `void`
 
@@ -535,9 +594,24 @@ Return: `function`
 Return a function that exectures the given function after wait milliseconds.
 You can provide arguments that will be passed to the function when it's invoked
 
-#### equal(x, y)
+### Equality
+
+#### isEqual(x, y)
+Return: `boolean` | Alias: `equal`
 
 #### deepEqual(x, y)
+Return: `boolean` | Alias: `deepEqual`
+
+#### isPatternEqual
+Return: `boolean` | Alias: `isRegExpEqual`
+
+#### isArrayEqual
+Return: `boolean`
+
+#### isObjectEqual
+Return: `boolean`
+
+Check if two objects has the same value types on its properties
 
 ### Miscellaneous
 

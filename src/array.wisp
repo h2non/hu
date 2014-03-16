@@ -1,21 +1,19 @@
 (ns hu.lib.array)
 
-(defn ^boolean has-array
+(defn ^boolean in-array
   [arr element]
   (>= (.index-of arr element) 0))
 
-(defn ^boolean array-equal?
-  [x y]
-  (and
-    (vector? x)
-    (vector? y)
-    (identical? (.-length x) (.-length y))
-    (loop [xs x
-          ys y
-          index 0
-          count (.-length x)]
-      (if (< index count)
-        (if (equivalent? (get xs index) (get ys index))
-            (recur xs ys (inc index) count)
-            false)
-      true))))
+(defn concat
+  "Returns list representing the concatenation of the elements in the
+  supplied lists."
+  [& sequences]
+  (reverse
+    (reduce
+      (fn [result sequence]
+        (reduce
+          (fn [result item] (cons item result))
+          result
+          (seq sequence)))
+      '()
+      sequences)))
