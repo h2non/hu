@@ -247,8 +247,9 @@ var constant = exports.constant = function constant(x) {
             return x;
         };
     };
+var identify = exports.identify = constant;
 var apply = exports.apply = function apply(f, args) {
-        return f.apply(void 0, args);
+        return f.apply(f, args);
     };
 var bind = exports.bind = function bind(f, ctx) {
         return bindFn.call(f, ctx);

@@ -640,7 +640,7 @@ Gets the size of the given collection
 ### Functions
 
 #### constant(value)
-Return: `function`
+Return: `function` | Alias: `identity`
 
 Returns a function that returns the given value
 
@@ -652,7 +652,7 @@ getter() === 'john' // → true
 #### apply(fn, args)
 Return: `mixed`
 
-Invokes a function without binding a context
+Invokes a function binding itself function object context
 with the given arguments as array
 
 ```js

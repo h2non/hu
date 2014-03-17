@@ -7,10 +7,12 @@
   "Creates a function that returns value"
   [x] (fn [] x))
 
+(def ^fn identify constant)
+
 (defn ^mixed apply
   "Invokes a function without binding a context
   with the given arguments as array"
-  [f args] (.apply f nil args))
+  [f args] (.apply f f args))
 
 (defn ^fn bind
   "Creates a function that, when called, invokes the function
