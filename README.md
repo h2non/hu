@@ -113,7 +113,7 @@ hu is implemented keeping in mind the following “ambitious” functional focus
 - Exploit subroutines (like tail recursion call)
 - Exploit memorization (currying, partial, caching...)
 - Exploit combinators
-- Macros are a great thing, use it
+- Macros are a great thing, use&love it
 
 ## API
 
