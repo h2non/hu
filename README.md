@@ -136,6 +136,7 @@ hu is implemented keeping in mind the following “ambitious” functional focus
   - [isUndef](#isundefvalue)
   - [isNull](#isnullvalue)
   - [isEmpty](#isemptyvalue)
+  - [notEmpty](#notemptyvalue)
   - [isMutable](#ismutablevalue)
   - [isPrimitive](#isprimitivevalue)
   - [isIterable](#isiterablevalue)
@@ -154,6 +155,8 @@ hu is implemented keeping in mind the following “ambitious” functional focus
 - Numbers
   - [odd](#oddnumber)
   - [even](#evennumber)
+  - [lower](#lowerx-y)
+  - [higher](#higherx-y)
   - [max](#maxnumbers)
   - [min](#minnumbers)
   - [inc](#incnumber)
@@ -167,7 +170,7 @@ hu is implemented keeping in mind the following “ambitious” functional focus
   - [min](#minnumbers-1)
   - [abs](#absnumber)
   - [round](#roundnumber)
-  - [random](#random)
+  - [random()](#random)
   - [floor](#floornumber)
   - [sin](#sinnumber)
   - [tan](#tannumber)
@@ -181,6 +184,10 @@ hu is implemented keeping in mind the following “ambitious” functional focus
   - [PI](#pi)
 - Arrays
   - [inArray](#inarrayarr-element)
+  - [head](#headarr)
+  - [tail](#tailarr)
+  - [last](#lastarr)
+  - [initial](#initialarr)
 - Objects
   - [has](#hasobj-property)
   - [keys](#keysobj)
@@ -196,6 +203,7 @@ hu is implemented keeping in mind the following “ambitious” functional focus
 - Collections
   - [each](#eachobj-function)
   - [size](#sizeobj)
+  - [compact](#compactobj)
 - Functions
   - [constant](#constantvalue)
   - [apply](#applyfn-args)
@@ -203,18 +211,18 @@ hu is implemented keeping in mind the following “ambitious” functional focus
   - [partial](#partialfn--partialargs-)
   - [curry](#curryfn--ctx-)
   - [compose](#composefn)
-  - [memoize](#memoizefn)
+  - [memoize](#memoizefn-resolver)
   - [wrap](#wrapfn-wrapperfn--args-)
   - [once](#oncefn)
   - [times](#timesfn-number)
   - [defer](#deferfn-ms--args-)
   - [debounce](#debouncefn-ms--args-)
 - Equality
-  - [isEqual](#isequalx-y-1)
+  - [isEqual](#isequalx-y)
   - [isPatternEqual](#ispatternequalx-y)
   - [isDateEqual](#isdateequalx-y)
   - [isArrayEqual](#isarrayequalx-y)
-  - [isObjectEqual](#isobjectequalx-y-1)
+  - [isObjectEqual](#isobjectequalx-y)
 - Miscellaneous
   - [log](#logmsg)
   - [isBrowser](#isbrowser)
