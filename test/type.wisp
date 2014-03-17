@@ -1,7 +1,7 @@
-(ns hu.test.common
+(ns hu.test.type
   (:require
     [assert :refer [equal]]
-    [hu.lib.hu :as _]))
+    [hu.lib.type :as _]))
 
 (suite :isNull
   (fn []

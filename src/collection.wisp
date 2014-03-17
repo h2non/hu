@@ -1,6 +1,6 @@
 (ns hu.lib.collection
   (:require
-    [hu.lib.common :refer [object? iterable?]]
+    [hu.lib.type :refer [object? iterable?]]
     [hu.lib.object :refer [keys]]))
 
 (defcurry ^void each

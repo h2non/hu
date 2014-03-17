@@ -2,7 +2,7 @@
   (:require
     [hu.src.equality :as equality]
     [hu.src.collection :as collection]
-    [hu.src.common :as common]
+    [hu.src.type :as type]
     [hu.src.string :as string]
     [hu.src.number :as number]
     [hu.src.object :as object]
@@ -15,7 +15,7 @@
     (apply (.-extend object)
       [nil
        misc
-       common
+       type
        string
        number
        array

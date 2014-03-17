@@ -2,7 +2,7 @@
   (:require
     [assert :refer [equal deep-equal]]
     [hu.lib.function :as _]
-    [hu.lib.common :refer [fn?]]))
+    [hu.lib.type :refer [fn?]]))
 
 (suite :constant
   (fn []

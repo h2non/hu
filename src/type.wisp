@@ -1,4 +1,4 @@
-(ns hu.lib.common
+(ns hu.lib.type
   (:require
     [hu.lib.misc :refer [browser? *global]]))
 

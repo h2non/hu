@@ -223,17 +223,20 @@ a formalism, those environments are:
 
 ### Overview example
 
+In JavaScript Harminy (ES6)
 ```js
-var { log filter even } = require('hu')
+var { log filter even inc } = require('hu')
 
-log(filter({a: 1, b: 2 }, even)) // => [1, 2]
- map (^2) |> filter even |> fold (+), 0 #=> 20
-
-log(map(clean({ a: 'value', b: null })).join(', '))
+log(map(filter({a: 1, b: 2}, even), inc))
+// => { b: 3 }
 ```
 
+Or with the funny LiveScript
 ```livescript
-a: 'value', b: null |> clean |> map |> log
+(a: 1, b: 2)
+  |> filter _, even
+  |> map _, inc
+  |> log
 ```
 
 ### Type checking

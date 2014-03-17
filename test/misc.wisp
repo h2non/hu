@@ -2,7 +2,7 @@
   (:require
     [assert :refer [equal]]
     [hu.lib.misc :as _]
-    [hu.lib.common :refer [number?]]))
+    [hu.lib.type :refer [number?]]))
 
 (suite :noop
   (fn []

@@ -1,6 +1,6 @@
 (ns hu.lib.object
   (:require
-    [hu.lib.common
+    [hu.lib.type
       :refer [date? array? object? fn? null? undef? string? number? bool? iterable? pattern? pattern-equal? date-equal?]]
     [hu.lib.number
       :refer [inc dec]]))

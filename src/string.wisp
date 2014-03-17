@@ -1,6 +1,6 @@
 (ns hu.lib.string
   (:require
-    [hu.lib.common :refer [string? array? number?]]
+    [hu.lib.type :refer [string? array? number?]]
     [hu.lib.object :refer [keys]]))
 
 (def ^:private EOL #"[\n|\r]")

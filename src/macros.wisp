@@ -1,7 +1,7 @@
 (ns hu.lib.macros
   (:require
     [hu.lib.function :refer [curry compose]]
-    [hu.lib.common :refer [string? array? object?]]))
+    [hu.lib.type :refer [string? array? object?]]))
 
 (defmacro str
   [x expr]

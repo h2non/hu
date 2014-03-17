@@ -14,6 +14,6 @@
   (do
     (and
       (? (typeof window) "object")
-      (fn? (.-HTMLElement window)))))
+      (.-HTMLElement window))))
 
 (def ^object *global (if browser? window global))

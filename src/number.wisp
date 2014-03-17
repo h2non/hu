@@ -1,6 +1,6 @@
 (ns hu.lib.number
   (:require
-    [hu.lib.common :refer [number?]]))
+    [hu.lib.type :refer [number?]]))
 
 (def ^number max (.-max Math))
 (def ^number min (.-min Math))

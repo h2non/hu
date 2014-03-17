@@ -8,10 +8,10 @@
     var hu_lib_function = _dereq_('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_common = _dereq_('./common');
-    var isString = hu_lib_common.isString;
-    var isArray = hu_lib_common.isArray;
-    var isObject = hu_lib_common.isObject;
+    var hu_lib_type = _dereq_('./type');
+    var isString = hu_lib_type.isString;
+    var isArray = hu_lib_type.isArray;
+    var isObject = hu_lib_type.isObject;
 }
 void 0;
 void 0;
@@ -34,7 +34,7 @@ var inArray = exports.inArray = function inArray() {
             return arr.indexOf(element) >= 0;
         }).apply(void 0, args);
     };
-},{"./common":3,"./function":5}],2:[function(_dereq_,module,exports){
+},{"./function":4,"./type":10}],2:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.macros',
@@ -43,10 +43,10 @@ var inArray = exports.inArray = function inArray() {
     var hu_lib_function = _dereq_('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_common = _dereq_('./common');
-    var isString = hu_lib_common.isString;
-    var isArray = hu_lib_common.isArray;
-    var isObject = hu_lib_common.isObject;
+    var hu_lib_type = _dereq_('./type');
+    var isString = hu_lib_type.isString;
+    var isArray = hu_lib_type.isArray;
+    var isObject = hu_lib_type.isObject;
 }
 void 0;
 void 0;
@@ -62,9 +62,9 @@ void 0;
             id: 'hu.lib.collection',
             doc: void 0
         };
-    var hu_lib_common = _dereq_('./common');
-    var isObject = hu_lib_common.isObject;
-    var isIterable = hu_lib_common.isIterable;
+    var hu_lib_type = _dereq_('./type');
+    var isObject = hu_lib_type.isObject;
+    var isIterable = hu_lib_type.isIterable;
     var hu_lib_object = _dereq_('./object');
     var keys = hu_lib_object.keys;
 }
@@ -81,7 +81,7 @@ var forEach = exports.forEach = each;
 var size = exports.size = function size(clt) {
         return isIterable(clt) ? isObject(clt) ? keys(clt).length : clt.length : 0;
     };
-},{"./common":3,"./function":5,"./object":9}],3:[function(_dereq_,module,exports){
+},{"./function":4,"./object":8,"./type":10}],3:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.macros',
@@ -90,113 +90,10 @@ var size = exports.size = function size(clt) {
     var hu_lib_function = _dereq_('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_common = _dereq_('./common');
-    var isString = hu_lib_common.isString;
-    var isArray = hu_lib_common.isArray;
-    var isObject = hu_lib_common.isObject;
-}
-void 0;
-void 0;
-void 0;
-void 0;
-void 0;
-void 0;
-void 0;
-void 0;
-void 0;
-{
-    var _ns_ = {
-            id: 'hu.lib.common',
-            doc: void 0
-        };
-    var hu_lib_misc = _dereq_('./misc');
-    var isBrowser = hu_lib_misc.isBrowser;
-    var _global = hu_lib_misc._global;
-}
-var objToStr = Object.prototype.toString;
-var toStr = function toStr(x) {
-    return objToStr.call(x);
-};
-var isNull = exports.isNull = function isNull(x) {
-        return x === null;
-    };
-var isUndef = exports.isUndef = function isUndef(x) {
-        return typeof(x) === 'undefined' || isNull(x);
-    };
-var isBool = exports.isBool = function isBool(x) {
-        return x === true || x === false || toString.call(x) === '[object Boolean]';
-    };
-var isNumber = exports.isNumber = function isNumber(x) {
-        return toStr(x) === '[object Number]';
-    };
-var isFinite = exports.isFinite = function isFinite(x) {
-        return _global.isFinite(parseFloat(x));
-    };
-var isNaN = exports.isNaN = function isNaN(x) {
-        return x === x ? false : true;
-    };
-var isSymbol = exports.isSymbol = function isSymbol(x) {
-        return toStr(x) === '[object Symbol]';
-    };
-var isString = exports.isString = function isString(x) {
-        return toStr(x) === '[object String]';
-    };
-var isDate = exports.isDate = function isDate(x) {
-        return toStr(x) === '[object Date]';
-    };
-var isRegExp = exports.isRegExp = function isRegExp(x) {
-        return toStr(x) === '[object RegExp]';
-    };
-var isPattern = exports.isPattern = isRegExp;
-var isArgs = exports.isArgs = function isArgs(x) {
-        return toStr(x) === '[object Arguments]';
-    };
-var isArguments = exports.isArguments = isArgs;
-var isFunction = exports.isFunction = function isFunction(x) {
-        return typeof(x) === 'function';
-    };
-var isFn = exports.isFn = isFunction;
-var isObject = exports.isObject = function isObject(x) {
-        return toStr(x) === '[object Object]';
-    };
-var isArray = exports.isArray = isFn(Array.isArray) ? Array.isArray : function (x) {
-        return toStr(x) === '[object Array]';
-    };
-var isError = exports.isError = function isError(x) {
-        return toStr(x) === '[object Error]';
-    };
-var isPlainObject = exports.isPlainObject = function isPlainObject(x) {
-        return isObject(x) && isObject(Object.getPrototypeOf(x)) && isNull(Object.getPrototypeOf(Object.getPrototypeOf(x)));
-    };
-var isElement = exports.isElement = function isElement(x) {
-        return isBrowser ? toStr(x).indexOf('Element') >= 0 : false;
-    };
-var isMutable = exports.isMutable = function isMutable(x) {
-        return isObject(x) || isArray(x) || isError(x) || isArgs(x) || isDate(x) || isFunction(x);
-    };
-var isEmpty = exports.isEmpty = function isEmpty(x) {
-        return isUndef(x) || (isObject(x) ? Object.keys(x).length === 0 ? true : false : false) || x.length === 0;
-    };
-var isPrimitive = exports.isPrimitive = function isPrimitive(x) {
-        return isNull(x) || isBool(x) || isRegExp(x) || isString(x) || isNumber(x) || isSymbol(x);
-    };
-var isIterable = exports.isIterable = function isIterable(x) {
-        return isObject(x) || isArray(x) || isArgs(x);
-    };
-var canIterate = exports.canIterate = isIterable;
-},{"./common":3,"./function":5,"./misc":7}],4:[function(_dereq_,module,exports){
-{
-    var _ns_ = {
-            id: 'hu.lib.macros',
-            doc: void 0
-        };
-    var hu_lib_function = _dereq_('./function');
-    var curry = hu_lib_function.curry;
-    var compose = hu_lib_function.compose;
-    var hu_lib_common = _dereq_('./common');
-    var isString = hu_lib_common.isString;
-    var isArray = hu_lib_common.isArray;
-    var isObject = hu_lib_common.isObject;
+    var hu_lib_type = _dereq_('./type');
+    var isString = hu_lib_type.isString;
+    var isArray = hu_lib_type.isArray;
+    var isObject = hu_lib_type.isObject;
 }
 void 0;
 void 0;
@@ -212,20 +109,20 @@ void 0;
             id: 'hu.lib.equality',
             doc: void 0
         };
-    var hu_lib_common = _dereq_('./common');
-    var isDate = hu_lib_common.isDate;
-    var isArray = hu_lib_common.isArray;
-    var isObject = hu_lib_common.isObject;
-    var isFn = hu_lib_common.isFn;
-    var isNull = hu_lib_common.isNull;
-    var isUndef = hu_lib_common.isUndef;
-    var isString = hu_lib_common.isString;
-    var isNumber = hu_lib_common.isNumber;
-    var isBool = hu_lib_common.isBool;
-    var isIterable = hu_lib_common.isIterable;
-    var isPattern = hu_lib_common.isPattern;
-    var isPatternEqual = hu_lib_common.isPatternEqual;
-    var isDateEqual = hu_lib_common.isDateEqual;
+    var hu_lib_type = _dereq_('./type');
+    var isDate = hu_lib_type.isDate;
+    var isArray = hu_lib_type.isArray;
+    var isObject = hu_lib_type.isObject;
+    var isFn = hu_lib_type.isFn;
+    var isNull = hu_lib_type.isNull;
+    var isUndef = hu_lib_type.isUndef;
+    var isString = hu_lib_type.isString;
+    var isNumber = hu_lib_type.isNumber;
+    var isBool = hu_lib_type.isBool;
+    var isIterable = hu_lib_type.isIterable;
+    var isPattern = hu_lib_type.isPattern;
+    var isPatternEqual = hu_lib_type.isPatternEqual;
+    var isDateEqual = hu_lib_type.isDateEqual;
     var hu_lib_number = _dereq_('./number');
     var inc = hu_lib_number.inc;
     var dec = hu_lib_number.dec;
@@ -315,7 +212,7 @@ var isEqual = exports.isEqual = function isEqual() {
 var equal = exports.equal = isEqual;
 var isDeepEqual = exports.isDeepEqual = isEqual;
 var deepEqual = exports.deepEqual = isEqual;
-},{"./common":3,"./function":5,"./number":8,"./object":9}],5:[function(_dereq_,module,exports){
+},{"./function":4,"./number":7,"./object":8,"./type":10}],4:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.macros',
@@ -324,10 +221,10 @@ var deepEqual = exports.deepEqual = isEqual;
     var hu_lib_function = _dereq_('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_common = _dereq_('./common');
-    var isString = hu_lib_common.isString;
-    var isArray = hu_lib_common.isArray;
-    var isObject = hu_lib_common.isObject;
+    var hu_lib_type = _dereq_('./type');
+    var isString = hu_lib_type.isString;
+    var isArray = hu_lib_type.isArray;
+    var isObject = hu_lib_type.isObject;
 }
 void 0;
 void 0;
@@ -435,7 +332,7 @@ var debounce = exports.debounce = function debounce() {
             return defer.apply(void 0, args.concat(cargs));
         };
     };
-},{"./common":3,"./function":5}],6:[function(_dereq_,module,exports){
+},{"./function":4,"./type":10}],5:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.src.index',
@@ -445,8 +342,8 @@ var debounce = exports.debounce = function debounce() {
     var equality = hu_src_equality;
     var hu_src_collection = _dereq_('./collection');
     var collection = hu_src_collection;
-    var hu_src_common = _dereq_('./common');
-    var common = hu_src_common;
+    var hu_src_type = _dereq_('./type');
+    var type = hu_src_type;
     var hu_src_string = _dereq_('./string');
     var string = hu_src_string;
     var hu_src_number = _dereq_('./number');
@@ -463,7 +360,7 @@ var debounce = exports.debounce = function debounce() {
 var hu = module.exports = object.extend.apply(void 0, [
         void 0,
         misc,
-        common,
+        type,
         string,
         number,
         array,
@@ -473,7 +370,7 @@ var hu = module.exports = object.extend.apply(void 0, [
         equality
     ]);
 hu.VERSION = '0.1.0';
-},{"./array":1,"./collection":2,"./common":3,"./equality":4,"./function":5,"./misc":7,"./number":8,"./object":9,"./string":10}],7:[function(_dereq_,module,exports){
+},{"./array":1,"./collection":2,"./equality":3,"./function":4,"./misc":6,"./number":7,"./object":8,"./string":9,"./type":10}],6:[function(_dereq_,module,exports){
 (function (global){
 {
     var _ns_ = {
@@ -483,10 +380,10 @@ hu.VERSION = '0.1.0';
     var hu_lib_function = _dereq_('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_common = _dereq_('./common');
-    var isString = hu_lib_common.isString;
-    var isArray = hu_lib_common.isArray;
-    var isObject = hu_lib_common.isObject;
+    var hu_lib_type = _dereq_('./type');
+    var isString = hu_lib_type.isString;
+    var isArray = hu_lib_type.isArray;
+    var isObject = hu_lib_type.isObject;
 }
 void 0;
 void 0;
@@ -512,11 +409,11 @@ var log = exports.log = function log() {
         return console ? console.log.apply(console, args) : void 0;
     };
 var isBrowser = exports.isBrowser = (function () {
-        return typeof(window) === 'object' && isFn(window.HTMLElement);
+        return typeof(window) === 'object' && window.HTMLElement;
     })();
 var _global = exports._global = isBrowser ? window : global;
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./common":3,"./function":5}],8:[function(_dereq_,module,exports){
+},{"./function":4,"./type":10}],7:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.macros',
@@ -525,10 +422,10 @@ var _global = exports._global = isBrowser ? window : global;
     var hu_lib_function = _dereq_('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_common = _dereq_('./common');
-    var isString = hu_lib_common.isString;
-    var isArray = hu_lib_common.isArray;
-    var isObject = hu_lib_common.isObject;
+    var hu_lib_type = _dereq_('./type');
+    var isString = hu_lib_type.isString;
+    var isArray = hu_lib_type.isArray;
+    var isObject = hu_lib_type.isObject;
 }
 void 0;
 void 0;
@@ -544,8 +441,8 @@ void 0;
             id: 'hu.lib.number',
             doc: void 0
         };
-    var hu_lib_common = _dereq_('./common');
-    var isNumber = hu_lib_common.isNumber;
+    var hu_lib_type = _dereq_('./type');
+    var isNumber = hu_lib_type.isNumber;
 }
 var max = exports.max = Math.max;
 var min = exports.min = Math.min;
@@ -593,7 +490,7 @@ var div = exports.div = function div() {
             return floor(x / y);
         }).apply(void 0, args);
     };
-},{"./common":3,"./function":5}],9:[function(_dereq_,module,exports){
+},{"./function":4,"./type":10}],8:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.macros',
@@ -602,10 +499,10 @@ var div = exports.div = function div() {
     var hu_lib_function = _dereq_('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_common = _dereq_('./common');
-    var isString = hu_lib_common.isString;
-    var isArray = hu_lib_common.isArray;
-    var isObject = hu_lib_common.isObject;
+    var hu_lib_type = _dereq_('./type');
+    var isString = hu_lib_type.isString;
+    var isArray = hu_lib_type.isArray;
+    var isObject = hu_lib_type.isObject;
 }
 void 0;
 void 0;
@@ -621,20 +518,20 @@ void 0;
             id: 'hu.lib.object',
             doc: void 0
         };
-    var hu_lib_common = _dereq_('./common');
-    var isDate = hu_lib_common.isDate;
-    var isArray = hu_lib_common.isArray;
-    var isObject = hu_lib_common.isObject;
-    var isFn = hu_lib_common.isFn;
-    var isNull = hu_lib_common.isNull;
-    var isUndef = hu_lib_common.isUndef;
-    var isString = hu_lib_common.isString;
-    var isNumber = hu_lib_common.isNumber;
-    var isBool = hu_lib_common.isBool;
-    var isIterable = hu_lib_common.isIterable;
-    var isPattern = hu_lib_common.isPattern;
-    var isPatternEqual = hu_lib_common.isPatternEqual;
-    var isDateEqual = hu_lib_common.isDateEqual;
+    var hu_lib_type = _dereq_('./type');
+    var isDate = hu_lib_type.isDate;
+    var isArray = hu_lib_type.isArray;
+    var isObject = hu_lib_type.isObject;
+    var isFn = hu_lib_type.isFn;
+    var isNull = hu_lib_type.isNull;
+    var isUndef = hu_lib_type.isUndef;
+    var isString = hu_lib_type.isString;
+    var isNumber = hu_lib_type.isNumber;
+    var isBool = hu_lib_type.isBool;
+    var isIterable = hu_lib_type.isIterable;
+    var isPattern = hu_lib_type.isPattern;
+    var isPatternEqual = hu_lib_type.isPatternEqual;
+    var isDateEqual = hu_lib_type.isDateEqual;
     var hu_lib_number = _dereq_('./number');
     var inc = hu_lib_number.inc;
     var dec = hu_lib_number.dec;
@@ -738,7 +635,7 @@ var filter = exports.filter = function filter() {
         }).apply(void 0, args);
     };
 var filterValues = exports.filterValues = filter;
-},{"./common":3,"./function":5,"./number":8}],10:[function(_dereq_,module,exports){
+},{"./function":4,"./number":7,"./type":10}],9:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.macros',
@@ -747,10 +644,10 @@ var filterValues = exports.filterValues = filter;
     var hu_lib_function = _dereq_('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_common = _dereq_('./common');
-    var isString = hu_lib_common.isString;
-    var isArray = hu_lib_common.isArray;
-    var isObject = hu_lib_common.isObject;
+    var hu_lib_type = _dereq_('./type');
+    var isString = hu_lib_type.isString;
+    var isArray = hu_lib_type.isArray;
+    var isObject = hu_lib_type.isObject;
 }
 void 0;
 void 0;
@@ -766,10 +663,10 @@ void 0;
             id: 'hu.lib.string',
             doc: void 0
         };
-    var hu_lib_common = _dereq_('./common');
-    var isString = hu_lib_common.isString;
-    var isArray = hu_lib_common.isArray;
-    var isNumber = hu_lib_common.isNumber;
+    var hu_lib_type = _dereq_('./type');
+    var isString = hu_lib_type.isString;
+    var isArray = hu_lib_type.isArray;
+    var isNumber = hu_lib_type.isNumber;
     var hu_lib_object = _dereq_('./object');
     var keys = hu_lib_object.keys;
 }
@@ -818,6 +715,109 @@ var escapeChar = function escapeChar(x) {
 var escape = exports.escape = function escape(x) {
         return isString(x) ? String(x).replace(unescapedHtml, escapeChar) : '';
     };
-},{"./common":3,"./function":5,"./object":9}]},{},[6])
-(6)
+},{"./function":4,"./object":8,"./type":10}],10:[function(_dereq_,module,exports){
+{
+    var _ns_ = {
+            id: 'hu.lib.macros',
+            doc: void 0
+        };
+    var hu_lib_function = _dereq_('./function');
+    var curry = hu_lib_function.curry;
+    var compose = hu_lib_function.compose;
+    var hu_lib_type = _dereq_('./type');
+    var isString = hu_lib_type.isString;
+    var isArray = hu_lib_type.isArray;
+    var isObject = hu_lib_type.isObject;
+}
+void 0;
+void 0;
+void 0;
+void 0;
+void 0;
+void 0;
+void 0;
+void 0;
+void 0;
+{
+    var _ns_ = {
+            id: 'hu.lib.type',
+            doc: void 0
+        };
+    var hu_lib_misc = _dereq_('./misc');
+    var isBrowser = hu_lib_misc.isBrowser;
+    var _global = hu_lib_misc._global;
+}
+var objToStr = Object.prototype.toString;
+var toStr = function toStr(x) {
+    return objToStr.call(x);
+};
+var isNull = exports.isNull = function isNull(x) {
+        return x === null;
+    };
+var isUndef = exports.isUndef = function isUndef(x) {
+        return typeof(x) === 'undefined' || isNull(x);
+    };
+var isBool = exports.isBool = function isBool(x) {
+        return x === true || x === false || toString.call(x) === '[object Boolean]';
+    };
+var isNumber = exports.isNumber = function isNumber(x) {
+        return toStr(x) === '[object Number]';
+    };
+var isFinite = exports.isFinite = function isFinite(x) {
+        return _global.isFinite(parseFloat(x));
+    };
+var isNaN = exports.isNaN = function isNaN(x) {
+        return x === x ? false : true;
+    };
+var isSymbol = exports.isSymbol = function isSymbol(x) {
+        return toStr(x) === '[object Symbol]';
+    };
+var isString = exports.isString = function isString(x) {
+        return toStr(x) === '[object String]';
+    };
+var isDate = exports.isDate = function isDate(x) {
+        return toStr(x) === '[object Date]';
+    };
+var isRegExp = exports.isRegExp = function isRegExp(x) {
+        return toStr(x) === '[object RegExp]';
+    };
+var isPattern = exports.isPattern = isRegExp;
+var isArgs = exports.isArgs = function isArgs(x) {
+        return toStr(x) === '[object Arguments]';
+    };
+var isArguments = exports.isArguments = isArgs;
+var isFunction = exports.isFunction = function isFunction(x) {
+        return typeof(x) === 'function';
+    };
+var isFn = exports.isFn = isFunction;
+var isObject = exports.isObject = function isObject(x) {
+        return toStr(x) === '[object Object]';
+    };
+var isArray = exports.isArray = isFn(Array.isArray) ? Array.isArray : function (x) {
+        return toStr(x) === '[object Array]';
+    };
+var isError = exports.isError = function isError(x) {
+        return toStr(x) === '[object Error]';
+    };
+var isPlainObject = exports.isPlainObject = function isPlainObject(x) {
+        return isObject(x) && isObject(Object.getPrototypeOf(x)) && isNull(Object.getPrototypeOf(Object.getPrototypeOf(x)));
+    };
+var isElement = exports.isElement = function isElement(x) {
+        return isBrowser ? toStr(x).indexOf('Element') >= 0 : false;
+    };
+var isMutable = exports.isMutable = function isMutable(x) {
+        return isObject(x) || isArray(x) || isError(x) || isArgs(x) || isDate(x) || isFunction(x);
+    };
+var isEmpty = exports.isEmpty = function isEmpty(x) {
+        return isUndef(x) || (isObject(x) ? Object.keys(x).length === 0 ? true : false : false) || x.length === 0;
+    };
+var isPrimitive = exports.isPrimitive = function isPrimitive(x) {
+        return isNull(x) || isBool(x) || isRegExp(x) || isString(x) || isNumber(x) || isSymbol(x);
+    };
+var isIterable = exports.isIterable = function isIterable(x) {
+        return isObject(x) || isArray(x) || isArgs(x);
+    };
+var canIterate = exports.canIterate = isIterable;
+},{"./function":4,"./misc":6,"./type":10}]},{},[5])
+(5)
 });
