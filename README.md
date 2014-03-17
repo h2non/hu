@@ -225,7 +225,7 @@ a formalism, those environments are:
 
 ### Overview example
 
-In JavaScript Harminy (ES6)
+JavaScript Harmony (ES6)
 ```js
 var { log filter even inc } = require('hu')
 
