@@ -25,51 +25,6 @@ It aims to be a lightweight and small library which can be easily embedded as a 
 hu library works well under ES5 compliant engines.
 Most of its helper functions are curried
 
-### Motivation
-
-Functional programming tendency has grown (again) in the latest years.
-This paradigm, unlike others that may be more totalitarian and extended, forces a radical re-thinking in the way that programmers design and implement software
-
-Functional programming thinking and conversion is not easy to apply,
-but it's really a quite attractive and funny paradigm,
-which helps to solve the same problems in a theoretically
-and conceptually clean (and sometimes more efficiently) way
-
-### Rationale
-
-A good approach to learn and apply functional programming principles
-is creating a functional-oriented library that assists by itself to
-do functional programming
-
-In fact, hu was created to define a real scenario to do funny experiments
-with some pure functional programming principles
-
-It's completely written in [Wisp][wisp], a homoiconic Clojure-like language, which compiles into plain JavaScript that supports s-expressions and macros, allowing to extend the compiler features with the user’s own code
-
-#### Why JavaScript?
-
-JavaScript is a ubiquitous, well-extended, multi-purpose and multi-paradigm cool language with which you can do a lot of funny things
-
-In fact, JavaScript is not a pure functional language, however
-its natural extensibility and meta-programming features allow to apply different paradigms to it and today there are a lot of languages that transpile into JavaScript that help providing a powerful syntax sugar and more features
-
-### Challenges
-
-hu is implemented keeping in mind the following “ambitious” goals:
-
-- Assume it's a first-class function only language
-- Pure functions as a norm
-- Immutability (when it's possible)
-- Avoid assignment, remove side-effects (when it's possible)
-- Tend to recursion instead of loops
-- Tend to high-order functions
-- Tend to functional composition
-- Tend to continuation-passing style
-- Exploit subroutines (like tail recursion call)
-- Exploit memorization (currying, partial, caching...)
-- Exploit combinators
-- Exploit macros (and protocols in a near future)
-
 ## Features
 
 - Powerful type checking helpers
@@ -99,6 +54,53 @@ Or loading the script remotely (just for testing or development)
 ```html
 <script src="//rawgithub.com/h2non/hu/master/hu.js"></script>
 ```
+
+## Why?
+
+### Motivation
+
+Functional programming tendency has grown (again) in the latest years.
+This paradigm, unlike others that may be more totalitarian and extended, forces a radical re-thinking in the way that programmers design and implement software
+
+Functional programming thinking and conversion is not easy to apply,
+but it's really a quite attractive and funny paradigm,
+which helps to solve the same problems in a theoretically
+and conceptually clean (and sometimes more efficiently) way
+
+### Rationale
+
+A good approach to learn and apply functional programming principles
+is creating a functional-oriented library that assists by itself to
+do functional programming
+
+In fact, hu was created to define a real scenario to do funny experiments
+with some pure functional programming principles
+
+It's completely written in [Wisp][wisp], a homoiconic Clojure-like language, which compiles into plain JavaScript that supports s-expressions and macros, allowing to extend the compiler features with the user’s own code
+
+### Why JavaScript?
+
+JavaScript is a ubiquitous, well-extended, multi-purpose and multi-paradigm cool language with which you can do a lot of funny things
+
+In fact, JavaScript is not a pure functional language, however
+its natural extensibility and meta-programming features allow to apply different paradigms to it and today there are a lot of languages that transpile into JavaScript that help providing a powerful syntax sugar and more features
+
+### Challenges
+
+hu is implemented keeping in mind the following “ambitious” functional focus goals:
+
+- Assume it's a first-class function only language
+- Pure functions as a norm
+- Immutability (when it's possible)
+- Avoid assignment, remove side-effects (when it's possible)
+- Tend to recursion instead of loops
+- Tend to high-order functions
+- Tend to functional composition
+- Tend to continuation-passing style
+- Exploit subroutines (like tail recursion call)
+- Exploit memorization (currying, partial, caching...)
+- Exploit combinators
+- Exploit macros (and protocols in a near future)
 
 ## Environments
 
