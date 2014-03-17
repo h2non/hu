@@ -42,5 +42,11 @@
        (apply (curry (fn ~@body)) args))))
 
 (defmacro defcompose
-  [name & args]
-  `(def ~name (compose (fn ~@args))))
+  [name & etc]
+  (let [doc? (string? (first etc))
+        doc (if doc? (first etc) " ")
+        body (if doc? (rest etc) etc)]
+    `(defn ~name
+       ~doc
+       [& args]
+       (apply (compose (fn args) args)))))
