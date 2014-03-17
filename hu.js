@@ -766,7 +766,7 @@ var isNumber = exports.isNumber = function isNumber(x) {
         return toStr(x) === '[object Number]';
     };
 var isFinite = exports.isFinite = function isFinite(x) {
-        return _global.isFinite(parseFloat(x));
+        return _global.isFinite(x) && !isNaN(parseFloat, x);
     };
 var isNaN = exports.isNaN = function isNaN(x) {
         return x === x ? false : true;

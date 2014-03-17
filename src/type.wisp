@@ -36,7 +36,9 @@
 (defn ^boolean finite?
   "Check if the given value is a finite number"
   [x]
-  (.finite? *global (parse-float x)))
+  (and
+    (.finite? *global x)
+    (not (NaN? parse-float x))))
 
 (defn ^number NaN?
   "Is it NaN (not a number)?

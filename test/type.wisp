@@ -101,12 +101,12 @@
       (fn []
         (equal (.finite? _ Infinity) false)
         (equal (.finite? _ "zero") false)
-        (equal (.finite? _ nil) false)
-        (equal (.finite? _ []) false)))
+        (equal (.finite? _ NaN) false)))
     (test :valid
       (fn []
         (equal (.finite? _ 1) true)
         (equal (.finite? _ 0) true)
+        (equal (.finite? _ []) true)
         (equal (.finite? _ (Number 1)) true)
         (equal (.finite? _ (Number.)) true)))))
 

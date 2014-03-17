@@ -227,7 +227,7 @@ a formalism, those environments are:
 
 JavaScript Harmony (ES6)
 ```js
-var { log filter even inc } = require('hu')
+var { log, filter, even, inc } = require('hu')
 
 log(map(filter({a: 1, b: 2}, even), inc))
 // => { b: 3 }
