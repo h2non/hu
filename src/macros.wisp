@@ -32,13 +32,14 @@
   (list 'if condition form eform))
 
 (defmacro defcurry
-  [name & args]
-  (cond ; little hack for the wisp compiler
-    (string? (.get-prototype-of Object (aget args 0)))
-      (.shift args))
-  `(defn ~name
-      [& args]
-        (apply (curry (fn ~@args)) args)))
+  [name & etc]
+  (let [doc? (string? (first etc))
+        doc (if doc? (first etc) " ")
+        body (if doc? (rest etc) etc)]
+    `(defn ~name
+       ~doc
+       [& args]
+       (apply (curry (fn ~@body)) args))))
 
 (defmacro defcompose
   [name & args]
