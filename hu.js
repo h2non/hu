@@ -463,9 +463,11 @@ var PI = exports.PI = Math.PI;
 var odd = exports.odd = function odd(n) {
         return n % 2 > 0 || n % 2 < 0;
     };
+var isOdd = exports.isOdd = odd;
 var even = exports.even = function even(n) {
         return n % 2 === 0;
     };
+var isEven = exports.isEven = even;
 var inc = exports.inc = function inc(x) {
         return x + 1;
     };

@@ -151,8 +151,8 @@ a formalism, those environments are:
   - [repeat](#repeatnumber-str)
   - [escape](#escapestr)
 - Numbers
-  - [isOdd](#isoddnumber)
-  - [isEven](#isevennumber)
+  - [odd](#oddnumber)
+  - [even](#evennumber)
   - [max](#maxnumbers)
   - [min](#minnumbers)
   - [inc](#incnumber)
@@ -426,13 +426,13 @@ to their corresponding HTML entities
 
 ### Numbers
 
-#### isOdd(number)
-Return: `boolean`
+#### odd(number)
+Return: `boolean` | Alias: `isOdd`
 
 Returns `true` if the given number is odd
 
-#### isEven(number)
-Return: `boolean`
+#### even(number)
+Return: `boolean` | Alias: `isEven`
 
 Returns `true` if the given number is even
 

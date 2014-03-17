@@ -25,9 +25,13 @@
     (> (mod n 2) 0)
     (< (mod n 2) 0)))
 
+(def ^boolean odd? odd)
+
 (defn ^boolean even
   "Returns true if the given number is even"
   [n] (identical? (mod n 2) 0))
+
+(def ^boolean even? even)
 
 (defn ^number inc
   "Increment the given value"
