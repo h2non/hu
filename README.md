@@ -23,15 +23,15 @@ Unlike other well-known libraries such as Lodash or Sugar.js, hu only provides a
 It aims to be a lightweight and small library which can be easily embedded as a part of an application, library or framework without making noise
 
 hu library works well under ES5 compliant engines.
-Most of its helper functions are curried
+Most of its functions are curried
 
 ## Features
 
-- Powerful type checking helpers
-- Iterators and object transformers
-- Functional-oriented helpers (curry, partial, compose...)
-- Data equality comparison functions
-- Iterators and objects transformer helpers
+- Complete type checking helpers
+- Array and objects processors and transformers
+- Functional-style helpers (curry, partial, compose, memoize...)
+- String manipulation helpers
+- Type equality comparisons
 - Runs in node and browsers
 - Well tested with high coverage
 
