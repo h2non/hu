@@ -49,7 +49,7 @@
 (def ^boolean array-equal array-equal?)
 
 (defcurry ^boolean object-equal?
-  "Check if two objects has the same value types on its properties"
+  "Checks if the given object values and keys are equals"
   [x y]
   (and (object? x)
        (object? y)

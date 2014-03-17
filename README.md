@@ -87,7 +87,7 @@ its natural extensibility and meta-programming features allow to apply different
 
 ### Challenges
 
-hu is implemented keeping in mind the following “ambitious” functional focus goals:
+hu is implemented keeping in mind the following “ambitious” functional focused goals:
 
 - Assume it's a first-class function only language
 - Pure functions as a norm
@@ -138,8 +138,6 @@ a formalism, those environments are:
   - [isMutable](#ismutablevalue)
   - [isPrimitive](#isprimitivevalue)
   - [isIterable](#isiterablevalue)
-  - [isEqual](#isequalx-y)
-  - [isObjectEqual](#isobjectequalx-y)
 - Strings
   - [subs](#subsstr-start-end)
   - [lines](#linesstr)
@@ -188,7 +186,6 @@ a formalism, those environments are:
   - [vals](#valsobj)
   - [keyValues](#keyvaluesobj)
   - [toObject](#toobjectobj)
-  - [keyValues](#keyvaluesobj-1)
   - [extend](#extendtarget-origins)
   - [mixin](#mixintarget-origins)
   - [map](#mapobj-function)
@@ -353,18 +350,6 @@ Return: `boolean` | Alias: `canIterate`
 
 Checks if the given value can be iterated.
 Objects, arrays, and arguments objects are considered iterables data types
-
-#### isEqual(x, y)
-Return: `boolean` | Alias: `isDeepEqual`
-
-Checks if the given values are equals.
-It also performs a deep comparison between two values to determine
-if both are types equivalent
-
-#### isObjectEqual(x, y)
-Return: `boolean`
-
-Checks if the given object values and keys are equals
 
 ### Strings
 
@@ -600,11 +585,6 @@ Return: `array`
 
 Creates an object of given arguments.
 Odd indexed arguments are used for keys and evens for values
-
-#### keyValues(obj)
-Return: `array`
-
-Returns a sequence of the map's values
 
 #### extend(target, ...origins)
 Return: `object` | Alias: `assign`
@@ -848,7 +828,7 @@ Check if the given arrays has the same elements
 #### isObjectEqual(x, y)
 Return: `boolean` | Alias: `objectEqual` | Curried: `true`
 
-Check if two objects has the same value types on its properties
+Checks if the given objects values and keys are equals
 
 ### Miscellaneous
 
