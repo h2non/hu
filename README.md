@@ -31,7 +31,7 @@ Most of its helper functions are curried
 - Iterators and object transformers
 - Functional-oriented helpers (curry, partial, compose...)
 - Data equality comparison functions
-- Iterators and transformer helpers
+- Iterators and objects transformer helpers
 - Runs in node and browsers
 - Well tested with high coverage
 
@@ -55,7 +55,19 @@ Or loading the script remotely (just for testing or development)
 <script src="//rawgithub.com/h2non/hu/master/hu.js"></script>
 ```
 
-## Why?
+## Environments
+
+It works properly in any ES5 compliant environment, however just for
+a formalism, those environments are:
+
+- Node.js
+- Chrome >= 5
+- Firefox
+- Safari >= 5
+- Opera >= 12
+- IE >= 9
+
+## Why hu?
 
 ### Motivation
 
@@ -83,7 +95,8 @@ It's completely written in [Wisp][wisp], a homoiconic Clojure-like language, whi
 JavaScript is a ubiquitous, well-extended, multi-purpose and multi-paradigm cool language with which you can do a lot of funny things
 
 In fact, JavaScript is not a pure functional language, however
-its natural extensibility and meta-programming features allow to apply different paradigms to it and today there are a lot of languages that transpile into JavaScript that help providing a powerful syntax sugar and more features
+its natural extensibility and meta-programming features allow to apply different paradigms to it and today there are a lot of languages that transpile into JavaScript that help providing a powerful syntax sugar and more features,
+like in this case Wisp
 
 ### Challenges
 
@@ -101,18 +114,6 @@ hu is implemented keeping in mind the following “ambitious” functional focus
 - Exploit memorization (currying, partial, caching...)
 - Exploit combinators
 - Exploit macros (and protocols in a near future)
-
-## Environments
-
-It works properly in any ES5 compliant environment, however just for
-a formalism, those environments are:
-
-- Node.js
-- Chrome >= 5
-- Firefox
-- Safari >= 5
-- Opera >= 12
-- IE >= 9
 
 ## API
 
@@ -202,6 +203,7 @@ a formalism, those environments are:
   - [partial](#partialfn--partialargs-)
   - [curry](#curryfn--ctx-)
   - [compose](#composefn)
+  - [memoize](#memoizefn)
   - [wrap](#wrapfn-wrapperfn--args-)
   - [once](#oncefn)
   - [times](#timesfn-number)
@@ -227,7 +229,7 @@ JavaScript Harmony (ES6)
 var { log, filter, even, inc } = require('hu')
 
 log(map(filter({a: 1, b: 2}, even), inc))
-// => { b: 3 }
+// → { b: 3 }
 ```
 
 Or with the funny LiveScript
@@ -333,6 +335,11 @@ Return: `boolean`
 Checks if the given value is empty.
 Arrays, strings, or arguments objects with a length of 0 and objects with no own enumerable properties are considered empty values
 
+#### notEmpty(value)
+Return: `boolean` | Alias: `isNotEmpty`
+
+Checks if the given value is not empty
+
 #### isMutable(value)
 Return: `boolean`
 
@@ -422,6 +429,16 @@ Returns `true` if the given number is odd
 Return: `boolean` | Alias: `isEven`
 
 Returns `true` if the given number is even
+
+#### lower(x, y)
+Return: `boolean` | Alias: `isLower` | Curried: `true`
+
+Returns `true` if x it's lower than y
+
+#### higher(x, y)
+Return: `boolean` | Alias: `isHigher` | Curried: `true`
+
+Returns `true` if x it's lower than y
 
 #### max(...numbers)
 Return: `number`
@@ -557,6 +574,42 @@ Return: `boolean` | Curried: `true`
 
 Checks if an element exists in the given array
 
+#### head(arr)
+Return: `mixed` | Alias: `first`
+
+First item of the given array
+
+```js
+hu.head([1, 2, 3]) // → 1
+```
+
+#### tail(arr)
+Return: `array` | Alias: `rest`
+
+Everything but the first item of the list
+
+```js
+hu.tail([1, 2, 3]) // → [2, 3]
+```
+
+#### last(arr)
+Return: `mixed` | Alias: `end`
+
+The last item of the list
+
+```js
+hu.last([1, 2, 3]) // → 3
+```
+
+#### initial(arr)
+Return: `array`
+
+Everything but the last item of the list
+
+```js
+hu.initial([1, 2, 3]) // → [1, 2]
+```
+
 ### Objects
 
 #### has(obj, property)
@@ -565,20 +618,36 @@ Return: `boolean`
 Checks if the specified property name exists as a
 own property of the given object
 
+```js
+hu.has({a: true}, 'a') // → true
+```
+
 #### keys(obj)
 Return: `array`
 
 Returns a sequence of the map's keys
+
+```js
+hu.keys({a: true}) // → ['a']
+```
 
 #### vals(obj)
 Return: `array`
 
 Returns a sequence of the map's values
 
+```js
+hu.vals({a: true}) // → [true]
+```
+
 #### keyValues(obj)
 Return: `array` | Alias: `pairs`
 
 Returns a two dimensional array of an object’s key-value pairs
+
+```js
+hu.keyValues({a: true}) // → [['a', true]]
+```
 
 #### toObject(obj)
 Return: `array`
@@ -586,21 +655,46 @@ Return: `array`
 Creates an object of given arguments.
 Odd indexed arguments are used for keys and evens for values
 
+```js
+hu.toObject('a', true) // → {a: true}
+```
+
 #### extend(target, ...origins)
 Return: `object` | Alias: `assign`
 
 Assigns own enumerable properties of source object(s) to the destination object
+
+```js
+hu.extend({x: true}, {y: false}) // → {x: true, y: false}
+```
 
 #### mixin(target, ...origins)
 Return: `object`
 
 Adds function properties of a source object to the destination object
 
+```js
+var methods = {
+  something: function () {
+    // cool stuff
+  }
+}
+hu.mixin({x: true}, methods)
+// → {x: true, something: function () {}}
+```
+
 #### map(obj, function)
 Return: `object` | Alias: `mapValues` | Curried: `true`
 
 Maps object values by applying with the value return
 of each callback call on each one
+
+```js
+function mapper(val) {
+  return val * 2
+}
+hu.map({x: 2}, mapper) // → {x: 4}
+```
 
 #### filter(obj, function)
 Return: `object` | Alias: `filterValues` | Curried: `true`
@@ -609,10 +703,23 @@ Iterates over properties of an object,
 returning an filtered new object of all
 elements where the callback returns true
 
+```js
+function filter(val) {
+  return val > 1
+}
+hu.map({x: 1, y: 2}, filter) // → {y: 2}
+```
+
 #### clone(object)
 Return: `object`
 
 Creates a clone of the given object
+
+```js
+var obj = {x: 1}
+var newObj = hu.clone(obj)
+newObj === obj // → false
+```
 
 #### merge(x, y)
 Return: `object`
@@ -623,6 +730,13 @@ of the rest of the maps conj-ed onto the first
 If a key occurs in more than one map, the mapping from
 the latter (left-to-right) will be the mapping in the result
 
+```js
+var obj1 = {x: {y: {z: 2}}}
+var obj2 = {x: {y: {a: 1}}}
+var newObj = hu.merge(obj1, obj2)
+// → {x: {y: {z: 2, a: 1}}}
+```
+
 ### Collections
 
 #### each(obj, function)
@@ -632,10 +746,31 @@ Iterates over elements of an iterable object,
 executing the callback for each element.
 It will return the same given object
 
+```js
+hu.each([1, 2], function (n) {
+  console.log('Value:', n)
+})
+```
+
 #### size(obj)
 Return: `number`
 
 Gets the size of the given collection
+
+```js
+hu.size({x: 1, y: 2}) // → 2
+```
+
+#### compact(obj)
+Return: `object|array` | Alias: `clean`
+
+Returns a new collection which
+contains only the not empty values
+
+```js
+hu.compact([1, null, undefined, "", 5])
+// → [1, 5]
+```
 
 ### Functions
 
@@ -720,6 +855,37 @@ function greet(name) {
 }
 var welcome = hu.compose(name, greet);
 welcome('John') // → 'Hi john!'
+```
+
+#### memoize(fn, resolver)
+Return: `function`
+
+Creates a function that memoizes the result
+of the the given function. If resolver is provided
+it will be used to determine the cache key for
+storing the result based on the arguments provided
+to the memoized function.
+The resolver function just uses the first argument
+to the memoized function as the key
+
+```js
+var multiply = hu.memoize(function (n) {
+  return n * 2
+})
+multiply(2) // → 4 (computed value)
+multiply(2) // → 4 (memoized value)
+```
+
+With custom resolver function to define memoized values
+```js
+var multiply = hu.memoize(function (n) {
+  return n * 2
+}, function (n) {
+  return n === 2 ? n + 1 : n
+})
+multiply(1) // → 2 (computed value)
+multiply(2) // → 4 (computed value)
+multiply(3) // → 4 (memoized value, from 2 value)
 ```
 
 #### wrap(fn, wrapperFn, [ ...args ])

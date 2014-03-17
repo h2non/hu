@@ -1,9 +1,7 @@
 (ns hu.lib.object
   (:require
     [hu.lib.type
-      :refer [date? array? object? fn? null? undef? string? number? bool? iterable? pattern? pattern-equal? date-equal?]]
-    [hu.lib.number
-      :refer [inc dec]]))
+      :refer [date? array? object? fn?]]))
 
 (def ^:private has-own
   (.-has-own-property (.-prototype Object)))
@@ -98,9 +96,8 @@
     **oproto**
     (.reduce args
       (fn [descriptor obj]
-        (if (object? obj)
-          (.for-each
-            (keys obj)
+        (when (object? obj)
+          (.for-each (keys obj)
             (fn [key]
               (set!
                 (get descriptor key)
@@ -128,7 +125,7 @@
     (.reduce
       (keys source)
       (fn [target key]
-       (cond (cb (aget source key) key source)
-         (set! (aget target key) (aget source key))) target) target) target))
+        (cond (cb (aget source key) key source)
+          (set! (aget target key) (aget source key))) target) target) target))
 
 (def ^object filter-values filter)

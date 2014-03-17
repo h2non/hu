@@ -1,6 +1,6 @@
 (ns hu.test.object
   (:require
-    [assert :refer [equal]]
+    [assert :refer [equal deep-equal]]
     [hu.lib.collection :as _]))
 
 (suite :each
@@ -32,3 +32,14 @@
       (fn []
         (equal
           (.size _ {:a 1 :b 2}) 2)))))
+
+(suite :compact
+  (fn []
+    (test :array
+      (fn []
+        (deep-equal
+          (.compact _ [1 0 "" false nil undefined]) [1 0 false])))
+    (test :object
+      (fn []
+        (deep-equal
+          (.compact _ {:a 1 :b "" :c nil :d undefined }) {:a 1})))))

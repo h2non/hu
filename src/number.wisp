@@ -33,6 +33,18 @@
 
 (def ^boolean even? even)
 
+(defcurry ^boolean lower
+  "Returns true if x it's lower than y"
+  [x y] (< x y))
+
+(def ^boolean lower? lower)
+
+(defcurry ^boolean higher
+  "Returns true if x it's higher than y"
+  [x y] (> x y))
+
+(def ^boolean higher? higher)
+
 (defn ^number inc
   "Increment the given value"
   [x] (+ x 1))

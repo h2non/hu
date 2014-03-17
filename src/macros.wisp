@@ -5,15 +5,15 @@
 
 (defmacro str
   [x expr]
-  `(if (string? x) ~expr ~x))
+  `(if (string? ~x) ~expr ~x))
 
 (defmacro arr
   [x expr]
-  `(if (array? x) ~expr ~x))
+  `(if (array? ~x) ~expr ~x))
 
 (defmacro obj
   [x expr]
-  `(if (object? x) ~expr ~x))
+  `(if (object? ~x) ~expr ~x))
 
 (defmacro ?
   [x y]

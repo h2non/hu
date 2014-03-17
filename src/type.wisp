@@ -131,6 +131,13 @@
       (if (? (.-length (.keys Object x)) 0) true false) false)
     (? (.-length x) 0)))
 
+(defn ^boolean not-empty
+  "Checks if the given value is not empty"
+  [x]
+  (not (empty? x)))
+
+(def ^boolean not-empty? not-empty)
+
 (defn ^boolean primitive?
   "Checks if the given value is a primitive value type.
   Strings, numbers, booleans, symbols and null are

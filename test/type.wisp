@@ -58,6 +58,25 @@
         (equal (.empty? _ []) true)
         (equal (.empty? _ {}) true)))))
 
+(suite :nonEmpty
+  (fn []
+    (test :invalid
+      (fn []
+        (equal (.not-empty _ nil) false)
+        (equal (.not-empty _ null) false)
+        (equal (.not-empty _ undefined) false)
+        (equal (.not-empty _ "") false)
+        (equal (.not-empty _ []) false)
+        (equal (.not-empty _ {}) false)))
+    (test :valid
+      (fn []
+        (equal (.not-empty _ :str) true)
+        (equal (.not-empty _ 12) true)
+        (equal (.not-empty _ NaN) true)
+        (equal (.not-empty _ 0) true)
+        (equal (.not-empty _ [1]) true)
+        (equal (.not-empty _ {:a 1}) true)))))
+
 (suite :isBool
   (fn []
     (test :invalid

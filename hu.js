@@ -34,6 +34,21 @@ var inArray = exports.inArray = function inArray() {
             return arr.indexOf(element) >= 0;
         }).apply(void 0, args);
     };
+var head = exports.head = function head(arr) {
+        return isArray(arr) ? arr[0] : arr;
+    };
+var first = exports.first = head;
+var tail = exports.tail = function tail(arr) {
+        return isArray(arr) ? arr.slice(1) : arr;
+    };
+var rest = exports.rest = tail;
+var last = exports.last = function last(arr) {
+        return isArray(arr) ? arr.slice(-1) : arr;
+    };
+var end = exports.end = last;
+var initial = exports.initial = function initial(arr) {
+        return isArray(arr) ? arr.slice(0, -1) : arr;
+    };
 },{"./function":4,"./type":10}],2:[function(_dereq_,module,exports){
 {
     var _ns_ = {
@@ -64,9 +79,13 @@ void 0;
         };
     var hu_lib_type = _dereq_('./type');
     var isObject = hu_lib_type.isObject;
+    var isArray = hu_lib_type.isArray;
+    var isEmpty = hu_lib_type.isEmpty;
     var isIterable = hu_lib_type.isIterable;
+    var isNotEmpty = hu_lib_type.isNotEmpty;
     var hu_lib_object = _dereq_('./object');
     var keys = hu_lib_object.keys;
+    var filter = hu_lib_object.filter;
 }
 var each = exports.each = function each() {
         var args = Array.prototype.slice.call(arguments, 0);
@@ -81,6 +100,10 @@ var forEach = exports.forEach = each;
 var size = exports.size = function size(clt) {
         return isIterable(clt) ? isObject(clt) ? keys(clt).length : clt.length : 0;
     };
+var compact = exports.compact = function compact(clt) {
+        return isArray(clt) ? clt.filter(isNotEmpty) : filter(clt, isNotEmpty);
+    };
+var clean = exports.clean = compact;
 },{"./function":4,"./object":8,"./type":10}],3:[function(_dereq_,module,exports){
 {
     var _ns_ = {
@@ -248,52 +271,64 @@ var constant = exports.constant = function constant(x) {
         };
     };
 var identify = exports.identify = constant;
-var apply = exports.apply = function apply(f, args) {
-        return f.apply(f, args);
+var apply = exports.apply = function apply(lambda, args) {
+        return lambda.apply(lambda, args);
     };
-var bind = exports.bind = function bind(f, ctx) {
-        return bindFn.call(f, ctx);
+var bind = exports.bind = function bind(lambda, ctx) {
+        return bindFn.call(lambda, ctx);
     };
-var partial = exports.partial = function partial(f) {
+var partial = exports.partial = function partial(lambda) {
         var args = Array.prototype.slice.call(arguments, 1);
         return function () {
             var pargs = Array.prototype.slice.call(arguments, 0);
-            return f.apply(void 0, args.concat(pargs));
+            return lambda.apply(void 0, args.concat(pargs));
         };
     };
-var curry = exports.curry = function curry(f) {
+var curry = exports.curry = function curry(lambda) {
         var args = Array.prototype.slice.call(arguments, 1);
         var __curry = function (cargs) {
-            return f.length > 1 ? function () {
+            return lambda.length > 1 ? function () {
                 var paramsø1 = cargs || args;
                 return function () {
-                    return paramsø1.push.apply(paramsø1, arguments) < f.length && arguments.length ? __curry(paramsø1) : f.apply(void 0, paramsø1);
+                    return paramsø1.push.apply(paramsø1, arguments) < lambda.length && arguments.length ? __curry(paramsø1) : lambda.apply(void 0, paramsø1);
                 };
-            }.call(this) : f;
+            }.call(this) : lambda;
         };
         return __curry();
     };
-var compose = exports.compose = function compose(f) {
+var compose = exports.compose = function compose(lambda) {
         var funcs = Array.prototype.slice.call(arguments, 1);
         return function () {
             var args = Array.prototype.slice.call(arguments, 0);
             return function () {
-                var valø1 = f.apply(void 0, args);
-                funcs.reduce(function (acc, f) {
-                    return acc && f ? valø1 = f(acc) : void 0;
+                var valø1 = lambda.apply(void 0, args);
+                funcs.reduce(function (acc, lambda) {
+                    return acc && lambda ? valø1 = lambda(acc) : void 0;
                 }, valø1);
                 return valø1;
             }.call(this);
         };
     };
-var wrap = exports.wrap = function wrap(f, to) {
+var memoize = exports.memoize = function memoize(lambda, resolver) {
+        return function () {
+            var memoø1 = {};
+            return function () {
+                var args = Array.prototype.slice.call(arguments, 0);
+                return function () {
+                    var keyø1 = '@' + (resolver ? resolver.apply(void 0, args) : args[0]);
+                    return memoø1.hasOwnProperty(keyø1) ? memoø1[keyø1] : memoø1[keyø1] = lambda.apply(void 0, args);
+                }.call(this);
+            };
+        }.call(this);
+    };
+var wrap = exports.wrap = function wrap(lambda, to) {
         var args = Array.prototype.slice.call(arguments, 2);
         return function () {
             var cargs = Array.prototype.slice.call(arguments, 0);
-            return to.apply(void 0, [f].concat(args, cargs));
+            return to.apply(void 0, [lambda].concat(args, cargs));
         };
     };
-var once = exports.once = function once(f) {
+var once = exports.once = function once(lambda) {
         return function () {
             var callø1 = true;
             var memoizedø1 = void 0;
@@ -301,12 +336,12 @@ var once = exports.once = function once(f) {
                 var args = Array.prototype.slice.call(arguments, 0);
                 return callø1 ? (function () {
                     callø1 = false;
-                    return memoizedø1 = f.apply(void 0, args);
+                    return memoizedø1 = lambda.apply(void 0, args);
                 })() : memoizedø1;
             };
         }.call(this);
     };
-var times = exports.times = function times(f, n) {
+var times = exports.times = function times(lambda, n) {
         return function () {
             var cø1 = 0;
             var nø2 = n || 1;
@@ -315,15 +350,15 @@ var times = exports.times = function times(f, n) {
                 var args = Array.prototype.slice.call(arguments, 0);
                 return cø1 < nø2 ? (function () {
                     cø1 = cø1 + 1;
-                    return (cø1 === nø2 ? false : true) ? f.apply(void 0, args) : memoizedø1 = f.apply(void 0, args);
+                    return (cø1 === nø2 ? false : true) ? lambda.apply(void 0, args) : memoizedø1 = lambda.apply(void 0, args);
                 })() : memoizedø1;
             };
         }.call(this);
     };
-var defer = exports.defer = function defer(f, ms) {
+var defer = exports.defer = function defer(lambda, ms) {
         var args = Array.prototype.slice.call(arguments, 2);
         return setTimeout(function () {
-            return f.apply(void 0, args);
+            return lambda.apply(void 0, args);
         }, ms || 1000);
     };
 var debounce = exports.debounce = function debounce() {
@@ -469,6 +504,20 @@ var even = exports.even = function even(n) {
         return n % 2 === 0;
     };
 var isEven = exports.isEven = even;
+var lower = exports.lower = function lower() {
+        var args = Array.prototype.slice.call(arguments, 0);
+        return curry(function (x, y) {
+            return x < y;
+        }).apply(void 0, args);
+    };
+var isLower = exports.isLower = lower;
+var higher = exports.higher = function higher() {
+        var args = Array.prototype.slice.call(arguments, 0);
+        return curry(function (x, y) {
+            return x > y;
+        }).apply(void 0, args);
+    };
+var isHigher = exports.isHigher = higher;
 var inc = exports.inc = function inc(x) {
         return x + 1;
     };
@@ -526,18 +575,6 @@ void 0;
     var isArray = hu_lib_type.isArray;
     var isObject = hu_lib_type.isObject;
     var isFn = hu_lib_type.isFn;
-    var isNull = hu_lib_type.isNull;
-    var isUndef = hu_lib_type.isUndef;
-    var isString = hu_lib_type.isString;
-    var isNumber = hu_lib_type.isNumber;
-    var isBool = hu_lib_type.isBool;
-    var isIterable = hu_lib_type.isIterable;
-    var isPattern = hu_lib_type.isPattern;
-    var isPatternEqual = hu_lib_type.isPatternEqual;
-    var isDateEqual = hu_lib_type.isDateEqual;
-    var hu_lib_number = _dereq_('./number');
-    var inc = hu_lib_number.inc;
-    var dec = hu_lib_number.dec;
 }
 var hasOwn = Object.prototype.hasOwnProperty;
 var has = exports.has = function has() {
@@ -638,7 +675,7 @@ var filter = exports.filter = function filter() {
         }).apply(void 0, args);
     };
 var filterValues = exports.filterValues = filter;
-},{"./function":4,"./number":7,"./type":10}],9:[function(_dereq_,module,exports){
+},{"./function":4,"./type":10}],9:[function(_dereq_,module,exports){
 {
     var _ns_ = {
             id: 'hu.lib.macros',
@@ -814,6 +851,10 @@ var isMutable = exports.isMutable = function isMutable(x) {
 var isEmpty = exports.isEmpty = function isEmpty(x) {
         return isUndef(x) || (isObject(x) ? Object.keys(x).length === 0 ? true : false : false) || x.length === 0;
     };
+var notEmpty = exports.notEmpty = function notEmpty(x) {
+        return !isEmpty(x);
+    };
+var isNotEmpty = exports.isNotEmpty = notEmpty;
 var isPrimitive = exports.isPrimitive = function isPrimitive(x) {
         return isNull(x) || isBool(x) || isRegExp(x) || isString(x) || isNumber(x) || isSymbol(x);
     };

@@ -85,6 +85,36 @@
             (fn [x] (+ "hi " x))
             (fn [x] (+ "say: " x))) "!") "say: hi hu!")))))
 
+(suite :memoize
+  (fn []
+    (test :basic
+      (fn []
+        (let [count 0
+              memo (.memoize _
+                (fn [n]
+                  (set! count (+ count 1)) (* n 2)))]
+          (equal (memo 2) 4)
+          (equal count 1)
+          (equal (memo 1) 2)
+          (equal count 2)
+          (equal (memo 2) 4)
+          (equal count 2))))
+    (test :composed
+      (fn []
+        (let [count 0
+              memo (.memoize _
+                (fn [n]
+                  (set! count (+ count 1))
+                  (* n 2))
+                (fn [n]
+                  (if (< n 2) (+ n 1) n)))]
+          (equal (memo 2) 4)
+          (equal count 1)
+          (equal (memo 1) 4)
+          (equal count 1)
+          (equal (memo 2) 4)
+          (equal count 1))))))
+
 (suite :once
   (fn []
     (test :basic

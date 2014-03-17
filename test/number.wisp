@@ -44,6 +44,26 @@
         (equal (.even _ 2.47) false)
         (equal (.even _ 1.92) false)))))
 
+(suite :lower
+  (fn []
+    (test :basic
+      (fn []
+        (equal (.lower _ 1 2) true)
+        (equal (.lower _ 1 1) false)
+        (equal (.lower _ 1 nil) false)
+        (equal (.lower _ 2 :a) false)
+        (equal (.lower _ 1.92 1.95) true)))))
+
+(suite :higher
+  (fn []
+    (test :basic
+      (fn []
+        (equal (.higher _ 1 2) false)
+        (equal (.higher _ 1 1) false)
+        (equal (.higher _ 1 nil) false)
+        (equal (.higher _ 2 :a) false)
+        (equal (.higher _ 1.95 1.92) true)))))
+
 (suite :inc
   (fn []
     (test :basic
@@ -91,8 +111,8 @@
   (fn []
     (test :basic
       (fn []
-        (equal (Math.round (* (.recip _ 3) 10)) 3)
-        (equal (Math.round (* (.recip _ -3) 10)) -3)))))
+        (equal (.round Math (* (.recip _ 3) 10)) 3)
+        (equal (.round Math (* (.recip _ -3) 10)) -3)))))
 
 (suite :div
   (fn []
