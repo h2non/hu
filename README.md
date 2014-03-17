@@ -10,7 +10,7 @@
 <td><b>Stage</b></td><td>experimental</td>
 </tr>
 <tr>
-<td><b>Fun</b></td><td>true</td>
+<td><b>Funny</b></td><td>true</td>
 </tr>
 </table>
 
