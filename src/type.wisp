@@ -80,7 +80,7 @@
   "Check if the given value is a object type"
   [x] (? (->str x) "[object Object]"))
 
-(def ^:boolean array?
+(def ^boolean array?
   "Check if the given value is an array type"
   (if (fn? (.-isArray Array))
     (.-isArray Array)
