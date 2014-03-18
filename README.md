@@ -562,7 +562,8 @@ Returns the smallest integer greater than or equal to a number
 #### exp(number)
 Return: `number`
 
-Returns Ex, where x is the argument, and E is Euler's constant (2.718...), the base of the natural logarithm
+Returns Ex, where x is the argument, and E is Euler's
+constant (2.718...), the base of the natural logarithm
 
 #### sqrt(number)
 Return: `number`
