@@ -570,7 +570,7 @@ Return: `number`
 Returns the positive square root of a number
 
 #### PI
-Return: `number`
+Type: `number`
 
 Ratio of the circumference of a circle to
 its diameter, approximately 3.14159
@@ -1011,8 +1011,8 @@ Return: `undefined`
 
 Write the given arguments in the console
 
-#### isBrowser()
-Return: `boolean`
+#### isBrowser
+Type: `boolean`
 
 Checks if the current runtime JavaScript environment is in a browser context
 
