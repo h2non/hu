@@ -96,7 +96,7 @@ JavaScript is a ubiquitous, well-extended, multi-purpose and multi-paradigm cool
 
 In fact, JavaScript is not a pure functional language, however
 its natural extensibility and meta-programming features allow to apply different paradigms to it and today there are a lot of languages that transpile into JavaScript that help providing a powerful syntax sugar and more features,
-like in this case Wisp
+like in this case using Wisp
 
 ### Challenges
 

@@ -17,8 +17,8 @@
 (defn ^number size
   "Gets the size of the given collection"
   [clt]
-  (if (iterable? clt)
-    (if (object? clt)
+  (when (iterable? clt)
+    (when (object? clt)
       (.-length (keys clt))
       (.-length clt)) 0))
 

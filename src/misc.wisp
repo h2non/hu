@@ -4,7 +4,7 @@
 
 (def ^number now (.-now Date))
 
-(defn log
+(defn ^void log
   "Log messages in console"
   [& args]
   (cond console

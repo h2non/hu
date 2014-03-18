@@ -7,14 +7,14 @@
   (fn []
     (test :object
       (fn []
-        (def called false)
-        (.each _ {:a true} (fn [] (set! called true)))
-        (equal called true)))
+        (let [called false]
+          (.each _ {:a true} (fn [] (set! called true)))
+          (equal called true))))
     (test :array
       (fn []
-        (def called false)
-        (.each _ [true] (fn [] (set! called true)))
-        (equal called true)))))
+        (let [called false]
+          (.each _ [true] (fn [] (set! called true)))
+          (equal called true))))))
 
 (suite :size
   (fn []

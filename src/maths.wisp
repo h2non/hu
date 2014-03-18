@@ -1,13 +1,11 @@
-(ns hu.lib.maths)
+(ns hu.lib.maths
+  (:require [hu.lib.type :refer [array?]]))
 
-(defn ^mixed cross
+(defcurry ^array cross
   "Crosses two vectors"
-  [A B]
-  (if (array? A B)
-    (if (identical? (.-length A) 3)
-      [(- (* (aget A 1) (aget B 2)) (* (aget A 2) (aget B 1)))
-       (- (* (aget A 2) (aget B 0)) (* (aget A 0) (aget B 2)))
-        (- (* (aget A 0) (aget B 1)) (* (aget A 1) (aget B 0)))]
-      )))
-
-(def ^array x cross)
+  [x y]
+  (when (array? x)
+    (if (? (.-length x) 3)
+      [(- (* (aget x 1) (aget y 2)) (* (aget x 2) (aget y 1)))
+       (- (* (aget x 2) (aget y 0)) (* (aget x 0) (aget y 2)))
+       (- (* (aget x 0) (aget y 1)) (* (aget x 1) (aget y 0)))])))
