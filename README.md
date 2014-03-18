@@ -92,7 +92,7 @@ It's completely written in [Wisp][wisp], a homoiconic Clojure-like language, whi
 
 ### So... why JavaScript?
 
-JavaScript is a ubiquitous, well-extended, multi-purpose and multi-paradigm cool language with which you can do a lot of funny things
+JavaScript is an ubiquitous, well-extended, multi-purpose and multi-paradigm cool language with which you can do a lot of funny things
 
 In fact, JavaScript is not a pure functional language, however
 its natural extensibility and meta-programming features allow to apply different paradigms to it and today there are a lot of languages that transpile into JavaScript that help providing a powerful syntax sugar and more features,
