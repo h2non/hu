@@ -90,7 +90,7 @@ with some pure functional programming principles
 
 It's completely written in [Wisp][wisp], a homoiconic Clojure-like language, which compiles into plain JavaScript that supports s-expressions and macros, allowing to extend the compiler features with the user’s own code
 
-### Why JavaScript?
+### So... why JavaScript?
 
 JavaScript is a ubiquitous, well-extended, multi-purpose and multi-paradigm cool language with which you can do a lot of funny things
 
