@@ -5,7 +5,7 @@
   [arr element]
   (>= (.index-of arr element) 0))
 
-(defn ^mixed head
+(defn ^array head
   "First item of the given array"
   [arr]
   (arr arr (aget arr 0)))
