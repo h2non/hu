@@ -39,7 +39,6 @@
     "browserify": "~3.32.1",
     "wisp": "~0.9.0-beta3",
     "mocha": "~1.18.0",
-    "uglify-js": "~2.4.12",
-    "expect.js": "~0.3.1"
+    "uglify-js": "~2.4.12"
   }
 }
