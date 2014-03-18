@@ -170,7 +170,7 @@ hu is implemented keeping in mind the following “ambitious” functional focus
   - [min](#minnumbers-1)
   - [abs](#absnumber)
   - [round](#roundnumber)
-  - [random()](#random)
+  - [random](#random)
   - [floor](#floornumber)
   - [sin](#sinnumber)
   - [tan](#tannumber)
