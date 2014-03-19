@@ -251,7 +251,7 @@ Or with the funny LiveScript
 ### Type checking
 
 #### isBool(value)
-Return: `boolean`
+Return: `boolean` | Alias: `isBoolean`
 
 Checks if the given value is a boolean type
 
@@ -328,7 +328,7 @@ Return: `boolean` | Alias: `isArguments`
 Checks if the given value is an arguments object
 
 #### isUndef(value)
-Return: `boolean`
+Return: `boolean` | Alias: `isUndefined`
 
 Checks if the given value is a undefined, void o null type
 

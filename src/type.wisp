@@ -21,6 +21,8 @@
     (? (typeof x) "undefined")
     (null? x)))
 
+(def ^boolean undefined? undef?)
+
 (defn ^boolean bool?
   "Check if the given value is boolean type"
   [x]
@@ -28,6 +30,8 @@
     (? x true)
     (? x false)
     (? (.call to-string x) "[object Boolean]")))
+
+(def ^boolean boolean? bool?)
 
 (defn ^boolean number?
   "Check if the given value is number type"
