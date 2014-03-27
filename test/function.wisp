@@ -51,8 +51,19 @@
     (test :multiple
       (fn []
         (equal
-          (((.curry _
-            (fn [a b c] c) :a) :b) :c) :c)))))
+          ((((.curry _
+            (fn [a b c] c)) :a) :b) :c) :c)))
+    (test :partial
+      (fn []
+        (equal
+          ((.curry _
+            (fn [a b c] c) :a :b) :c) :c)))
+    (test :cached
+      (fn []
+        (let [curried (.curry _ (fn [x y] (* x y)))
+              plus (curried 2)]
+          (equal (plus 2) 4)
+          (equal (plus 4) 8))))))
 
 (suite :wrap
   (fn []

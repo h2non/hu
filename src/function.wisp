@@ -28,21 +28,29 @@
   (fn [& pargs]
     (apply lambda (.concat args pargs))))
 
+(defn ^:private ^fn currier
+  "Function either continues curring of the arguments
+  or executes function if desired arguments have being collected.
+  If function curried is variadic then execution without arguments
+  will finish curring and trigger the function"
+  [lambda arity params]
+  (fn ^fn curried
+    [& args]
+    (let [run (and (? Infinity arity) (? (.-length args) 0))]
+      (when params (.apply (.-unshift args) args params))
+      (when (or (>= (.-length args) arity) run)
+        (apply lambda args)
+        (currier lambda arity args)))))
+
 (defn ^fn curry
   "Creates a function which accepts one or more
   arguments of the given function that when invoked either
   executes the function returning its result"
   [lambda & args]
-  (def ^fn **curry
-    (fn [cargs]
-      (if (> (.-length lambda) 1)
-        (let [params (or cargs args)]
-          (fn []
-            (if (and
-              (< (params.push.apply params arguments) (.-length lambda))
-              (.-length arguments))
-                (**curry params)
-                (apply lambda params)))) lambda))) (**curry))
+  (let [iargs (.-length lambda)
+        cargs (.-length args)
+        arity (when cargs (- iargs cargs))]
+    (currier lambda (or arity iargs) args)))
 
 (defn ^fn compose
   "Creates a function that is the composition of the
@@ -67,10 +75,9 @@
   [lambda resolver]
   (let [memo {}]
     (fn [& args]
-      (let
-        [key (+ :@ (when resolver
-                      (apply resolver args)
-                      (aget args 0)))]
+      (let [key (+ :@ (when resolver
+                        (apply resolver args)
+                        (aget args 0)))]
         (when (.has-own-property memo key)
           (aget memo key)
           (set! (aget memo key) (apply lambda args)))))))

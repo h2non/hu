@@ -39,6 +39,7 @@
     "browserify": "~3.32.1",
     "wisp": "~0.9.0-beta3",
     "mocha": "~1.18.0",
-    "uglify-js": "~2.4.12"
+    "uglify-js": "~2.4.12",
+    "semver": "^2.2.1"
   }
 }

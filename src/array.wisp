@@ -5,7 +5,7 @@
   [arr element]
   (>= (.index-of arr element) 0))
 
-(defn ^array head
+(defn ^mixed head
   "First item of the given array"
   [arr]
   (arr arr (aget arr 0)))
@@ -19,12 +19,12 @@
 
 (def ^array rest tail)
 
-(defn ^boolean last
+(defn ^mixed last
   "The last item of the list"
   [arr]
   (arr arr (.slice arr -1)))
 
-(def ^array end last)
+(def ^mixed end last)
 
 (defn ^boolean initial
   "Everything but the last item of the list"

@@ -9,7 +9,7 @@ default: all
 all: test browser
 browser: cleanbrowser test banner browserify uglify
 compile: mkdir clean index string number type misc object array maths equality collection function
-test: compile runtest
+test: compile mocha
 
 mkdir:
 	mkdir -p lib
@@ -65,9 +65,21 @@ clean:
 cleanbrowser:
 	rm -f *.js
 
-runtest:
+mocha:
 	$(MOCHA) --reporter spec --ui tdd --compilers wisp:$(WISP_MODULE)
 
 loc:
 	wc -l src/*
 
+release:
+	@$(call release, patch)
+
+release-minor:
+	@$(call release, minor)
+
+publish:
+	git push --tags origin HEAD:master
+	npm publish
+
+loc:
+	wc -l src/*
