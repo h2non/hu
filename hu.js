@@ -284,17 +284,24 @@ var partial = exports.partial = function partial(lambda) {
             return lambda.apply(void 0, args.concat(pargs));
         };
     };
+var currier = function currier(lambda, arity, params) {
+    return function curried() {
+        var args = Array.prototype.slice.call(arguments, 0);
+        return function () {
+            var runø1 = Infinity === arity && args.length === 0;
+            params ? args.unshift.apply(args, params) : void 0;
+            return args.length >= arity || runø1 ? lambda.apply(void 0, args) : currier(lambda, arity, args);
+        }.call(this);
+    };
+};
 var curry = exports.curry = function curry(lambda) {
         var args = Array.prototype.slice.call(arguments, 1);
-        var __curry = function (cargs) {
-            return lambda.length > 1 ? function () {
-                var paramsø1 = cargs || args;
-                return function () {
-                    return paramsø1.push.apply(paramsø1, arguments) < lambda.length && arguments.length ? __curry(paramsø1) : lambda.apply(void 0, paramsø1);
-                };
-            }.call(this) : lambda;
-        };
-        return __curry();
+        return function () {
+            var iargsø1 = lambda.length;
+            var cargsø1 = args.length;
+            var arityø1 = cargsø1 ? iargsø1 - cargsø1 : void 0;
+            return currier(lambda, arityø1 || iargsø1, args);
+        }.call(this);
     };
 var compose = exports.compose = function compose(lambda) {
         var funcs = Array.prototype.slice.call(arguments, 1);
@@ -797,9 +804,11 @@ var isNull = exports.isNull = function isNull(x) {
 var isUndef = exports.isUndef = function isUndef(x) {
         return typeof(x) === 'undefined' || isNull(x);
     };
+var isUndefined = exports.isUndefined = isUndef;
 var isBool = exports.isBool = function isBool(x) {
         return x === true || x === false || toString.call(x) === '[object Boolean]';
     };
+var isBoolean = exports.isBoolean = isBool;
 var isNumber = exports.isNumber = function isNumber(x) {
         return toStr(x) === '[object Number]';
     };
