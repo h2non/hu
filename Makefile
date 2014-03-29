@@ -15,37 +15,37 @@ mkdir:
 	mkdir -p lib
 
 string:
-	cat src/macros.wisp src/string.wisp | $(WISP) --source-uri src/string.wisp --no-map > ./lib/string.js
+	cat src/macros.wisp src/string.wisp | $(WISP) --no-map > ./lib/string.js
 
 number:
-	cat src/macros.wisp src/number.wisp | $(WISP) --source-uri src/number.wisp --no-map > ./lib/number.js
+	cat src/macros.wisp src/number.wisp | $(WISP) --no-map > ./lib/number.js
 
 type:
-	cat src/macros.wisp src/type.wisp | $(WISP) --source-uri src/type.wisp --no-map > ./lib/type.js
+	cat src/macros.wisp src/type.wisp | $(WISP) --no-map > ./lib/type.js
 
 object:
-	cat src/macros.wisp src/object.wisp | $(WISP) --source-uri src/object.wisp --no-map > ./lib/object.js
+	cat src/macros.wisp src/object.wisp | $(WISP) --no-map > ./lib/object.js
 
 array:
-	cat src/macros.wisp src/array.wisp | $(WISP) --source-uri src/array.wisp --no-map > ./lib/array.js
+	cat src/macros.wisp src/array.wisp | $(WISP) --no-map > ./lib/array.js
 
 maths:
-	cat src/macros.wisp src/maths.wisp | $(WISP) --source-uri src/maths.wisp --no-map > ./lib/maths.js
+	cat src/macros.wisp src/maths.wisp | $(WISP) --no-map > ./lib/maths.js
 
 collection:
-	cat src/macros.wisp src/collection.wisp | $(WISP) --source-uri src/collection.wisp --no-map > ./lib/collection.js
+	cat src/macros.wisp src/collection.wisp | $(WISP) --no-map > ./lib/collection.js
 
 function:
-	cat src/macros.wisp src/function.wisp | $(WISP) --source-uri src/function.wisp --no-map > ./lib/function.js
+	cat src/macros.wisp src/function.wisp | $(WISP) --no-map > ./lib/function.js
 
 equality:
-	cat src/macros.wisp src/equality.wisp | $(WISP) --source-uri src/equality.wisp --no-map > ./lib/equality.js
+	cat src/macros.wisp src/equality.wisp | $(WISP) --no-map > ./lib/equality.js
 
 misc:
-	cat src/macros.wisp src/misc.wisp | $(WISP) --source-uri src/misc.wisp --no-map > ./lib/misc.js
+	cat src/macros.wisp src/misc.wisp | $(WISP) --no-map > ./lib/misc.js
 
 index:
-	cat src/hu.wisp | $(WISP) --source-uri src/hu.wisp --no-map > ./lib/hu.js
+	cat src/hu.wisp | $(WISP) --no-map > ./lib/hu.js
 
 banner:
 	@echo $(BANNER) > hu.js
@@ -80,6 +80,3 @@ release-minor:
 publish:
 	git push --tags origin HEAD:master
 	npm publish
-
-loc:
-	wc -l src/*
