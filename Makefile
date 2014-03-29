@@ -5,6 +5,18 @@ MOCHA = ./node_modules/.bin/mocha
 UGLIFYJS = ./node_modules/.bin/uglifyjs
 BANNER = "/*! hu.js - v0.1.0 - MIT License - https://github.com/h2non/hu */"
 
+define release
+	VERSION=`node -pe "require('./package.json').version"` && \
+	NEXT_VERSION=`node -pe "require('semver').inc(\"$$VERSION\", '$(1)')"` && \
+	node -e "\
+		var j = require('./package.json');\
+		j.version = \"$$NEXT_VERSION\";\
+		var s = JSON.stringify(j, null, 2);\
+		require('fs').writeFileSync('./package.json', s);" && \
+	git commit -m "release $$NEXT_VERSION" -- package.json && \
+	git tag "$$NEXT_VERSION" -m "Version $$NEXT_VERSION"
+endef
+
 default: all
 all: test browser
 browser: cleanbrowser test banner browserify uglify
