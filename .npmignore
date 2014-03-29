@@ -6,3 +6,5 @@ test/
 .editorconfig
 bower.json
 Makefile
+/hu.js
+/hu.min.js
