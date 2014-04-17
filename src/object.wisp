@@ -80,8 +80,7 @@
       (do
         (set! (aget result (aget key-values 0))
               (aget key-values 1))
-        (recur (.slice key-values 2) result))
-      result)))
+        (recur (.slice key-values 2) result)) result)))
 
 ; to do: recursive deep merge
 (def ^:private **oproto** (.-prototype Object))
@@ -101,8 +100,7 @@
             (fn [key]
               (set!
                 (get descriptor key)
-                (.get-own-property-descriptor Object obj key))))) descriptor)
-      {})))
+                (.get-own-property-descriptor Object obj key))))) descriptor) {})))
 
 (defcurry ^object map
   "Maps object values by applying with the value return
