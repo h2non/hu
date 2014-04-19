@@ -11,8 +11,10 @@
     var hu_lib_type = _dereq_('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
+    var isNumber = hu_lib_type.isNumber;
     var isObject = hu_lib_type.isObject;
 }
+void 0;
 void 0;
 void 0;
 void 0;
@@ -61,8 +63,10 @@ var initial = exports.initial = function initial(arr) {
     var hu_lib_type = _dereq_('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
+    var isNumber = hu_lib_type.isNumber;
     var isObject = hu_lib_type.isObject;
 }
+void 0;
 void 0;
 void 0;
 void 0;
@@ -116,8 +120,10 @@ var clean = exports.clean = compact;
     var hu_lib_type = _dereq_('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
+    var isNumber = hu_lib_type.isNumber;
     var isObject = hu_lib_type.isObject;
 }
+void 0;
 void 0;
 void 0;
 void 0;
@@ -132,6 +138,11 @@ void 0;
             id: 'hu.lib.equality',
             doc: void 0
         };
+    var hu_lib_number = _dereq_('./number');
+    var inc = hu_lib_number.inc;
+    var dec = hu_lib_number.dec;
+    var hu_lib_object = _dereq_('./object');
+    var keys = hu_lib_object.keys;
     var hu_lib_type = _dereq_('./type');
     var isDate = hu_lib_type.isDate;
     var isArray = hu_lib_type.isArray;
@@ -146,11 +157,6 @@ void 0;
     var isPattern = hu_lib_type.isPattern;
     var isPatternEqual = hu_lib_type.isPatternEqual;
     var isDateEqual = hu_lib_type.isDateEqual;
-    var hu_lib_number = _dereq_('./number');
-    var inc = hu_lib_number.inc;
-    var dec = hu_lib_number.dec;
-    var hu_lib_object = _dereq_('./object');
-    var keys = hu_lib_object.keys;
 }
 var isDateEqual = exports.isDateEqual = function isDateEqual() {
         var args = Array.prototype.slice.call(arguments, 0);
@@ -247,8 +253,10 @@ var deepEqual = exports.deepEqual = isEqual;
     var hu_lib_type = _dereq_('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
+    var isNumber = hu_lib_type.isNumber;
     var isObject = hu_lib_type.isObject;
 }
+void 0;
 void 0;
 void 0;
 void 0;
@@ -426,8 +434,10 @@ hu.VERSION = '0.1.0';
     var hu_lib_type = _dereq_('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
+    var isNumber = hu_lib_type.isNumber;
     var isObject = hu_lib_type.isObject;
 }
+void 0;
 void 0;
 void 0;
 void 0;
@@ -468,8 +478,10 @@ var _global = exports._global = isBrowser ? window : global;
     var hu_lib_type = _dereq_('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
+    var isNumber = hu_lib_type.isNumber;
     var isObject = hu_lib_type.isObject;
 }
+void 0;
 void 0;
 void 0;
 void 0;
@@ -561,8 +573,10 @@ var div = exports.div = function div() {
     var hu_lib_type = _dereq_('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
+    var isNumber = hu_lib_type.isNumber;
     var isObject = hu_lib_type.isObject;
 }
+void 0;
 void 0;
 void 0;
 void 0;
@@ -694,8 +708,10 @@ var filterValues = exports.filterValues = filter;
     var hu_lib_type = _dereq_('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
+    var isNumber = hu_lib_type.isNumber;
     var isObject = hu_lib_type.isObject;
 }
+void 0;
 void 0;
 void 0;
 void 0;
@@ -740,7 +756,7 @@ var unchars = exports.unchars = function unchars(x) {
         return isArray(x) ? x.join('') : x;
     };
 var char = exports.char = function char(x) {
-        return isNumber(x) ? String.fromCharCode(x) : void 0;
+        return isNumber(x) ? String.fromCharCode(x) : x;
     };
 var reverse = exports.reverse = function reverse(x) {
         return isString(x) ? x.split('').reverse().join('') : x;
@@ -760,7 +776,7 @@ var escapeChar = function escapeChar(x) {
     return htmlEscapes[x];
 };
 var escape = exports.escape = function escape(x) {
-        return isString(x) ? String(x).replace(unescapedHtml, escapeChar) : '';
+        return isString(x) ? String(x).replace(unescapedHtml, escapeChar) : x;
     };
 },{"./function":4,"./object":8,"./type":10}],10:[function(_dereq_,module,exports){
 {
@@ -774,8 +790,10 @@ var escape = exports.escape = function escape(x) {
     var hu_lib_type = _dereq_('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
+    var isNumber = hu_lib_type.isNumber;
     var isObject = hu_lib_type.isObject;
 }
+void 0;
 void 0;
 void 0;
 void 0;
