@@ -1,18 +1,13 @@
 {
   "name": "hu",
-  "version": "0.1.0-rc.3",
+  "version": "0.1.0-rc.4",
   "description": "Functional-oriented utility helper library",
   "homepage": "http://github.com/h2non/hu.js",
   "bugs": "https://github.com/h2non/hu.js/issues",
-  "author": {
-    "name": "Tomas Aparicio"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/h2non/hu.js.git"
-  },
+  "author": "Tomas Aparicio",
+  "repository": "h2non/hu",
   "licenses": "MIT",
-  "main": "./hu",
+  "main": "./lib/hu",
   "directories": {
     "lib": "./lib"
   },

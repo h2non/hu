@@ -4,6 +4,7 @@ test/
 .gitignore
 .travis.yml
 .editorconfig
+.npmignore
 bower.json
 Makefile
 /hu.js
