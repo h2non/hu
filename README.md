@@ -1,4 +1,4 @@
-# hu [![Build Status](https://secure.travis-ci.org/h2non/hu.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/h2non/hu.png)][gemnasium] [![NPM version](https://badge.fury.io/js/hu.png)][npm]
+# hu [![Build Status](https://secure.travis-ci.org/h2non/hu.png?branch=master)][travis] [![NPM version](https://badge.fury.io/js/hu.png)][npm]
 
 <table>
 <tr>
@@ -1082,5 +1082,4 @@ Released under the MIT license
 
 [wisp]: https://github.com/Gozala/wisp
 [travis]: http://travis-ci.org/h2non/hu
-[gemnasium]: https://gemnasium.com/h2non/hu
 [npm]: http://npmjs.org/package/hu
