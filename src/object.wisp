@@ -39,7 +39,8 @@
 (def ^object assign extend)
 
 (defn ^object mixin
-  "Adds function properties of a source object to the destination object"
+  "Adds function properties of a source object
+  to the destination object"
   [target & origins]
   (def obj (when (object? target) target {}))
   (.reduce origins

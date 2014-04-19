@@ -25,43 +25,22 @@ endef
 default: all
 all: test browser
 browser: cleanbrowser test banner browserify uglify
-compile: mkdir clean index string number type misc object array maths equality collection function
 test: compile mocha
 
 mkdir:
 	mkdir -p lib
 
-string:
+compile: mkdir clean
 	cat src/macros.wisp src/string.wisp | $(WISP) --no-map > ./lib/string.js
-
-number:
 	cat src/macros.wisp src/number.wisp | $(WISP) --no-map > ./lib/number.js
-
-type:
 	cat src/macros.wisp src/type.wisp | $(WISP) --no-map > ./lib/type.js
-
-object:
 	cat src/macros.wisp src/object.wisp | $(WISP) --no-map > ./lib/object.js
-
-array:
 	cat src/macros.wisp src/array.wisp | $(WISP) --no-map > ./lib/array.js
-
-maths:
 	cat src/macros.wisp src/maths.wisp | $(WISP) --no-map > ./lib/maths.js
-
-collection:
 	cat src/macros.wisp src/collection.wisp | $(WISP) --no-map > ./lib/collection.js
-
-function:
 	cat src/macros.wisp src/function.wisp | $(WISP) --no-map > ./lib/function.js
-
-equality:
 	cat src/macros.wisp src/equality.wisp | $(WISP) --no-map > ./lib/equality.js
-
-misc:
 	cat src/macros.wisp src/misc.wisp | $(WISP) --no-map > ./lib/misc.js
-
-index:
 	cat src/hu.wisp | $(WISP) --no-map > ./lib/hu.js
 
 banner:
@@ -94,6 +73,6 @@ release:
 release-minor:
 	@$(call release, minor)
 
-publish:
+publish: release
 	git push --tags origin HEAD:master
 	npm publish

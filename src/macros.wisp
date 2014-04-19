@@ -1,19 +1,23 @@
 (ns hu.lib.macros
   (:require
     [hu.lib.function :refer [curry compose]]
-    [hu.lib.type :refer [string? array? object?]]))
+    [hu.lib.type :refer [string? array? number? object?]]))
 
-(defmacro str
+(defmacro str?
   [x expr]
   `(if (string? ~x) ~expr ~x))
 
-(defmacro arr
+(defmacro arr?
   [x expr]
   `(if (array? ~x) ~expr ~x))
 
-(defmacro obj
+(defmacro obj?
   [x expr]
   `(if (object? ~x) ~expr ~x))
+
+(defmacro num?
+  [x expr]
+  `(if (number? ~x) ~expr ~x))
 
 (defmacro ?
   [x y]

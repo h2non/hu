@@ -1,13 +1,8 @@
 # hu [![Build Status](https://secure.travis-ci.org/h2non/hu.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/h2non/hu.png)][gemnasium] [![NPM version](https://badge.fury.io/js/hu.png)][npm]
 
-> **Disclaimer**: hu is still a just-for-fun and learn experimental project
-
 <table>
 <tr>
-<td><b>Version</b></td><td>beta</td>
-</tr>
-<tr>
-<td><b>Stage</b></td><td>experimental</td>
+<td><b>Stage</b></td><td>beta</td>
 </tr>
 <tr>
 <td><b>Funny</b></td><td>true</td>
@@ -22,7 +17,7 @@ inspired by haskell's prelude and lodash/underscore
 Unlike other well-known libraries such as Lodash or Sugar.js, hu only provides a reduced but generic set of most common and useful functions.
 It aims to be a lightweight and small library which can be easily embedded as a part of an application, library or framework without making noise
 
-hu library works well under ES5 compliant engines.
+hu library works well in ES5 compliant engines.
 Most of its functions are curried
 
 ## Features
@@ -33,20 +28,20 @@ Most of its functions are curried
 - String manipulation helpers
 - Equality comparison functions
 - Runs in node and browsers
-- Well tested with high coverage
+- Well tested with 100% of coverage
 
 ## Installation
 
 #### Node.js
 
-```
-$ npm install hu
+```bash
+$ npm install hu --save
 ```
 
 #### Browser
 
 Via Bower package manager
-```
+```bash
 $ bower install hu
 ```
 
@@ -62,7 +57,7 @@ a formalism, those environments are:
 
 - Node.js
 - Chrome >= 5
-- Firefox
+- Firefox >= 3
 - Safari >= 5
 - Opera >= 12
 - IE >= 9

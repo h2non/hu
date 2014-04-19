@@ -1,11 +1,11 @@
 (ns hu.lib.equality
   (:require
-    [hu.lib.type
-      :refer [date? array? object? fn? null? undef? string? number? bool? iterable? pattern? pattern-equal? date-equal?]]
     [hu.lib.number
       :refer [inc dec]]
     [hu.lib.object
-      :refer [keys]]))
+      :refer [keys]]
+    [hu.lib.type
+      :refer [date? array? object? fn? null? undef? string? number? bool? iterable? pattern? pattern-equal? date-equal?]]))
 
 (defcurry ^boolean date-equal?
   "Check if the given dates are equal"

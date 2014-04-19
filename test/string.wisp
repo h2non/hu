@@ -83,7 +83,7 @@
     (test :invalid
       (fn []
         (equal (.char _ nil) nil)
-        (equal (.char _ false) nil)))
+        (equal (.char _ false) false)))
     (test :valid
       (fn []
         (equal (.char _ 19) "\u0013")
@@ -117,10 +117,10 @@
   (fn []
     (test :invalid
       (fn []
-        (equal (.escape _ nil) "")
-        (equal (.escape _ 10) "")
-        (equal (.escape _ true) "")
-        (deep-equal (.escape _ {:a 1}) "")))
+        (equal (.escape _ nil) nil)
+        (equal (.escape _ 10) 10)
+        (equal (.escape _ true) true)
+        (deep-equal (.escape _ {:a 1}) {:a 1})))
     (test :valid
       (fn []
         (equal (.escape _ "<a>") "&lt;a&gt;")
