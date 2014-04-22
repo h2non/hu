@@ -3,7 +3,7 @@ WISP = ./node_modules/wisp/bin/wisp.js
 WISP_MODULE = ./node_modules/wisp/
 MOCHA = ./node_modules/.bin/mocha
 UGLIFYJS = ./node_modules/.bin/uglifyjs
-BANNER = "/*! hu.js - v0.1.0 - MIT License - https://github.com/h2non/hu */"
+BANNER = "/*! hu.js - v0.1 - MIT License - https://github.com/h2non/hu */"
 
 define release
 	VERSION=`node -pe "require('./package.json').version"` && \

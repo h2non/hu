@@ -1,6 +1,6 @@
 {
   "name": "hu",
-  "version": "0.1.0-rc.4",
+  "version": "0.1.0",
   "description": "Functional-oriented utility helper library",
   "license": "MIT",
   "author": "Tomas Aparicio",
