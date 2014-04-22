@@ -22,9 +22,22 @@ define release
 	git tag "$$NEXT_VERSION" -m "Version $$NEXT_VERSION"
 endef
 
+define replace
+	node -e "\
+		var fs = require('fs'); \
+		var os = require('os-shim'); \
+		var str = fs.readFileSync('./hu.js').toString(); \
+		str = str.split(os.EOL).map(function (line) { \
+		  return line.replace(/^void 0;/, '') \
+		}).filter(function (line) { \
+		  return line.length \
+		}).join(os.EOL); \
+		fs.writeFileSync('./hu.js', str)"
+endef
+
 default: all
 all: test browser
-browser: cleanbrowser test banner browserify uglify
+browser: cleanbrowser test banner browserify replace uglify
 test: compile mocha
 
 mkdir:
@@ -51,6 +64,9 @@ browserify:
 		--exports require \
 		--standalone hu \
 		--entry ./lib/hu.js >> ./hu.js
+
+replace:
+	@$(call replace)
 
 uglify:
 	$(UGLIFYJS) hu.js --mangle --preamble $(BANNER) > hu.min.js
