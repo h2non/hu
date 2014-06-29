@@ -316,19 +316,39 @@ var once = exports.once = function once(lambda) {
             };
         }.call(this);
     };
-var times = exports.times = function times(lambda, n) {
-        return function () {
-            var cø1 = 0;
-            var nø2 = n || 1;
-            var memoizedø1 = void 0;
+var times = exports.times = function times() {
+        var args = Array.prototype.slice.call(arguments, 0);
+        return curry(function (lambda, n) {
             return function () {
-                var args = Array.prototype.slice.call(arguments, 0);
-                return cø1 < nø2 ? (function () {
-                    cø1 = cø1 + 1;
-                    return (cø1 === nø2 ? false : true) ? lambda.apply(void 0, args) : memoizedø1 = lambda.apply(void 0, args);
-                })() : memoizedø1;
-            };
-        }.call(this);
+                var cø1 = 0;
+                var nø2 = n || 1;
+                var memoizedø1 = void 0;
+                return function () {
+                    var args = Array.prototype.slice.call(arguments, 0);
+                    return cø1 < nø2 ? (function () {
+                        cø1 = cø1 + 1;
+                        return (cø1 === nø2 ? false : true) ? lambda.apply(void 0, args) : memoizedø1 = lambda.apply(void 0, args);
+                    })() : memoizedø1;
+                };
+            }.call(this);
+        }).apply(void 0, args);
+    };
+var throttle = exports.throttle = function throttle() {
+        var args = Array.prototype.slice.call(arguments, 0);
+        return curry(function (fn, ms) {
+            return function () {
+                var tø1 = 0;
+                var msø2 = ms || 100;
+                return function () {
+                    var args = Array.prototype.slice.call(arguments, 0);
+                    return tø1 === 0 || Date.now() - tø1 > msø2 ? function () {
+                        tø1 = Date.now();
+                        fn.apply(void 0, args);
+                        return void 0;
+                    }.call(this) : void 0;
+                };
+            }.call(this);
+        }).apply(void 0, args);
     };
 var defer = exports.defer = function defer(lambda, ms) {
         var args = Array.prototype.slice.call(arguments, 2);
