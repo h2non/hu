@@ -104,7 +104,7 @@
           (set! call false)
           (set! memoized (apply lambda args))) memoized))))
 
-(defn ^mixed times
+(defcurry ^mixed times
   "Creates a function that is restricted to be executed
   a finite number of times. Subsuquents calls to the
   function will return the memoized value of the latest call"
@@ -119,6 +119,18 @@
           (when (not? c n)
             (apply lambda args)
             (set! memoized (apply lambda args)))) memoized))))
+
+(defcurry ^fn throttle
+  "Creates a function that, when executed, will only call the fn
+  function at most once per every wait milliseconds"
+  [fn ms]
+  (let [t 0
+        ms (or ms 100)]
+    (fn [& args]
+      (cond (or (identical? t 0) (> (- (.now Date) t) ms))
+        (let []
+          (set! t (.now Date))
+          (apply fn args) nil)))))
 
 (defn ^void defer
   "Executes the given function after wait milliseconds.

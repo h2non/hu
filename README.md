@@ -209,6 +209,7 @@ hu is implemented keeping in mind the following “ambitious” functional focus
   - [memoize](#memoizefn-resolver)
   - [wrap](#wrapfn-wrapperfn--args-)
   - [once](#oncefn)
+  - [throttle](#throttlefn)
   - [times](#timesfn-number)
   - [defer](#deferfn-ms--args-)
   - [debounce](#debouncefn-ms--args-)
@@ -893,7 +894,7 @@ multiply(3) // → 4 (memoized value, from 2 value)
 ```
 
 #### wrap(fn, wrapperFn, [ ...args ])
-Return: `function`
+Return: `function` | Curried: `true`
 
 Creates a function that provides value to the wrapper
 function as its first argument. Additional arguments
@@ -926,8 +927,23 @@ init() // → 1
 init() // → 1
 ```
 
+#### throttle(fn)
+Return: `function` | Curried: `true`
+
+Creates a function that, when executed, will only call the fn
+function at most once per every wait milliseconds
+
+```js
+var test = hu.throttle(function () {
+  console.log(Date.now())
+}, 100)
+test() // → first call
+test() // → no call
+setTimeout(test, 150) // → second call
+```
+
 #### times(fn, number)
-Return: `function`
+Return: `function` | Curried: `true`
 
 Creates a function that is restricted to be executed
 a finite number of times. Subsuquents calls to the

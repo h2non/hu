@@ -1,6 +1,6 @@
 {
   "name": "hu",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Functional-oriented utility helper library",
   "homepage": "http://github.com/h2non/hu.js",
   "bugs": "https://github.com/h2non/hu.js/issues",
@@ -32,10 +32,10 @@
   ],
   "devDependencies": {
     "browserify": "~3.32.1",
-    "wisp": "~0.9.0-beta3",
+    "wisp": "~0.10.0",
     "mocha": "~1.18.0",
     "uglify-js": "~2.4.12",
     "semver": "^2.2.1",
-    "os-shim": "^0.1.2"
+    "os-shim": "~0.1.2"
   }
 }

@@ -140,6 +140,26 @@
               (equal (f 1) 2)
               (equal (f 2) 2))))))
 
+(suite :throttle
+  (fn []
+    (test :basic
+      (fn [done]
+        (let [count 0
+              throttle (.throttle _
+                (fn [n]
+                  (set! count (+ count n))) 500)]
+          (throttle 1)
+          (equal count 1)
+          (throttle 2)
+          (equal count 1)
+          (throttle 3)
+          (equal count 1)
+          (set-timeout
+            (fn []
+              (throttle 2)
+              (equal count 3)
+              (done)) 600))))))
+
 (suite :times
   (fn []
     (test :basic
