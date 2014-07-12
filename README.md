@@ -45,9 +45,9 @@ Via Bower package manager
 $ bower install hu
 ```
 
-Or loading the script remotely (just for testing or development)
+Or loading the script remotely
 ```html
-<script src="//rawgithub.com/h2non/hu/master/hu.js"></script>
+<script src="//cdn.rawgit.com/h2non/hu/0.1.1/hu.js"></script>
 ```
 
 ## Environments
