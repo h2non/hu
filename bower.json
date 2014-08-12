@@ -1,7 +1,7 @@
 {
   "name": "hu",
   "version": "0.1.1",
-  "description": "Functional-oriented utility helper library",
+  "description": "Functional utility helper library",
   "license": "MIT",
   "author": "Tomas Aparicio",
   "main": "./hu.js",

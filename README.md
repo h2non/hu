@@ -40,12 +40,17 @@ $ npm install hu --save
 
 #### Browser
 
-Via Bower package manager
+Via [Bower](http://bower.io)
 ```bash
 $ bower install hu
 ```
 
-Or loading the script remotely
+Via [Component](http://component.io)
+```bash
+$ component install h2non/hu
+```
+
+Or load the script remotely (just for testing or development)
 ```html
 <script src="//cdn.rawgit.com/h2non/hu/0.1.1/hu.js"></script>
 ```
