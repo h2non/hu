@@ -55,17 +55,11 @@ Or load the script remotely (just for testing or development)
 <script src="//cdn.rawgit.com/h2non/hu/0.1.1/hu.js"></script>
 ```
 
-## Environments
+## Browsers Support
 
-It works properly in any ES5 compliant environment, however just for
-a formalism, those environments are:
-
-- Node.js
-- Chrome >= 5
-- Firefox >= 3
-- Safari >= 5
-- Opera >= 12
-- IE >= 9
+![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/opera/opera_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari/safari_48x48.png)
+--- | --- | --- | --- | --- |
++5 | +3.5 | +10 | +10.6 | +7 |
 
 ## Why hu?
 
