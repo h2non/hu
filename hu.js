@@ -239,6 +239,15 @@ var constant = exports.constant = function constant(x) {
         };
     };
 var identify = exports.identify = constant;
+var lazy = exports.lazy = function lazy(lambda, defaultResult) {
+        return function (task) {
+            var args = Array.prototype.slice.call(arguments, 1);
+            return function () {
+                var resultø1 = task.apply(void 0, args);
+                return resultø1 ? lambda.apply(void 0, args.concat([resultø1])) : lambda.apply(void 0, args.concat([defaultResult]));
+            }.call(this);
+        };
+    };
 var apply = exports.apply = function apply(lambda, args) {
         return lambda.apply(lambda, args);
     };

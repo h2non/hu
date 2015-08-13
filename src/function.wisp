@@ -9,6 +9,14 @@
 
 (def ^fn identify constant)
 
+(defn ^fn lazy 
+  [lambda default-result]
+  (fn [task & args]
+    (let [result (apply task args)]
+      (when result  
+        (apply lambda (.concat args [result])) 
+        (apply lambda (.concat args [default-result]))))))
+
 (defn ^mixed apply
   "Invokes a function without binding a context
   with the given arguments as array"
