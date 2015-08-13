@@ -1,16 +1,5 @@
 # hu [![Build Status](https://secure.travis-ci.org/h2non/hu.png?branch=master)][travis] [![NPM version](https://badge.fury.io/js/hu.png)][npm]
 
-<table>
-<tr>
-<td><b>Stage</b></td><td>beta</td>
-</tr>
-<tr>
-<td><b>Funny</b></td><td>true</td>
-</tr>
-</table>
-
-## About
-
 **hu** is a functional-oriented utility helper library
 inspired by haskell's prelude and lodash/underscore
 
