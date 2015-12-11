@@ -1,13 +1,13 @@
-# hu [![Build Status](https://secure.travis-ci.org/h2non/hu.png?branch=master)][travis] [![NPM version](https://badge.fury.io/js/hu.png)][npm]
+# hu [![Build Status](https://secure.travis-ci.org/h2non/hu.png?branch=master)][travis] [![NPM version](https://badge.fury.io/js/hu.png)][npm] ![Total Downloads](https://img.shields.io/npm/dt/nar.svg)
 
-**hu** is a functional-oriented utility helper library
-inspired by haskell's prelude and lodash/underscore
+**hu** is a small functional helper library
+inspired by haskell's prelude and lodash/underscore.
 
 Unlike other well-known libraries such as Lodash or Sugar.js, hu only provides a reduced but generic set of most common and useful functions.
+
 It aims to be a lightweight and small library which can be easily embedded as a part of an application, library or framework without making noise
 
-hu library works well in ES5 compliant engines.
-Most of its functions are curried
+hu library works in ES5 compliant engine. Most of its functions are curried.
 
 ## Features
 
