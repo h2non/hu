@@ -1,23 +1,24 @@
 # hu [![Build Status](https://secure.travis-ci.org/h2non/hu.png?branch=master)][travis] [![NPM version](https://badge.fury.io/js/hu.png)][npm]
 
-**hu** is a functional-oriented utility helper library
-inspired by haskell's prelude and lodash/underscore
+**hu** is a functional-oriented generic utility helper library inspired by Haskell's prelude and Lodash/Underscore/Ramda.
 
-Unlike other well-known libraries such as Lodash or Sugar.js, hu only provides a reduced but generic set of most common and useful functions.
-It aims to be a lightweight and small library which can be easily embedded as a part of an application, library or framework without making noise
+Unlike other well-known libraries, hu only provides a reduced but very common set of useful functions.
+It aims to be a lightweight and small library which can be easily embedded as a part of an application, library or framework without making noise.
 
-hu library works well in ES5 compliant engines.
-Most of its functions are curried
+hu library works well in ES5 compliant engine. Most of its functions are implicitly curried.
 
 ## Features
 
-- Complete type checking helpers
-- Array and objects processors and transformers
-- Functional-oriented helpers (curry, partial, compose, memoize...)
+- Complete and reliable type checking helpers
+- Collection and object iterators
+- Array and objects processors and transformers helpers
+- Functional composition and async (curry, partial, compose, memoize, defer...)
 - String manipulation helpers
-- Equality comparison functions
-- Runs in node and browsers
+- Equality comparison functions, including deep comparison
+- Runs in node.js and browsers
 - Well tested with 100% of coverage
+- Small (~800 SLOC)
+- Dependency free
 
 ## Installation
 
@@ -54,13 +55,12 @@ Or load the script remotely (just for testing or development)
 
 ### Motivation
 
-Functional programming tendency has grown (again) in the latest years.
-This paradigm, unlike others that may be more totalitarian and extended, forces a radical re-thinking in the way that programmers design and implement software
+Functional programming tendency has grown (again) in the last years.
+This paradigm, unlike others that may be more totalitarian and extended, forces a radical re-thinking in the way that programmers design and implement software.
 
-Functional programming thinking and conversion is not easy to apply,
-but it's really a quite attractive and funny paradigm,
-which helps to solve the same problems in a theoretically
-and conceptually clean (and sometimes more efficiently) way
+Functional programming thinking and conversion is not always easy to apply,
+but it's really a quite attractive and funny paradigm which could helps a lot when solving certaing kind of problems in a more theoretically
+and conceptually clean way, and tipically more efficiently.
 
 ### Rationale
 
@@ -78,8 +78,9 @@ It's completely written in [Wisp][wisp], a homoiconic Clojure-like language, whi
 JavaScript is an ubiquitous, well-extended, multi-purpose and multi-paradigm cool language with which you can do a lot of funny things
 
 Yes, I know, JavaScript is not a pure functional language, however
-its natural extensibility and meta-programming features allow to apply different paradigms to it and today there are a lot of languages that transpile into JavaScript that help providing a powerful syntax sugar and more features,
-like in this case using Wisp
+its natural extensibility and meta-programming capabilities allows you to apply different
+paradigms to it and today there are a lot of languages that transpile into JavaScript that help providing a powerful syntax sugar and more features,
+like in this case using Wisp.
 
 ### Challenges
 
@@ -94,9 +95,8 @@ hu is implemented keeping in mind the following “ambitious” functional focus
 - Tend to functional composition
 - Tend to continuation-passing style
 - Exploit subroutines (like tail recursion call)
-- Exploit memorization (currying, partial, caching...)
-- Exploit combinators
-- Macros are a great thing, use&love it
+- Exploit function memorization (currying, partial, caching...)
+- Macros are a great thing when used right¡, don't have fear.
 
 ## API
 
@@ -171,6 +171,7 @@ hu is implemented keeping in mind the following “ambitious” functional focus
   - [tail](#tailarr)
   - [last](#lastarr)
   - [initial](#initialarr)
+  - [flatten](#flattenarr)
 - Objects
   - [has](#hasobj-property)
   - [keys](#keysobj)
@@ -601,6 +602,15 @@ Everything but the last item of the list
 
 ```js
 hu.initial([1, 2, 3]) // → [1, 2]
+```
+
+#### flatten(arr)
+Return: `array`
+
+Recursively flatten elements of a multidimensional list into a one dimension list.
+
+```js
+hu.flatten([1, [2], [3, [4, [5]]]]) // → [1, 2, 3, 4, 5]
 ```
 
 ### Objects
