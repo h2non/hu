@@ -433,7 +433,7 @@ var hu = module.exports = object.extend.apply(void 0, [
     collection,
     equality
 ]);
-hu.VERSION = '0.1.0';
+hu.VERSION = '0.1.2';
 },{"./array":1,"./collection":2,"./equality":3,"./function":4,"./misc":6,"./number":7,"./object":8,"./string":9,"./type":10}],6:[function(_dereq_,module,exports){
 (function (global){
 {

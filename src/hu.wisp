@@ -24,4 +24,4 @@
        collection
        equality])))
 
-(set! (.-VERSION hu) :0.1.0)
+(set! (.-VERSION hu) :0.1.2)

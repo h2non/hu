@@ -42,7 +42,7 @@ $ component install h2non/hu
 
 Or load the script remotely (just for testing or development)
 ```html
-<script src="//cdn.rawgit.com/h2non/hu/0.1.1/hu.js"></script>
+<script src="//cdn.rawgit.com/h2non/hu/0.1.2/hu.js"></script>
 ```
 
 ## Browsers Support
