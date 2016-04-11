@@ -68,3 +68,24 @@
         (deep-equal (.initial _ [:a :b :c]) [:a :b])
         (deep-equal (.initial _ []) [])
         (deep-equal (.initial _ [{:a 1} {:b 2}]) [{:a 1}])))))
+
+(suite :flatten
+  (fn []
+    (test :invalid
+      (fn []
+        (deep-equal (.flatten _) [])
+        (deep-equal (.flatten _ []) [])
+        (deep-equal (.flatten _ [null]) [])
+        (deep-equal (.flatten _ [nil]) [])
+        (deep-equal (.flatten _ [[[nil]]]) [])))
+    (test :one
+      (fn []
+        (deep-equal (.flatten _ [1]) [1])
+        (deep-equal (.flatten _ [1 2 3]) [1 2 3])
+        (deep-equal (.flatten _ [true false]) [true false])
+        (deep-equal (.flatten _ [1 :foo false]) [1 :foo false])))
+    (test :nested
+      (fn []
+        (deep-equal (.flatten _ [1 2 [3]]) [1 2 3])
+        (deep-equal (.flatten _ [1 [2] [3 [4]]]) [1 2 3 4])
+        (deep-equal (.flatten _ [1 [2] [3 [4]] [5 [6 [7 [[8]]]]]]) [1 2 3 4 5 6 7 8])))))

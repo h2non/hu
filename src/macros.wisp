@@ -1,7 +1,7 @@
 (ns hu.lib.macros
   (:require
     [hu.lib.function :refer [curry compose]]
-    [hu.lib.type :refer [string? array? number? object?]]))
+    [hu.lib.type :refer [string? array? number? undef? object?]]))
 
 (defmacro str?
   [x expr]
@@ -26,6 +26,10 @@
 (defmacro not?
   [x y]
   `(if (? ~x ~y) false true))
+
+(defmacro def?
+  [x]
+  `(if (undef? ~x) false true))
 
 (defmacro unless
   [condition form]
