@@ -1,14 +1,14 @@
 /*! hu.js - v0.1 - MIT License - https://github.com/h2non/hu */
-!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.hu=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.hu = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 {
     var _ns_ = {
         id: 'hu.lib.macros',
         doc: void 0
     };
-    var hu_lib_function = _dereq_('./function');
+    var hu_lib_function = require('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_type = _dereq_('./type');
+    var hu_lib_type = require('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
     var isNumber = hu_lib_type.isNumber;
@@ -20,7 +20,7 @@
         id: 'hu.lib.array',
         doc: void 0
     };
-    var hu_lib_type = _dereq_('./type');
+    var hu_lib_type = require('./type');
     var isArray = hu_lib_type.isArray;
 }
 var inArray = exports.inArray = function inArray() {
@@ -62,16 +62,16 @@ var flatten = exports.flatten = function flatten() {
         throw RangeError('Wrong number of arguments passed');
     }
 };
-},{"./function":4,"./type":10}],2:[function(_dereq_,module,exports){
+},{"./function":4,"./type":10}],2:[function(require,module,exports){
 {
     var _ns_ = {
         id: 'hu.lib.macros',
         doc: void 0
     };
-    var hu_lib_function = _dereq_('./function');
+    var hu_lib_function = require('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_type = _dereq_('./type');
+    var hu_lib_type = require('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
     var isNumber = hu_lib_type.isNumber;
@@ -83,13 +83,13 @@ var flatten = exports.flatten = function flatten() {
         id: 'hu.lib.collection',
         doc: void 0
     };
-    var hu_lib_type = _dereq_('./type');
+    var hu_lib_type = require('./type');
     var isObject = hu_lib_type.isObject;
     var isArray = hu_lib_type.isArray;
     var isEmpty = hu_lib_type.isEmpty;
     var isIterable = hu_lib_type.isIterable;
     var isNotEmpty = hu_lib_type.isNotEmpty;
-    var hu_lib_object = _dereq_('./object');
+    var hu_lib_object = require('./object');
     var keys = hu_lib_object.keys;
     var filter = hu_lib_object.filter;
 }
@@ -110,16 +110,16 @@ var compact = exports.compact = function compact(clt) {
     return isArray(clt) ? clt.filter(isNotEmpty) : filter(clt, isNotEmpty);
 };
 var clean = exports.clean = compact;
-},{"./function":4,"./object":8,"./type":10}],3:[function(_dereq_,module,exports){
+},{"./function":4,"./object":8,"./type":10}],3:[function(require,module,exports){
 {
     var _ns_ = {
         id: 'hu.lib.macros',
         doc: void 0
     };
-    var hu_lib_function = _dereq_('./function');
+    var hu_lib_function = require('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_type = _dereq_('./type');
+    var hu_lib_type = require('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
     var isNumber = hu_lib_type.isNumber;
@@ -131,12 +131,12 @@ var clean = exports.clean = compact;
         id: 'hu.lib.equality',
         doc: void 0
     };
-    var hu_lib_number = _dereq_('./number');
+    var hu_lib_number = require('./number');
     var inc = hu_lib_number.inc;
     var dec = hu_lib_number.dec;
-    var hu_lib_object = _dereq_('./object');
+    var hu_lib_object = require('./object');
     var keys = hu_lib_object.keys;
-    var hu_lib_type = _dereq_('./type');
+    var hu_lib_type = require('./type');
     var isDate = hu_lib_type.isDate;
     var isArray = hu_lib_type.isArray;
     var isObject = hu_lib_type.isObject;
@@ -234,16 +234,16 @@ var isEqual = exports.isEqual = function isEqual() {
 var equal = exports.equal = isEqual;
 var isDeepEqual = exports.isDeepEqual = isEqual;
 var deepEqual = exports.deepEqual = isEqual;
-},{"./function":4,"./number":7,"./object":8,"./type":10}],4:[function(_dereq_,module,exports){
+},{"./function":4,"./number":7,"./object":8,"./type":10}],4:[function(require,module,exports){
 {
     var _ns_ = {
         id: 'hu.lib.macros',
         doc: void 0
     };
-    var hu_lib_function = _dereq_('./function');
+    var hu_lib_function = require('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_type = _dereq_('./type');
+    var hu_lib_type = require('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
     var isNumber = hu_lib_type.isNumber;
@@ -396,29 +396,29 @@ var debounce = exports.debounce = function debounce() {
         return defer.apply(void 0, args.concat(cargs));
     };
 };
-},{"./function":4,"./type":10}],5:[function(_dereq_,module,exports){
+},{"./function":4,"./type":10}],5:[function(require,module,exports){
 {
     var _ns_ = {
         id: 'hu.src.index',
         doc: void 0
     };
-    var hu_src_equality = _dereq_('./equality');
+    var hu_src_equality = require('./equality');
     var equality = hu_src_equality;
-    var hu_src_collection = _dereq_('./collection');
+    var hu_src_collection = require('./collection');
     var collection = hu_src_collection;
-    var hu_src_type = _dereq_('./type');
+    var hu_src_type = require('./type');
     var type = hu_src_type;
-    var hu_src_string = _dereq_('./string');
+    var hu_src_string = require('./string');
     var string = hu_src_string;
-    var hu_src_number = _dereq_('./number');
+    var hu_src_number = require('./number');
     var number = hu_src_number;
-    var hu_src_object = _dereq_('./object');
+    var hu_src_object = require('./object');
     var object = hu_src_object;
-    var hu_src_array = _dereq_('./array');
+    var hu_src_array = require('./array');
     var array = hu_src_array;
-    var hu_src_function = _dereq_('./function');
+    var hu_src_function = require('./function');
     var _function = hu_src_function;
-    var hu_src_misc = _dereq_('./misc');
+    var hu_src_misc = require('./misc');
     var misc = hu_src_misc;
 }
 var hu = module.exports = object.extend.apply(void 0, [
@@ -434,17 +434,17 @@ var hu = module.exports = object.extend.apply(void 0, [
     equality
 ]);
 hu.VERSION = '0.1.2';
-},{"./array":1,"./collection":2,"./equality":3,"./function":4,"./misc":6,"./number":7,"./object":8,"./string":9,"./type":10}],6:[function(_dereq_,module,exports){
+},{"./array":1,"./collection":2,"./equality":3,"./function":4,"./misc":6,"./number":7,"./object":8,"./string":9,"./type":10}],6:[function(require,module,exports){
 (function (global){
 {
     var _ns_ = {
         id: 'hu.lib.macros',
         doc: void 0
     };
-    var hu_lib_function = _dereq_('./function');
+    var hu_lib_function = require('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_type = _dereq_('./type');
+    var hu_lib_type = require('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
     var isNumber = hu_lib_type.isNumber;
@@ -469,17 +469,17 @@ var isBrowser = exports.isBrowser = (function () {
     return typeof(window) === 'object' && window.HTMLElement;
 })();
 var _global = exports._global = isBrowser ? window : global;
-}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./function":4,"./type":10}],7:[function(_dereq_,module,exports){
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./function":4,"./type":10}],7:[function(require,module,exports){
 {
     var _ns_ = {
         id: 'hu.lib.macros',
         doc: void 0
     };
-    var hu_lib_function = _dereq_('./function');
+    var hu_lib_function = require('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_type = _dereq_('./type');
+    var hu_lib_type = require('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
     var isNumber = hu_lib_type.isNumber;
@@ -491,7 +491,7 @@ var _global = exports._global = isBrowser ? window : global;
         id: 'hu.lib.number',
         doc: void 0
     };
-    var hu_lib_type = _dereq_('./type');
+    var hu_lib_type = require('./type');
     var isNumber = hu_lib_type.isNumber;
 }
 var max = exports.max = Math.max;
@@ -556,16 +556,16 @@ var div = exports.div = function div() {
         return floor(x / y);
     }).apply(void 0, args);
 };
-},{"./function":4,"./type":10}],8:[function(_dereq_,module,exports){
+},{"./function":4,"./type":10}],8:[function(require,module,exports){
 {
     var _ns_ = {
         id: 'hu.lib.macros',
         doc: void 0
     };
-    var hu_lib_function = _dereq_('./function');
+    var hu_lib_function = require('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_type = _dereq_('./type');
+    var hu_lib_type = require('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
     var isNumber = hu_lib_type.isNumber;
@@ -577,7 +577,7 @@ var div = exports.div = function div() {
         id: 'hu.lib.object',
         doc: void 0
     };
-    var hu_lib_type = _dereq_('./type');
+    var hu_lib_type = require('./type');
     var isDate = hu_lib_type.isDate;
     var isArray = hu_lib_type.isArray;
     var isObject = hu_lib_type.isObject;
@@ -682,16 +682,16 @@ var filter = exports.filter = function filter() {
     }).apply(void 0, args);
 };
 var filterValues = exports.filterValues = filter;
-},{"./function":4,"./type":10}],9:[function(_dereq_,module,exports){
+},{"./function":4,"./type":10}],9:[function(require,module,exports){
 {
     var _ns_ = {
         id: 'hu.lib.macros',
         doc: void 0
     };
-    var hu_lib_function = _dereq_('./function');
+    var hu_lib_function = require('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_type = _dereq_('./type');
+    var hu_lib_type = require('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
     var isNumber = hu_lib_type.isNumber;
@@ -703,11 +703,11 @@ var filterValues = exports.filterValues = filter;
         id: 'hu.lib.string',
         doc: void 0
     };
-    var hu_lib_type = _dereq_('./type');
+    var hu_lib_type = require('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
     var isNumber = hu_lib_type.isNumber;
-    var hu_lib_object = _dereq_('./object');
+    var hu_lib_object = require('./object');
     var keys = hu_lib_object.keys;
 }
 var EOL = /[\n|\r]/;
@@ -755,16 +755,16 @@ var escapeChar = function escapeChar(x) {
 var escape = exports.escape = function escape(x) {
     return isString(x) ? String(x).replace(unescapedHtml, escapeChar) : x;
 };
-},{"./function":4,"./object":8,"./type":10}],10:[function(_dereq_,module,exports){
+},{"./function":4,"./object":8,"./type":10}],10:[function(require,module,exports){
 {
     var _ns_ = {
         id: 'hu.lib.macros',
         doc: void 0
     };
-    var hu_lib_function = _dereq_('./function');
+    var hu_lib_function = require('./function');
     var curry = hu_lib_function.curry;
     var compose = hu_lib_function.compose;
-    var hu_lib_type = _dereq_('./type');
+    var hu_lib_type = require('./type');
     var isString = hu_lib_type.isString;
     var isArray = hu_lib_type.isArray;
     var isNumber = hu_lib_type.isNumber;
@@ -776,7 +776,7 @@ var escape = exports.escape = function escape(x) {
         id: 'hu.lib.type',
         doc: void 0
     };
-    var hu_lib_misc = _dereq_('./misc');
+    var hu_lib_misc = require('./misc');
     var isBrowser = hu_lib_misc.isBrowser;
     var _global = hu_lib_misc._global;
 }
@@ -857,6 +857,5 @@ var isIterable = exports.isIterable = function isIterable(x) {
     return isObject(x) || isArray(x) || isArgs(x);
 };
 var canIterate = exports.canIterate = isIterable;
-},{"./function":4,"./misc":6,"./type":10}]},{},[5])
-(5)
+},{"./function":4,"./misc":6,"./type":10}]},{},[5])(5)
 });

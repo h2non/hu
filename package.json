@@ -2,8 +2,8 @@
   "name": "hu",
   "version": "0.1.2",
   "description": "Functional utility helper library",
-  "homepage": "http://github.com/h2non/hu.js",
-  "bugs": "https://github.com/h2non/hu.js/issues",
+  "homepage": "http://github.com/h2non/hu",
+  "bugs": "https://github.com/h2non/hu/issues",
   "author": "Tomas Aparicio",
   "repository": "h2non/hu",
   "licenses": "MIT",
@@ -31,11 +31,11 @@
     "underscore"
   ],
   "devDependencies": {
-    "browserify": "~3.32.1",
-    "wisp": "~0.10.0",
+    "browserify": "~13.0.0",
     "mocha": "~1.18.0",
-    "uglify-js": "~2.4.12",
+    "os-shim": "~0.1.2",
     "semver": "^2.2.1",
-    "os-shim": "~0.1.2"
+    "uglify-js": "^2.6.2",
+    "wisp": "^0.10.0"
   }
 }
