@@ -1,5 +1,7 @@
 # hu [![Build Status](https://secure.travis-ci.org/h2non/hu.png?branch=master)][travis] [![NPM version](https://badge.fury.io/js/hu.png)][npm] ![Total Downloads](https://img.shields.io/npm/dt/hu.svg)
 
+[![Join the chat at https://gitter.im/h2non/hu](https://badges.gitter.im/h2non/hu.svg)](https://gitter.im/h2non/hu?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 **hu** is a functional-oriented generic utility helper library inspired by Haskell's prelude and Lodash/Underscore/Ramda.
 
 Unlike other well-known libraries, hu only provides a reduced but very common set of useful functions.
